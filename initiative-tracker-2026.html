@@ -143,6 +143,52 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .ytd-open { color: #D97706; font-weight: 700; }
 .chart-wrap { position: relative; height: 260px; }
 
+/* ── INITIATIVE ALIGNMENT DASHBOARD ───────────────────── */
+.align-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.align-grid { display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: start; margin-top: 16px; }
+.donut-wrap { position: relative; width: 200px; height: 200px; margin: 0 auto; }
+.donut-centre { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; pointer-events: none; }
+.donut-main-pct { font-size: 28px; font-weight: 900; color: #1E293B; line-height: 1; }
+.donut-main-lbl { font-size: 10px; color: #64748B; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.4px; }
+.donut-legend { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; }
+.donut-legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #475569; }
+.donut-legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* Initiative grid */
+.init-grid-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
+.init-filter { display: flex; gap: 6px; }
+.init-filter-btn { font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 10px; border: 1px solid #E2E8F0; background: white; color: #64748B; cursor: pointer; transition: all 0.15s; }
+.init-filter-btn.active, .init-filter-btn:hover { background: #1E293B; color: white; border-color: #1E293B; }
+.init-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
+.init-card { background: #F8FAFC; border-radius: 8px; padding: 10px 12px; border: 1px solid #E2E8F0; border-left: 3px solid; }
+.ic-must   { border-left-color: #DC2626; }
+.ic-should { border-left-color: #D97706; }
+.ic-nice   { border-left-color: #6366F1; }
+.ic-done   { border-left-color: #22C55E; opacity: 0.7; }
+.init-card-name { font-size: 11px; font-weight: 700; color: #0F172A; line-height: 1.35; margin-bottom: 6px; }
+.init-card-row { display: flex; align-items: center; gap: 5px; margin-bottom: 5px; flex-wrap: wrap; }
+.pri-pill { font-size: 9px; font-weight: 700; padding: 1px 6px; border-radius: 8px; text-transform: uppercase; letter-spacing: 0.3px; }
+.pp-must   { background: #FEE2E2; color: #991B1B; }
+.pp-should { background: #FEF3C7; color: #78350F; }
+.pp-nice   { background: #EDE9FE; color: #4C1D95; }
+.init-owner { font-size: 10px; color: #64748B; }
+.init-note { font-size: 10px; color: #94A3B8; line-height: 1.4; margin-top: 4px; }
+.init-bar-wrap { margin-top: 6px; }
+.init-bar-track { height: 4px; background: #E2E8F0; border-radius: 2px; overflow: hidden; }
+.init-bar-fill { height: 100%; border-radius: 2px; }
+.init-bar-label { font-size: 10px; font-weight: 700; margin-top: 2px; }
+
+/* Q3 stats */
+.q3-stats { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+.q3-stat { text-align: center; background: #F8FAFC; border-radius: 8px; padding: 8px 14px; border: 1px solid #E2E8F0; }
+.q3-stat-n { font-size: 20px; font-weight: 800; }
+.q3-stat-l { font-size: 10px; color: #64748B; text-transform: uppercase; letter-spacing: 0.4px; }
+
+/* Initiative tag on cards */
+.init-tag { font-size: 9px; font-weight: 700; color: #4F46E5; background: #EDE9FE; padding: 2px 7px; border-radius: 8px; display: inline-flex; align-items: center; gap: 3px; margin-top: 4px; }
+.init-tag.extra { color: #D97706; background: #FEF3C7; }
+.init-tag.bau   { color: #64748B; background: #F1F5F9; }
+
 /* ── UPCOMING PRIORITIES ───────────────────────────────── */
 .priorities-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
 .priorities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
@@ -279,6 +325,88 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
   </script>
   <!-- AGENT-DATA:weekly-wins-end -->
 
+  <!-- AGENT-DATA:initiative-alignment-start -->
+  <script id="initiative-alignment-data">
+  const INITIATIVE_ALIGNMENT = {
+    "generated": "29 May 2026",
+    "distribution": [
+      { "label": "Formal Q3 Initiative Work", "pct": 79, "color": "#2563EB" },
+      { "label": "Additional Value Work",       "pct": 15, "color": "#F59E0B" },
+      { "label": "BAU / Operations",            "pct": 6,  "color": "#94A3B8" }
+    ],
+    "q3Stats": { "delivered": 5, "active": 14, "planned": 5 },
+    "initiatives": [
+      { "name": "AI SDR Phase 1 & 2 — Build & Scale",              "status": "done",    "priority": "must",   "progress": 100, "owner": "Cara",        "note": "All OB SDRs globally on AI-personalised sequences." },
+      { "name": "Qualified Chatbot — SF Integration",               "status": "done",    "priority": "must",   "progress": 100, "owner": "Mocks",       "note": "Live. Direct SDR booking and omni-channel routing enabled." },
+      { "name": "Outreach Performance Reporting 2.0",               "status": "done",    "priority": "must",   "progress": 100, "owner": "Mocks",       "note": "2026 reporting template operational with weekly cadence." },
+      { "name": "Outreach Meeting Types Uplift",                    "status": "done",    "priority": "should", "progress": 100, "owner": "Mocks",       "note": "Standardised across all regions." },
+      { "name": "AI SDR Phase 2 — Webinars & Content Syndication",  "status": "live",    "priority": "must",   "progress": 75,  "owner": "Cara/Mocks",  "note": "Live ANZ, UK and CA. Reply rates improving." },
+      { "name": "Qualified Experience Optimisation",                 "status": "live",    "priority": "must",   "progress": 55,  "owner": "Claire/Cara", "note": "Direct booking live. Partner routing in build." },
+      { "name": "Define Relevance AI Sequence Framework",            "status": "live",    "priority": "must",   "progress": 65,  "owner": "Mocks/Cara",  "note": "Framework live; Rev Ops alignment in progress." },
+      { "name": "Define Relevance AI Reporting Framework",           "status": "live",    "priority": "must",   "progress": 65,  "owner": "Mocks",       "note": "Framework in place; reporting cadence established." },
+      { "name": "Lost Revive Relevance AI Workforce",                "status": "active",  "priority": "must",   "progress": 70,  "owner": "Cara/Mocks",  "note": "8.34% conversion (from 4.02%). NZ errors under investigation." },
+      { "name": "Increase AI Sequence Adoption — UK",                "status": "active",  "priority": "must",   "progress": 60,  "owner": "Mocks",       "note": "IB sequences live. Reply rate 4.7%→5.7%." },
+      { "name": "Increase AI Sequence Adoption — CA",                "status": "active",  "priority": "must",   "progress": 55,  "owner": "Cara",        "note": "Webinar/SRED sequences live. Reply rate 15%→16.2%." },
+      { "name": "AI Research Brief for Calls — All Sequences",       "status": "active",  "priority": "must",   "progress": 80,  "owner": "Cara/Mocks",  "note": "Live 4 regions. Conv history enhancement shipped 29 May." },
+      { "name": "Optimised Relevance AI Workflow Setup",             "status": "active",  "priority": "should", "progress": 45,  "owner": "Cara/Mocks",  "note": "Token spend −47%. Webhooks and alerting still in progress." },
+      { "name": "Long Term Nurture (Gong Engage + Outreach)",        "status": "live",    "priority": "should", "progress": 50,  "owner": "Cara",        "note": "Flow created and operational with newsroom content." },
+      { "name": "Insights-Driven Reporting",                         "status": "live",    "priority": "should", "progress": 60,  "owner": "Mocks",       "note": "Monthly cadence live. Cohesion analysis findings published." },
+      { "name": "Qualified Chatbot Reporting & Optimisation",        "status": "live",    "priority": "must",   "progress": 70,  "owner": "Mocks",       "note": "KPI dashboards live globally for all regions." },
+      { "name": "SDR Champions Project",                             "status": "live",    "priority": "should", "progress": 45,  "owner": "Mocks",       "note": "Champions identified; AB test cadence being established." },
+      { "name": "AB Alignment via CRM AB Test Squad",                "status": "live",    "priority": "nice",   "progress": 50,  "owner": "Cara",        "note": "Unified AB log in place; cross-functional cadence active." },
+      { "name": "Weighted Sequence-Level AB Testing",                "status": "live",    "priority": "must",   "progress": 70,  "owner": "Cara",        "note": "SF AB field integrated. Competing sequences being tested." },
+      { "name": "Outreach Sequence Outcomes — SF Custom Reporting",  "status": "active",  "priority": "should", "progress": 25,  "owner": "Mocks",       "note": "Scoped. SFDC dev engagement pending." },
+      { "name": "Built-in Evals & Self-Healing Workflows",           "status": "planned", "priority": "should", "progress": 0,   "owner": "Cara/Mocks",  "note": "Scoped for Q4 once Q3 infrastructure stabilises." },
+      { "name": "AI-Driven Content Repository",                      "status": "planned", "priority": "must",   "progress": 0,   "owner": "Mocks",       "note": "Q4. Requires stakeholder alignment before build." },
+      { "name": "Outreach Sequence Outcomes — Claude Code",          "status": "planned", "priority": "should", "progress": 0,   "owner": "Mocks",       "note": "Q4. Builds on SF Custom Reporting and PoC." },
+      { "name": "Unified Platform Reporting (Claude Code)",          "status": "planned", "priority": "nice",   "progress": 0,   "owner": "Mocks",       "note": "Q4. Requires individual platform reporting first." }
+    ]
+  };
+
+  const INITIATIVE_TAGS = {
+    "AI SDR — Phase 1: Build & Test":                      { "label": "AI SDR Phase 1 & 2",                        "type": "initiative" },
+    "AI SDR — Phase 2: Global Scale":                      { "label": "AI SDR Phase 1 & 2",                        "type": "initiative" },
+    "AI SDR — Webinars & Content Syndication":             { "label": "AI SDR Phase 2 — Webinars & CS",            "type": "initiative" },
+    "Define Relevance AI Sequence Framework":              { "label": "Relevance AI Sequence Framework",           "type": "initiative" },
+    "Weighted Sequence-Level AB Testing":                  { "label": "Weighted AB Testing",                       "type": "initiative" },
+    "Long Term Nurture Programme":                         { "label": "Long Term Nurture",                         "type": "initiative" },
+    "AI Research Brief — All Sequences":                   { "label": "AI Research Brief for Calls",               "type": "initiative" },
+    "Increase AI Adoption — UK":                           { "label": "Increase AI Adoption — UK",                 "type": "initiative" },
+    "Increase AI Adoption — Canada":                       { "label": "Increase AI Adoption — CA",                 "type": "initiative" },
+    "Optimised Relevance Workforce Setup":                 { "label": "Optimised Relevance Workflow",              "type": "initiative" },
+    "Built-in Evals & Self-Healing Workflows":             { "label": "Built-in Evals & Self-Healing",             "type": "initiative" },
+    "Self-Maintained Best Practice Playbook":              { "label": "Self-Maintained Playbook (Q4)",              "type": "initiative" },
+    "Qualified Chatbot — SF Integration":                  { "label": "Qualified — SF Integration",                "type": "initiative" },
+    "Direct SDR Booking — Phase 1 Live":                   { "label": "Qualified Experience Optimisation",         "type": "initiative" },
+    "Qualified Experience Optimisation":                   { "label": "Qualified Experience Optimisation",         "type": "initiative" },
+    "Qualified — Partner Routing Experience":              { "label": "Qualified Experience Optimisation",         "type": "initiative" },
+    "Qualified Chatbot Reporting & Optimisation":          { "label": "Qualified Chatbot Reporting",               "type": "initiative" },
+    "SDR Champions Programme":                             { "label": "SDR Champions Project",                     "type": "initiative" },
+    "Outreach Performance Reporting 2.0":                  { "label": "Outreach Performance Reporting 2.0",        "type": "initiative" },
+    "Insights-Driven Reporting":                           { "label": "Insights-Driven Reporting",                 "type": "initiative" },
+    "Relevance AI Sequence Reporting Framework":           { "label": "Relevance AI Reporting Framework",          "type": "initiative" },
+    "CRM AB Test Alignment & Squad":                       { "label": "AB Alignment via CRM AB Test Squad",        "type": "initiative" },
+    "Outreach Sequence Outcomes — SF Custom Reporting":    { "label": "Outreach Sequence Outcomes — SFDC",         "type": "initiative" },
+    "Lost Revive AI Workforce Improvement":                { "label": "Lost Revive Relevance AI Workforce",        "type": "initiative" },
+    "Outreach Sequence Outcomes — Claude Code":            { "label": "Outreach Outcomes — Claude Code (Q4)",      "type": "initiative" },
+    "Unified Platform Reporting (Claude Code)":            { "label": "Unified Platform Reporting (Q4)",           "type": "initiative" },
+    "AI-Driven Content Repository":                        { "label": "AI-Driven Content Repository (Q4)",         "type": "initiative" },
+    "Outreach Meeting Types — Standards Uplift":           { "label": "Outreach Meeting Types",                    "type": "initiative" },
+    "Trigger Conflict Detector":                           { "label": "Trigger Conflict Detector",                 "type": "initiative" },
+    "Outreach Trigger Cleanup 2.0":                        { "label": "Trigger Cleanup 2.0",                       "type": "initiative" },
+    "Consolidate Outreach Sequences":                      { "label": "Consolidate Outreach Sequences",            "type": "initiative" },
+    "AI-Generated Call Notes → Outreach (Multi-region)":  { "label": "Additional Value Work",                     "type": "extra" },
+    "Standalone Recruitment Agent Launch":                 { "label": "Additional Value Work",                     "type": "extra" },
+    "Drift Platform Decommission":                         { "label": "Additional Value Work",                     "type": "extra" },
+    "Sales Automation Governance Framework":               { "label": "Additional Value Work",                     "type": "extra" },
+    "AE Outreach Expansion — 38 Seats":                    { "label": "Additional Value Work",                     "type": "extra" },
+    "SDR Sequence Cohesion Analysis":                      { "label": "Additional Value Work",                     "type": "extra" },
+    "Content Repository 3.0":                             { "label": "Additional Value Work",                     "type": "extra" },
+    "Upsell Fixer-Upper Project":                          { "label": "Additional Value Work",                     "type": "extra" }
+  };
+  </script>
+  <!-- AGENT-DATA:initiative-alignment-end -->
+
   <!-- AGENT-DATA:progress-start -->
   <script id="progress-data">
   const PROGRESS_DATA = {
@@ -324,6 +452,40 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
   };
   </script>
   <!-- AGENT-DATA:progress-end -->
+
+  <div class="align-section">
+    <div class="section-hdr" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+      <span>&#127919; Initiative Alignment — Q3 2026</span>
+      <span style="font-size:10px;color:#94A3B8;font-weight:400;font-style:italic;text-transform:none;letter-spacing:0" id="align-generated"></span>
+    </div>
+    <div class="align-grid">
+      <!-- Donut chart column -->
+      <div>
+        <div class="donut-wrap">
+          <canvas id="initChart"></canvas>
+          <div class="donut-centre">
+            <div class="donut-main-pct" id="donut-main-pct">–</div>
+            <div class="donut-main-lbl">initiative<br>work</div>
+          </div>
+        </div>
+        <div class="donut-legend" id="donut-legend"></div>
+      </div>
+      <!-- Initiative grid column -->
+      <div>
+        <div class="q3-stats" id="q3-stats"></div>
+        <div class="init-grid-header">
+          <span style="font-size:11px;font-weight:700;color:#0F172A">Q3 Initiatives</span>
+          <div class="init-filter">
+            <button class="init-filter-btn active" onclick="filterInits('all',this)">All</button>
+            <button class="init-filter-btn" onclick="filterInits('active',this)">Active</button>
+            <button class="init-filter-btn" onclick="filterInits('done',this)">Delivered</button>
+            <button class="init-filter-btn" onclick="filterInits('planned',this)">Planned</button>
+          </div>
+        </div>
+        <div class="init-cards" id="init-cards"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- AGENT-DATA:key-updates-start -->
   <script id="key-updates-data">
@@ -448,6 +610,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
     <div class="highlights-scroll" id="highlights-scroll"></div>
   </div>
 
+  <div style="margin-bottom:10px;padding:4px 0;">
+    <span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.7px;color:#64748B">Detailed Work View</span>
+    <span style="font-size:11px;color:#94A3B8;margin-left:10px">Each card tagged with its formal initiative &nbsp;·&nbsp; Click any card to expand status detail</span>
+  </div>
   <div class="col-headers">
     <div class="ch ch-lbl"></div>
     <div class="ch ch-done">✅&nbsp; Q1–Q2 &nbsp;·&nbsp; Delivered</div>
@@ -1685,6 +1851,97 @@ document.querySelectorAll('.card').forEach(card => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('open'); }
   });
 });
+
+// ── Initiative Alignment Dashboard ────────────────────
+(function renderInitiativeAlignment() {
+  const { distribution, q3Stats, initiatives, generated } = INITIATIVE_ALIGNMENT;
+  const genEl = document.getElementById('align-generated');
+  if (genEl) genEl.textContent = 'Generated: ' + generated;
+
+  // Donut chart
+  const initPct = distribution[0].pct;
+  document.getElementById('donut-main-pct').textContent = initPct + '%';
+  new Chart(document.getElementById('initChart'), {
+    type: 'doughnut',
+    data: {
+      labels: distribution.map(d => d.label),
+      datasets: [{ data: distribution.map(d => d.pct), backgroundColor: distribution.map(d => d.color), borderWidth: 2, borderColor: 'white' }]
+    },
+    options: {
+      cutout: '68%', responsive: true, maintainAspectRatio: true,
+      plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}%` } } }
+    }
+  });
+
+  // Donut legend
+  document.getElementById('donut-legend').innerHTML = distribution.map(d =>
+    `<div class="donut-legend-item"><span class="donut-legend-dot" style="background:${d.color}"></span>${d.label}: <strong>${d.pct}%</strong></div>`
+  ).join('');
+
+  // Q3 stats
+  document.getElementById('q3-stats').innerHTML = [
+    { n: q3Stats.delivered, l: 'Delivered', c: 'n-green' },
+    { n: q3Stats.active,    l: 'Active',    c: 'n-blue'  },
+    { n: q3Stats.planned,   l: 'Planned',   c: 'n-grey'  }
+  ].map(s => `<div class="q3-stat"><div class="q3-stat-n ${s.c}">${s.n}</div><div class="q3-stat-l">${s.l}</div></div>`).join('');
+
+  // Initiative cards
+  renderInitCards('all');
+})();
+
+let _allInits = [];
+function renderInitCards(filter) {
+  _allInits = INITIATIVE_ALIGNMENT.initiatives;
+  const filtered = filter === 'all' ? _allInits :
+    filter === 'done'    ? _allInits.filter(i => i.status === 'done') :
+    filter === 'active'  ? _allInits.filter(i => i.status === 'live' || i.status === 'active') :
+    filter === 'planned' ? _allInits.filter(i => i.status === 'planned') : _allInits;
+
+  const barColor = p => p >= 100 ? '#22C55E' : p >= 70 ? '#0D9488' : p >= 30 ? '#3B82F6' : p > 0 ? '#F59E0B' : '#E2E8F0';
+  const priLabel = { must: 'Must', should: 'Should', nice: 'Nice' };
+
+  document.getElementById('init-cards').innerHTML = filtered.map(i => {
+    const isDone = i.status === 'done';
+    const cls = isDone ? 'ic-done' : `ic-${i.priority}`;
+    return `<div class="init-card ${cls}">
+      <div class="init-card-name">${i.name}</div>
+      <div class="init-card-row">
+        ${isDone
+          ? '<span class="badge b-done" style="font-size:9px;padding:1px 6px">Done ✓</span>'
+          : `<span class="pri-pill pp-${i.priority}">${priLabel[i.priority]}</span>`
+        }
+        <span class="init-owner">${i.owner}</span>
+      </div>
+      <div class="init-bar-wrap">
+        <div class="init-bar-track"><div class="init-bar-fill" style="width:${i.progress}%;background:${barColor(i.progress)}"></div></div>
+        <div class="init-bar-label" style="color:${barColor(i.progress)}">${i.progress}%</div>
+      </div>
+      <div class="init-note">${i.note}</div>
+    </div>`;
+  }).join('');
+}
+function filterInits(f, btn) {
+  document.querySelectorAll('.init-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderInitCards(f);
+}
+
+// ── Initiative tags on detail cards ───────────────────
+(function renderInitiativeTags() {
+  document.querySelectorAll('.card').forEach(card => {
+    const titleEl = card.querySelector('.card-title');
+    if (!titleEl) return;
+    const title = titleEl.textContent.trim();
+    const tag = INITIATIVE_TAGS[title];
+    if (!tag) return;
+    const dueEl = card.querySelector('.card-due');
+    if (!dueEl) return;
+    const tagEl = document.createElement('div');
+    tagEl.className = 'init-tag' + (tag.type === 'extra' ? ' extra' : tag.type === 'bau' ? ' bau' : '');
+    tagEl.textContent = (tag.type === 'initiative' ? '📌 ' : tag.type === 'extra' ? '⭐ ' : '⚙️ ') + tag.label;
+    dueEl.insertAdjacentElement('afterend', tagEl);
+  });
+})();
 
 // ── Progress bar renderer ──────────────────────────────
 (function renderProgressBars() {
