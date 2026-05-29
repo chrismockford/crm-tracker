@@ -143,8 +143,31 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .ytd-open { color: #D97706; font-weight: 700; }
 .chart-wrap { position: relative; height: 260px; }
 
+/* ── KEY UPDATES ───────────────────────────────────────── */
+.updates-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.updates-hdr { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+.updates-note { font-size: 10px; color: #94A3B8; font-weight: 400; text-transform: none; letter-spacing: 0; font-style: italic; }
+.updates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 10px; margin-top: 14px; }
+.update-card { background: #F8FAFC; border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; border-top: 3px solid; }
+.uc-ai-build     { border-top-color: #7C3AED; }
+.uc-implementation { border-top-color: #2563EB; }
+.uc-revenue      { border-top-color: #16A34A; }
+.uc-optimisation { border-top-color: #D97706; }
+.uc-sequence     { border-top-color: #4F46E5; }
+.update-card-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 8px; }
+.update-title { font-size: 12px; font-weight: 700; color: #0F172A; line-height: 1.3; }
+.cat-badge { font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap; flex-shrink: 0; }
+.cb-ai-build     { background: #F3E8FF; color: #6D28D9; }
+.cb-implementation { background: #DBEAFE; color: #1D4ED8; }
+.cb-revenue      { background: #DCFCE7; color: #166534; }
+.cb-optimisation { background: #FEF3C7; color: #92400E; }
+.cb-sequence     { background: #EDE9FE; color: #4C1D95; }
+.update-detail { font-size: 11px; color: #475569; line-height: 1.6; margin-bottom: 7px; }
+.update-impact { font-size: 10px; color: #64748B; font-style: italic; border-top: 1px solid #E2E8F0; padding-top: 6px; }
+.update-impact::before { content: "↳ "; font-style: normal; }
+
 @media (max-width: 768px) {
-  .wins-grid, .ytd-grid { grid-template-columns: 1fr; }
+  .wins-grid, .ytd-grid, .updates-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 1100px) {
@@ -217,6 +240,60 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
   };
   </script>
   <!-- AGENT-DATA:weekly-wins-end -->
+
+  <!-- AGENT-DATA:key-updates-start -->
+  <script id="key-updates-data">
+  const KEY_UPDATES = {
+    "weekOf": "26 May – 1 Jun 2026",
+    "updates": [
+      {
+        "title": "AI Call Notes — Conversation History Intelligence",
+        "category": "ai-build",
+        "detail": "New tool added to the research agent reads 24 months of calls, emails and LinkedIn activity per prospect. Uses prior conversation history to shape the opening hook and avoid repeating previous objections. Live from 29 May across all inbound sequences.",
+        "impact": "Deeper, contextually-aware research for every SDR without any manual effort"
+      },
+      {
+        "title": "Qualified Chatbot — Partner Routing Experience",
+        "category": "implementation",
+        "detail": "Two-option routing spec submitted and accepted by Qualified: (1) standalone ‘Exploring for clients’ button for self-identifying partners, (2) branching within ‘Request sales meeting’ CTA. Partner SDR list compiled and shared with Usman. Build underway.",
+        "impact": "Captures previously lost/misrouted partner leads; removes partner intent from direct SDR queues"
+      },
+      {
+        "title": "Qualified — Hero AI Website Integration Scoped",
+        "category": "implementation",
+        "detail": "Qualified confirmed as the backend engine for 5 flows within the new Hero AI website redesign: demo booking routing, live SDR handoff, qualification gate, email capture, SF data push. Technical kick-off with web team being arranged.",
+        "impact": "Positions Qualified as the infrastructure layer for the company’s new AI-first web experience"
+      },
+      {
+        "title": "AE Outreach Expansion — Decision Finalised",
+        "category": "revenue",
+        "detail": "38 AU Core AEs moving from non-functional Gong Engage to Outreach. Confirmed by AE interviews (Adam, Will, Elliott), Sales Ops (Mariea) and Enablement (Clare). Cloudflare ZTNA fix won’t land until end of July — Gong Engage is not a viable interim option. Outreach vendor meeting being arranged.",
+        "impact": "Target: 150 AE self-sourced SAOs/month and $500K ARR pipeline contribution during pilot term"
+      },
+      {
+        "title": "Lost Revive AI Workforce — Conversion Doubled",
+        "category": "optimisation",
+        "detail": "ANZ Lost Revive sequences now delivering 8.34% prospect-to-opp conversion (up from 4.02%), total opps tripled from 11 to 32, click rates up from 2.1% to 5.1%. Improvements: shorter punchier emails, pain-point focus, calendar links in emails 1 & 3, AI-generated call notes, SDR alert workflow for data discrepancies.",
+        "impact": "Lost Revive drives ~70% of outbound revenue — this improvement has direct pipeline impact"
+      },
+      {
+        "title": "UK & Canada AI Personalisation — Early Reply Rate Uplift",
+        "category": "sequence",
+        "detail": "Relevance AI personalisation live for UK and Canada inbound sequences. Early signals positive: UK reply rate 4.7% → 5.7%, Canada 15% → 16.2%. Webinar and event sequences now use dynamic timing logic (pre/post event framing updates automatically).",
+        "impact": "AI personalisation now covering 4 regions: AU, NZ, UK, Canada"
+      }
+    ]
+  };
+  </script>
+  <!-- AGENT-DATA:key-updates-end -->
+
+  <div class="updates-section">
+    <div class="section-hdr updates-hdr">
+      <span>&#128203; Key Updates for Leadership</span>
+      <span class="updates-note" id="updates-note"></span>
+    </div>
+    <div class="updates-grid" id="updates-grid"></div>
+  </div>
 
   <div class="wins-section">
     <div class="section-hdr wins-hdr">
@@ -1310,6 +1387,22 @@ document.querySelectorAll('.card').forEach(card => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('open'); }
   });
 });
+
+// ── Key Updates renderer ───────────────────────────────
+(function renderUpdates() {
+  const catLabel = { 'ai-build': 'AI Build', 'implementation': 'Implementation', 'revenue': 'Revenue / Leads', 'optimisation': 'Optimisation', 'sequence': 'Sequences' };
+  const el = document.getElementById('updates-note');
+  if (el) el.textContent = 'Week of ' + KEY_UPDATES.weekOf + ' · Also published to Amy\'s Weekly OKR Notes canvas';
+  document.getElementById('updates-grid').innerHTML = (KEY_UPDATES.updates || []).map(u => `
+    <div class="update-card uc-${u.category}">
+      <div class="update-card-hdr">
+        <div class="update-title">${u.title}</div>
+        <span class="cat-badge cb-${u.category}">${catLabel[u.category] || u.category}</span>
+      </div>
+      <div class="update-detail">${u.detail}</div>
+      <div class="update-impact">${u.impact}</div>
+    </div>`).join('');
+})();
 
 // ── Weekly Wins renderer ────────────────────────────────
 (function renderWins() {
