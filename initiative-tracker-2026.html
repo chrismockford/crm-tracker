@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CRM Team — Initiative Tracker 2026</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif; background: #F1F5F9; color: #1E293B; }
@@ -114,6 +115,38 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 
 .footer { background: #0F172A; padding: 14px 48px; text-align: center; color: #475569; font-size: 11px; }
 
+/* ── WEEKLY WINS ───────────────────────────────────────── */
+.wins-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.wins-hdr { display: flex; align-items: center; justify-content: space-between; }
+.wins-date { font-size: 11px; color: #94A3B8; font-weight: 400; text-transform: none; letter-spacing: 0; }
+.wins-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+.win-card { background: #F8FAFC; border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; }
+.win-card-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.win-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; color: white; flex-shrink: 0; }
+.wa-chris { background: #4F46E5; } .wa-cara { background: #EA580C; } .wa-claire { background: #059669; }
+.win-name { font-size: 12px; font-weight: 700; color: #0F172A; }
+.win-role { font-size: 10px; color: #94A3B8; margin-top: 1px; }
+.win-list { list-style: none; padding: 0; margin: 0; }
+.win-list li { font-size: 11px; color: #475569; padding: 5px 0; border-bottom: 1px solid #E2E8F0; line-height: 1.45; display: flex; gap: 6px; }
+.win-list li:last-child { border-bottom: none; }
+.win-check { color: #16A34A; font-weight: 700; flex-shrink: 0; }
+
+/* ── TEAM ACTIVITY ─────────────────────────────────────── */
+.activity-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 32px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.ytd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; margin-top: 14px; }
+.ytd-card { background: #F8FAFC; border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; display: flex; align-items: center; gap: 12px; }
+.ytd-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: white; flex-shrink: 0; }
+.ytd-info { flex: 1; }
+.ytd-name { font-size: 12px; font-weight: 700; color: #0F172A; }
+.ytd-stats { font-size: 11px; color: #64748B; margin-top: 3px; }
+.ytd-done { color: #16A34A; font-weight: 700; }
+.ytd-open { color: #D97706; font-weight: 700; }
+.chart-wrap { position: relative; height: 260px; }
+
+@media (max-width: 768px) {
+  .wins-grid, .ytd-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 1100px) {
   .col-headers, .swimlane { grid-template-columns: 140px 1fr 1.5fr 1.2fr; }
   .board, .header, .legend { padding-left: 24px; padding-right: 24px; }
@@ -157,6 +190,40 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
     <div class="sum"><span class="sum-n n-grey">10</span><span class="sum-l">Planned<br>Q4</span></div>
     <div class="sum"><span class="sum-n n-violet">5</span><span class="sum-l">Relevance AI<br>workforces live</span></div>
     <div class="sum"><span class="sum-n n-teal">4</span><span class="sum-l">Regions with<br>AI sequences</span></div>
+  </div>
+
+  <!-- AGENT-DATA:weekly-wins-start -->
+  <script id="weekly-wins-data">
+  const WEEKLY_WINS = {
+    "weekOf": "26 May – 1 Jun 2026",
+    "Chris": [
+      "Confirmed Qualified meeting reallocation logic for RoE territories",
+      "AE Outreach expansion decision finalised — Gong Engage out, Outreach in (38 seats)",
+      "AI call notes enhanced with 24-month conversation history analysis",
+      "CRM initiative tracker and full weekly automation pipeline built"
+    ],
+    "Cara": [
+      "Qualified direct booking go-live confirmed and SDR onboarding supported",
+      "Reconfirmed Qualified launch with all IB SDR managers",
+      "NZ Lost Revive sequence errors identified, investigation underway",
+      "Daily Relevance AI workforce monitoring across all active workforces"
+    ],
+    "Claire": [
+      "Partner routing spec for Qualified submitted and accepted by Usman",
+      "Updated Qualified gated content assets",
+      "NZ/AU Partnerships Hero Exchange sequences delivered",
+      "Weekly Outreach usage metrics report published"
+    ]
+  };
+  </script>
+  <!-- AGENT-DATA:weekly-wins-end -->
+
+  <div class="wins-section">
+    <div class="section-hdr wins-hdr">
+      <span>&#127942; Last Week&rsquo;s Wins</span>
+      <span class="wins-date" id="wins-date"></span>
+    </div>
+    <div class="wins-grid" id="wins-grid"></div>
   </div>
 
   <div class="col-headers">
@@ -1203,17 +1270,125 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 
 </div>
 
+  <!-- AGENT-DATA:task-counts-start -->
+  <script id="task-counts-data">
+  const TASK_COUNTS = {
+    "generated": "29 May 2026",
+    "monthly": {
+      "Jan": { "Chris": {"completed": 10, "open": 0}, "Cara": {"completed": 8,  "open": 0}, "Claire": {"completed": 4,  "open": 0} },
+      "Feb": { "Chris": {"completed": 8,  "open": 0}, "Cara": {"completed": 10, "open": 0}, "Claire": {"completed": 5,  "open": 0} },
+      "Mar": { "Chris": {"completed": 12, "open": 0}, "Cara": {"completed": 15, "open": 0}, "Claire": {"completed": 8,  "open": 0} },
+      "Apr": { "Chris": {"completed": 35, "open": 0}, "Cara": {"completed": 24, "open": 0}, "Claire": {"completed": 12, "open": 0} },
+      "May": { "Chris": {"completed": 28, "open": 12}, "Cara": {"completed": 10, "open": 6}, "Claire": {"completed": 8, "open": 4} }
+    },
+    "ytd": {
+      "Chris":  {"completed": 93, "open": 12},
+      "Cara":   {"completed": 67, "open": 6},
+      "Claire": {"completed": 37, "open": 4}
+    }
+  };
+  </script>
+  <!-- AGENT-DATA:task-counts-end -->
+
+  <div class="activity-section">
+    <div class="section-hdr">Team Activity &mdash; 2026 Year to Date &nbsp;<span style="font-weight:400;color:#94A3B8;font-size:10px;text-transform:none;letter-spacing:0">via Asana &middot; refreshed by Saturday agent</span></div>
+    <div class="ytd-grid" id="ytd-grid"></div>
+    <div class="chart-wrap"><canvas id="taskChart"></canvas></div>
+  </div>
+
+</div>
+
 <div class="footer">
   CRM Team — Initiative Tracker 2026 &nbsp;·&nbsp; Partners · Direct · Swag &nbsp;·&nbsp; Refreshed weekly &nbsp;·&nbsp; Last updated: 29 May 2026
 </div>
 
 <script>
+// ── Card expand/collapse ────────────────────────────────
 document.querySelectorAll('.card').forEach(card => {
   card.addEventListener('click', () => card.classList.toggle('open'));
   card.addEventListener('keydown', e => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('open'); }
   });
 });
+
+// ── Weekly Wins renderer ────────────────────────────────
+(function renderWins() {
+  const people = [
+    { key: 'Chris',  name: 'Chris Mockford', role: 'Sales Automation Lead',         cls: 'wa-chris',  init: 'CM' },
+    { key: 'Cara',   name: 'Cara Ng',         role: 'AI Sequences & Relevance AI',   cls: 'wa-cara',   init: 'CN' },
+    { key: 'Claire', name: 'Claire Lee',      role: 'Partner Routing & Reporting',   cls: 'wa-claire', init: 'CL' }
+  ];
+  document.getElementById('wins-date').textContent = 'Week of ' + WEEKLY_WINS.weekOf;
+  document.getElementById('wins-grid').innerHTML = people.map(p => `
+    <div class="win-card">
+      <div class="win-card-hdr">
+        <div class="win-avatar ${p.cls}">${p.init}</div>
+        <div><div class="win-name">${p.name}</div><div class="win-role">${p.role}</div></div>
+      </div>
+      <ul class="win-list">${(WEEKLY_WINS[p.key]||[]).map(w=>`<li><span class="win-check">✓</span><span>${w}</span></li>`).join('')}</ul>
+    </div>`).join('');
+})();
+
+// ── YTD summary + bar chart renderer ───────────────────
+(function renderActivity() {
+  const { ytd, monthly, generated } = TASK_COUNTS;
+  const people = [
+    { key: 'Chris',  name: 'Chris Mockford', cls: 'wa-chris',  init: 'CM', color: '79,70,229'  },
+    { key: 'Cara',   name: 'Cara Ng',         cls: 'wa-cara',   init: 'CN', color: '234,88,12'  },
+    { key: 'Claire', name: 'Claire Lee',      cls: 'wa-claire', init: 'CL', color: '5,150,105'  }
+  ];
+
+  // YTD summary cards
+  document.getElementById('ytd-grid').innerHTML = people.map(p => `
+    <div class="ytd-card">
+      <div class="ytd-avatar ${p.cls}">${p.init}</div>
+      <div class="ytd-info">
+        <div class="ytd-name">${p.name}</div>
+        <div class="ytd-stats">
+          <span class="ytd-done">${ytd[p.key].completed} done</span>
+          &nbsp;&middot;&nbsp;
+          <span class="ytd-open">${ytd[p.key].open} open</span>
+          &nbsp;&middot;&nbsp;as of ${generated}
+        </div>
+      </div>
+    </div>`).join('');
+
+  // Bar chart
+  const months = Object.keys(monthly);
+  const datasets = [];
+  people.forEach(p => {
+    datasets.push({
+      label: p.name.split(' ')[0] + ' — Done',
+      data: months.map(m => monthly[m][p.key].completed),
+      backgroundColor: `rgba(${p.color},0.85)`,
+      stack: p.key
+    });
+    datasets.push({
+      label: p.name.split(' ')[0] + ' — Open',
+      data: months.map(m => monthly[m][p.key].open),
+      backgroundColor: `rgba(${p.color},0.25)`,
+      borderColor: `rgba(${p.color},0.6)`,
+      borderWidth: 1,
+      stack: p.key
+    });
+  });
+
+  new Chart(document.getElementById('taskChart'), {
+    type: 'bar',
+    data: { labels: months, datasets },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'top', labels: { font: { size: 11 }, boxWidth: 12, padding: 16 } }
+      },
+      scales: {
+        x: { stacked: true, grid: { display: false }, ticks: { font: { size: 11 } } },
+        y: { stacked: true, beginAtZero: true, ticks: { font: { size: 11 }, stepSize: 10 }, grid: { color: '#F1F5F9' } }
+      }
+    }
+  });
+})();
 </script>
 
 </body>
