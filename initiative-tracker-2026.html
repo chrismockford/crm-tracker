@@ -2164,15 +2164,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 
 <script>
 // ── Card expand/collapse ────────────────────────────────
-document.querySelectorAll('.card').forEach(card => {
-  card.addEventListener('click', () => card.classList.toggle('open'));
-  card.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('open'); }
+try {
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => card.classList.toggle('open'));
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('open'); }
+    });
   });
-});
+} catch(e) { console.warn('Card expand error:', e); }
 
 // ── Initiative Alignment Dashboard ────────────────────
-(function renderInitiativeAlignment() {
+(function renderInitiativeAlignment() { try {
   const { distribution, q3Stats, initiatives, generated } = INITIATIVE_ALIGNMENT;
   const genEl = document.getElementById('align-generated');
   if (genEl) genEl.textContent = 'Generated: ' + generated;
@@ -2180,7 +2182,7 @@ document.querySelectorAll('.card').forEach(card => {
   // Donut chart
   const initPct = distribution[0].pct;
   document.getElementById('donut-main-pct').textContent = initPct + '%';
-  new Chart(document.getElementById('initChart'), {
+  if (typeof Chart !== 'undefined') new Chart(document.getElementById('initChart'), {
     type: 'doughnut',
     data: {
       labels: distribution.map(d => d.label),
@@ -2192,7 +2194,7 @@ document.querySelectorAll('.card').forEach(card => {
     }
   });
 
-  // Donut legend
+  // Donut legend (text fallback always renders even without Chart.js)
   document.getElementById('donut-legend').innerHTML = distribution.map(d =>
     `<div class="donut-legend-item"><span class="donut-legend-dot" style="background:${d.color}"></span>${d.label}: <strong>${d.pct}%</strong></div>`
   ).join('');
@@ -2206,7 +2208,7 @@ document.querySelectorAll('.card').forEach(card => {
 
   // Initiative cards
   renderInitCards('all');
-})();
+} catch(e) { console.warn('Initiative alignment error:', e); } })();
 
 let _allInits = [];
 function renderInitCards(filter) {
@@ -2246,7 +2248,7 @@ function filterInits(f, btn) {
 }
 
 // ── Initiative tags on detail cards ───────────────────
-(function renderInitiativeTags() {
+(function renderInitiativeTags() { try {
   document.querySelectorAll('.card').forEach(card => {
     const titleEl = card.querySelector('.card-title');
     if (!titleEl) return;
@@ -2260,10 +2262,10 @@ function filterInits(f, btn) {
     tagEl.textContent = (tag.type === 'initiative' ? '📌 ' : tag.type === 'extra' ? '⭐ ' : '⚙️ ') + tag.label;
     dueEl.insertAdjacentElement('afterend', tagEl);
   });
-})();
+} catch(e) { console.warn('Initiative tags error:', e); } })();
 
 // ── Progress bar renderer ──────────────────────────────
-(function renderProgressBars() {
+(function renderProgressBars() { try {
   const color = p => {
     if (p === 0)   return '#E2E8F0';
     if (p <= 30)   return '#F59E0B';
@@ -2285,10 +2287,10 @@ function filterInits(f, btn) {
     label.textContent = pct + '%';
     label.style.color = pct === 0 ? '#94A3B8' : color(pct);
   });
-})();
+} catch(e) { console.warn('Progress bars error:', e); } })();
 
 // ── Upcoming Priorities renderer ───────────────────────
-(function renderPriorities() {
+(function renderPriorities() { try {
   const people = [
     { key: 'Chris',  name: 'Chris Mockford', role: 'Sales Automation Lead',        cls: 'wa-chris',  init: 'CM' },
     { key: 'Cara',   name: 'Cara Ng',         role: 'AI Sequences & Relevance AI',  cls: 'wa-cara',   init: 'CN' },
@@ -2304,10 +2306,10 @@ function filterInits(f, btn) {
       </div>
       <ul class="priority-list">${(UPCOMING_PRIORITIES[p.key]||[]).map(item=>`<li><span class="pri-arrow">→</span><span>${item}</span></li>`).join('')}</ul>
     </div>`).join('');
-})();
+} catch(e) { console.warn('Priorities error:', e); } })();
 
 // ── Highlights renderer ────────────────────────────────
-(function renderHighlights() {
+(function renderHighlights() { try {
   const container = document.getElementById('highlights-scroll');
   if (!HIGHLIGHTS || !HIGHLIGHTS.length) {
     container.innerHTML = '<p style="font-size:12px;color:#94A3B8;padding:8px 0">No highlights this week.</p>';
@@ -2323,10 +2325,10 @@ function filterInits(f, btn) {
         <span class="hl-people">${h.people || ''}</span>
       </div>
     </div>`).join('');
-})();
+} catch(e) { console.warn('Highlights error:', e); } })();
 
 // ── Key Updates renderer ───────────────────────────────
-(function renderUpdates() {
+(function renderUpdates() { try {
   const catLabel = { 'ai-build': 'AI Build', 'implementation': 'Implementation', 'revenue': 'Revenue / Leads', 'optimisation': 'Optimisation', 'sequence': 'Sequences' };
   const el = document.getElementById('updates-note');
   if (el) el.textContent = 'Week of ' + KEY_UPDATES.weekOf + ' · Also published to Amy\'s Weekly OKR Notes canvas';
@@ -2339,10 +2341,10 @@ function filterInits(f, btn) {
       <div class="update-detail">${u.detail}</div>
       <div class="update-impact">${u.impact}</div>
     </div>`).join('');
-})();
+} catch(e) { console.warn('Key updates error:', e); } })();
 
 // ── Weekly Wins renderer ────────────────────────────────
-(function renderWins() {
+(function renderWins() { try {
   const people = [
     { key: 'Chris',  name: 'Chris Mockford', role: 'Sales Automation Lead',         cls: 'wa-chris',  init: 'CM' },
     { key: 'Cara',   name: 'Cara Ng',         role: 'AI Sequences & Relevance AI',   cls: 'wa-cara',   init: 'CN' },
@@ -2357,10 +2359,10 @@ function filterInits(f, btn) {
       </div>
       <ul class="win-list">${(WEEKLY_WINS[p.key]||[]).map(w=>`<li><span class="win-check">✓</span><span>${w}</span></li>`).join('')}</ul>
     </div>`).join('');
-})();
+} catch(e) { console.warn('Wins error:', e); } })();
 
 // ── YTD summary + bar chart renderer ───────────────────
-(function renderActivity() {
+(function renderActivity() { try {
   const { ytd, monthly, generated } = TASK_COUNTS;
   const people = [
     { key: 'Chris',  name: 'Chris Mockford', cls: 'wa-chris',  init: 'CM', color: '79,70,229'  },
@@ -2403,7 +2405,7 @@ function filterInits(f, btn) {
     });
   });
 
-  new Chart(document.getElementById('taskChart'), {
+  if (typeof Chart !== 'undefined') new Chart(document.getElementById('taskChart'), {
     type: 'bar',
     data: { labels: months, datasets },
     options: {
@@ -2418,7 +2420,7 @@ function filterInits(f, btn) {
       }
     }
   });
-})();
+} catch(e) { console.warn('Activity chart error:', e); } })();
 </script>
 
 </body>
