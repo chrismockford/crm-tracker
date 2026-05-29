@@ -304,152 +304,454 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
     const WEEKLY_WINS = {
   "weekOf": "25 May – 29 May 2026",
   "Chris": [
-    "Confirmed Qualified meeting reallocation protocols for RoE territory edge cases — unblocking go-live",
-    "Completed partial roadmap review milestone and prepared leadership alignment deliverable",
-    "Fixed inbound call note LLM approach alignment ensuring consistency across all inbound sequences",
-    "CRM Q3 mid-quarter confirmed: 47% AI token cost reduction and Lost Revive conversion doubled attributed to AI workforce work"
+    "Shipped 24-month conversation history tool into AI call notes workforce — SDRs now see prior objections, calls and engagement history before every inbound contact (29 May)",
+    "Met with AEs Adam, Will and Elliott — Gong Engage formally ruled out; Outreach expansion aligned with Sales, Enablement and RevOps",
+    "Briefed Amy Le Grange (on leave) on AE Outreach expansion — 38-seat pilot proposed with HubSpot quote as negotiation lever, pilot targets $500K ARR pipeline",
+    "Confirmed Qualified RoE territory reallocation logic and SF authentication workaround (SSO method) with Usman — booking credit process documented"
   ],
   "Cara": [
-    "Reconfirmed Qualified go-live with all IB SDR managers; full onboarding resumed across all teams",
-    "Published comprehensive Qualified onboarding update to SDR leaders with availability logic, SF connection status, and RoE timeline",
-    "Daily Relevance AI workforce monitoring — investigating and triaging NZ sequence contact mismatch errors (Seq 881)",
-    "Initiated Canada OB sequence + Relevance AI workforce clone scoping with Nathan McCaw"
+    "Published Qualified SDR Onboarding Tracker to all SDR leaders — full visibility of who has accepted invites and completed SF connection setup (28 May)",
+    "Managed Qualified roster corrections for Nico's team: SDR role moves documented (Paris Holloway, Zhaden Flynn, Luke Shirley, James Molloy, Peter Skok, Harmony Gibson, Nikko Vasay)",
+    "Identified HeroForce AI trigger gap (GT BAD vs MQL SF field distinction) — resolved trigger approach; AI workforce ready to go live once sequence switch confirmed",
+    "UTM standardisation implementation in progress — utm_medium=email, utm_source=outreach parameters to enable Marketo Measure sales-influenced pipeline attribution"
   ],
   "Claire": [
-    "Designed and submitted Partnerships routing spec for Qualified — enabling Direct vs Partner visitor routing in the chatbot",
-    "Shared Outreach Weekly Usage Metrics: bounced emails -9.09% (190 vs 209), skipped tasks -15.98% (610 vs 726) WoW",
-    "Managing Outreach task cleanup for Paris Holloway and Zhaden Flynn SDR team transitions"
+    "Shipped PS promotional line into Inbound Outreach static sequences + Relevance AI copy agents, with Evals checks preventing it appearing post-deadline or for non-AU prospects (28–29 May)",
+    "Built Evals dashboard with 2 automated checks (date-awareness and region-awareness) using Relevance AI Invent tool to update agent instructions",
+    "Engaged Nico re Outreach task cleanup for Paris Holloway SDR transition — ~150 overdue tasks (10+ days) to clear before she moves to IB Core Monday",
+    "Scoped AI call notes expansion to Partnerships SDRs — OB first, aligning with Claire Sertori next week"
   ]
 };
-  
+
   </script>
   <!-- AGENT-DATA:weekly-wins-end -->
 
   <!-- AGENT-DATA:initiative-alignment-start -->
   <script id="initiative-alignment-data">
   const INITIATIVE_ALIGNMENT = {
-    "generated": "29 May 2026",
-    "distribution": [
-      { "label": "Formal Q3 Initiative Work", "pct": 79, "color": "#2563EB" },
-      { "label": "Additional Value Work",       "pct": 15, "color": "#F59E0B" },
-      { "label": "BAU / Operations",            "pct": 6,  "color": "#94A3B8" }
-    ],
-    "q3Stats": { "delivered": 5, "active": 14, "planned": 5 },
-    "initiatives": [
-      { "name": "AI SDR Phase 1 & 2 — Build & Scale",              "status": "done",    "priority": "must",   "progress": 100, "owner": "Cara",        "note": "All OB SDRs globally on AI-personalised sequences." },
-      { "name": "Qualified Chatbot — SF Integration",               "status": "done",    "priority": "must",   "progress": 100, "owner": "Mocks",       "note": "Live. Direct SDR booking and omni-channel routing enabled." },
-      { "name": "Outreach Performance Reporting 2.0",               "status": "done",    "priority": "must",   "progress": 100, "owner": "Mocks",       "note": "2026 reporting template operational with weekly cadence." },
-      { "name": "Outreach Meeting Types Uplift",                    "status": "done",    "priority": "should", "progress": 100, "owner": "Mocks",       "note": "Standardised across all regions." },
-      { "name": "AI SDR Phase 2 — Webinars & Content Syndication",  "status": "live",    "priority": "must",   "progress": 75,  "owner": "Cara/Mocks",  "note": "Live ANZ, UK and CA. Reply rates improving." },
-      { "name": "Qualified Experience Optimisation",                 "status": "live",    "priority": "must",   "progress": 55,  "owner": "Claire/Cara", "note": "Direct booking live. Partner routing in build." },
-      { "name": "Define Relevance AI Sequence Framework",            "status": "live",    "priority": "must",   "progress": 65,  "owner": "Mocks/Cara",  "note": "Framework live; Rev Ops alignment in progress." },
-      { "name": "Define Relevance AI Reporting Framework",           "status": "live",    "priority": "must",   "progress": 65,  "owner": "Mocks",       "note": "Framework in place; reporting cadence established." },
-      { "name": "Lost Revive Relevance AI Workforce",                "status": "active",  "priority": "must",   "progress": 70,  "owner": "Cara/Mocks",  "note": "8.34% conversion (from 4.02%). NZ errors under investigation." },
-      { "name": "Increase AI Sequence Adoption — UK",                "status": "active",  "priority": "must",   "progress": 60,  "owner": "Mocks",       "note": "IB sequences live. Reply rate 4.7%→5.7%." },
-      { "name": "Increase AI Sequence Adoption — CA",                "status": "active",  "priority": "must",   "progress": 55,  "owner": "Cara",        "note": "Webinar/SRED sequences live. Reply rate 15%→16.2%." },
-      { "name": "AI Research Brief for Calls — All Sequences",       "status": "active",  "priority": "must",   "progress": 80,  "owner": "Cara/Mocks",  "note": "Live 4 regions. Conv history enhancement shipped 29 May." },
-      { "name": "Optimised Relevance AI Workflow Setup",             "status": "active",  "priority": "should", "progress": 45,  "owner": "Cara/Mocks",  "note": "Token spend −47%. Webhooks and alerting still in progress." },
-      { "name": "Long Term Nurture (Gong Engage + Outreach)",        "status": "live",    "priority": "should", "progress": 50,  "owner": "Cara",        "note": "Flow created and operational with newsroom content." },
-      { "name": "Insights-Driven Reporting",                         "status": "live",    "priority": "should", "progress": 60,  "owner": "Mocks",       "note": "Monthly cadence live. Cohesion analysis findings published." },
-      { "name": "Qualified Chatbot Reporting & Optimisation",        "status": "live",    "priority": "must",   "progress": 70,  "owner": "Mocks",       "note": "KPI dashboards live globally for all regions." },
-      { "name": "SDR Champions Project",                             "status": "live",    "priority": "should", "progress": 45,  "owner": "Mocks",       "note": "Champions identified; AB test cadence being established." },
-      { "name": "AB Alignment via CRM AB Test Squad",                "status": "live",    "priority": "nice",   "progress": 50,  "owner": "Cara",        "note": "Unified AB log in place; cross-functional cadence active." },
-      { "name": "Weighted Sequence-Level AB Testing",                "status": "live",    "priority": "must",   "progress": 70,  "owner": "Cara",        "note": "SF AB field integrated. Competing sequences being tested." },
-      { "name": "Outreach Sequence Outcomes — SF Custom Reporting",  "status": "active",  "priority": "should", "progress": 25,  "owner": "Mocks",       "note": "Scoped. SFDC dev engagement pending." },
-      { "name": "Built-in Evals & Self-Healing Workflows",           "status": "planned", "priority": "should", "progress": 0,   "owner": "Cara/Mocks",  "note": "Scoped for Q4 once Q3 infrastructure stabilises." },
-      { "name": "AI-Driven Content Repository",                      "status": "planned", "priority": "must",   "progress": 0,   "owner": "Mocks",       "note": "Q4. Requires stakeholder alignment before build." },
-      { "name": "Outreach Sequence Outcomes — Claude Code",          "status": "planned", "priority": "should", "progress": 0,   "owner": "Mocks",       "note": "Q4. Builds on SF Custom Reporting and PoC." },
-      { "name": "Unified Platform Reporting (Claude Code)",          "status": "planned", "priority": "nice",   "progress": 0,   "owner": "Mocks",       "note": "Q4. Requires individual platform reporting first." }
-    ]
-  };
+  "generated": "29 May 2026",
+  "distribution": [
+    {
+      "label": "Formal Q3 Initiative Work",
+      "pct": 77,
+      "color": "#2563EB"
+    },
+    {
+      "label": "Additional Value Work",
+      "pct": 17,
+      "color": "#F59E0B"
+    },
+    {
+      "label": "BAU / Operations",
+      "pct": 6,
+      "color": "#94A3B8"
+    }
+  ],
+  "q3Stats": {
+    "delivered": 5,
+    "active": 14,
+    "planned": 5
+  },
+  "initiatives": [
+    {
+      "name": "AI SDR Phase 1 & 2 — Build & Scale",
+      "status": "done",
+      "priority": "must",
+      "progress": 100,
+      "owner": "Cara",
+      "note": "All OB SDRs globally on AI-personalised sequences."
+    },
+    {
+      "name": "Qualified Chatbot — SF Integration",
+      "status": "done",
+      "priority": "must",
+      "progress": 100,
+      "owner": "Mocks",
+      "note": "Live. Direct SDR booking and omni-channel routing enabled."
+    },
+    {
+      "name": "Outreach Performance Reporting 2.0",
+      "status": "done",
+      "priority": "must",
+      "progress": 100,
+      "owner": "Mocks",
+      "note": "2026 reporting template operational with weekly cadence."
+    },
+    {
+      "name": "Outreach Meeting Types Uplift",
+      "status": "done",
+      "priority": "should",
+      "progress": 100,
+      "owner": "Mocks",
+      "note": "Standardised across all regions."
+    },
+    {
+      "name": "AI SDR Phase 2 — Webinars & Content Syndication",
+      "status": "live",
+      "priority": "must",
+      "progress": 75,
+      "owner": "Cara/Mocks",
+      "note": "Live ANZ, UK and CA. Reply rates improving."
+    },
+    {
+      "name": "Qualified Experience Optimisation",
+      "status": "live",
+      "priority": "must",
+      "progress": 60,
+      "owner": "Claire/Cara",
+      "note": "Direct booking live. PS line added. Partner routing being built by Usman."
+    },
+    {
+      "name": "Define Relevance AI Sequence Framework",
+      "status": "live",
+      "priority": "must",
+      "progress": 65,
+      "owner": "Mocks/Cara",
+      "note": "Framework live; Rev Ops alignment in progress."
+    },
+    {
+      "name": "Define Relevance AI Reporting Framework",
+      "status": "live",
+      "priority": "must",
+      "progress": 65,
+      "owner": "Mocks",
+      "note": "Framework in place; reporting cadence established."
+    },
+    {
+      "name": "Lost Revive Relevance AI Workforce",
+      "status": "active",
+      "priority": "must",
+      "progress": 70,
+      "owner": "Cara/Mocks",
+      "note": "8.34% conversion (from 4.02%). NZ Seq 881 mismatch errors under investigation."
+    },
+    {
+      "name": "Increase AI Sequence Adoption — UK",
+      "status": "active",
+      "priority": "must",
+      "progress": 60,
+      "owner": "Mocks",
+      "note": "IB sequences live. Reply rate 4.7%→5.7%."
+    },
+    {
+      "name": "Increase AI Sequence Adoption — CA",
+      "status": "active",
+      "priority": "must",
+      "progress": 55,
+      "owner": "Cara",
+      "note": "Webinar/SRED sequences live. Reply rate 15%→16.2%."
+    },
+    {
+      "name": "AI Research Brief for Calls — All Sequences",
+      "status": "active",
+      "priority": "must",
+      "progress": 85,
+      "owner": "Cara/Mocks",
+      "note": "Live 4 regions. 24-month conversation history tool shipped 29 May."
+    },
+    {
+      "name": "Optimised Relevance AI Workflow Setup",
+      "status": "active",
+      "priority": "should",
+      "progress": 50,
+      "owner": "Cara/Mocks",
+      "note": "Token spend −47%. Evals checks live. Webhooks and alerting still in progress."
+    },
+    {
+      "name": "Long Term Nurture (Gong Engage + Outreach)",
+      "status": "live",
+      "priority": "should",
+      "progress": 55,
+      "owner": "Claire/Cara",
+      "note": "Claire building AI-personalised version in Relevance AI; Cara scoping parallel track."
+    },
+    {
+      "name": "Insights-Driven Reporting",
+      "status": "live",
+      "priority": "should",
+      "progress": 60,
+      "owner": "Mocks",
+      "note": "Monthly cadence live. Cohesion analysis findings to be presented at ANZ Lead Council."
+    },
+    {
+      "name": "Qualified Chatbot Reporting & Optimisation",
+      "status": "live",
+      "priority": "must",
+      "progress": 70,
+      "owner": "Mocks",
+      "note": "KPI dashboards live globally for all regions."
+    },
+    {
+      "name": "SDR Champions Project",
+      "status": "live",
+      "priority": "should",
+      "progress": 45,
+      "owner": "Mocks",
+      "note": "Champions identified; AB test cadence being established."
+    },
+    {
+      "name": "AB Alignment via CRM AB Test Squad",
+      "status": "live",
+      "priority": "nice",
+      "progress": 50,
+      "owner": "Cara",
+      "note": "Unified AB log in place; cross-functional cadence active."
+    },
+    {
+      "name": "Weighted Sequence-Level AB Testing",
+      "status": "live",
+      "priority": "must",
+      "progress": 70,
+      "owner": "Cara",
+      "note": "SF AB field integrated. Competing sequences being tested."
+    },
+    {
+      "name": "Outreach Sequence Outcomes — SF Custom Reporting",
+      "status": "active",
+      "priority": "should",
+      "progress": 25,
+      "owner": "Mocks",
+      "note": "Scoped. SFDC dev engagement pending."
+    },
+    {
+      "name": "Built-in Evals & Self-Healing Workflows",
+      "status": "planned",
+      "priority": "should",
+      "progress": 5,
+      "owner": "Cara/Mocks",
+      "note": "Beta access active — Claire shipping first evals checks; formal Q4 initiative TBC."
+    },
+    {
+      "name": "AI-Driven Content Repository",
+      "status": "planned",
+      "priority": "must",
+      "progress": 0,
+      "owner": "Mocks",
+      "note": "Q4. Requires stakeholder alignment before build."
+    },
+    {
+      "name": "Outreach Sequence Outcomes — Claude Code",
+      "status": "planned",
+      "priority": "should",
+      "progress": 0,
+      "owner": "Mocks",
+      "note": "Q4. Builds on SF Custom Reporting and PoC."
+    },
+    {
+      "name": "Unified Platform Reporting (Claude Code)",
+      "status": "planned",
+      "priority": "nice",
+      "progress": 0,
+      "owner": "Mocks",
+      "note": "Q4. Requires individual platform reporting first."
+    }
+  ]
+};
 
   const INITIATIVE_TAGS = {
-    "AI SDR — Phase 1: Build & Test":                      { "label": "AI SDR Phase 1 & 2",                        "type": "initiative" },
-    "AI SDR — Phase 2: Global Scale":                      { "label": "AI SDR Phase 1 & 2",                        "type": "initiative" },
-    "AI SDR — Webinars & Content Syndication":             { "label": "AI SDR Phase 2 — Webinars & CS",            "type": "initiative" },
-    "Define Relevance AI Sequence Framework":              { "label": "Relevance AI Sequence Framework",           "type": "initiative" },
-    "Weighted Sequence-Level AB Testing":                  { "label": "Weighted AB Testing",                       "type": "initiative" },
-    "Long Term Nurture Programme":                         { "label": "Long Term Nurture",                         "type": "initiative" },
-    "AI Research Brief — All Sequences":                   { "label": "AI Research Brief for Calls",               "type": "initiative" },
-    "Increase AI Adoption — UK":                           { "label": "Increase AI Adoption — UK",                 "type": "initiative" },
-    "Increase AI Adoption — Canada":                       { "label": "Increase AI Adoption — CA",                 "type": "initiative" },
-    "Optimised Relevance Workforce Setup":                 { "label": "Optimised Relevance Workflow",              "type": "initiative" },
-    "Built-in Evals & Self-Healing Workflows":             { "label": "Built-in Evals & Self-Healing",             "type": "initiative" },
-    "Self-Maintained Best Practice Playbook":              { "label": "Self-Maintained Playbook (Q4)",              "type": "initiative" },
-    "Qualified Chatbot — SF Integration":                  { "label": "Qualified — SF Integration",                "type": "initiative" },
-    "Direct SDR Booking — Phase 1 Live":                   { "label": "Qualified Experience Optimisation",         "type": "initiative" },
-    "Qualified Experience Optimisation":                   { "label": "Qualified Experience Optimisation",         "type": "initiative" },
-    "Qualified — Partner Routing Experience":              { "label": "Qualified Experience Optimisation",         "type": "initiative" },
-    "Qualified Chatbot Reporting & Optimisation":          { "label": "Qualified Chatbot Reporting",               "type": "initiative" },
-    "SDR Champions Programme":                             { "label": "SDR Champions Project",                     "type": "initiative" },
-    "Outreach Performance Reporting 2.0":                  { "label": "Outreach Performance Reporting 2.0",        "type": "initiative" },
-    "Insights-Driven Reporting":                           { "label": "Insights-Driven Reporting",                 "type": "initiative" },
-    "Relevance AI Sequence Reporting Framework":           { "label": "Relevance AI Reporting Framework",          "type": "initiative" },
-    "CRM AB Test Alignment & Squad":                       { "label": "AB Alignment via CRM AB Test Squad",        "type": "initiative" },
-    "Outreach Sequence Outcomes — SF Custom Reporting":    { "label": "Outreach Sequence Outcomes — SFDC",         "type": "initiative" },
-    "Lost Revive AI Workforce Improvement":                { "label": "Lost Revive Relevance AI Workforce",        "type": "initiative" },
-    "Outreach Sequence Outcomes — Claude Code":            { "label": "Outreach Outcomes — Claude Code (Q4)",      "type": "initiative" },
-    "Unified Platform Reporting (Claude Code)":            { "label": "Unified Platform Reporting (Q4)",           "type": "initiative" },
-    "AI-Driven Content Repository":                        { "label": "AI-Driven Content Repository (Q4)",         "type": "initiative" },
-    "Outreach Meeting Types — Standards Uplift":           { "label": "Outreach Meeting Types",                    "type": "initiative" },
-    "Trigger Conflict Detector":                           { "label": "Trigger Conflict Detector",                 "type": "initiative" },
-    "Outreach Trigger Cleanup 2.0":                        { "label": "Trigger Cleanup 2.0",                       "type": "initiative" },
-    "Consolidate Outreach Sequences":                      { "label": "Consolidate Outreach Sequences",            "type": "initiative" },
-    "AI-Generated Call Notes → Outreach (Multi-region)":  { "label": "Additional Value Work",                     "type": "extra" },
-    "Standalone Recruitment Agent Launch":                 { "label": "Additional Value Work",                     "type": "extra" },
-    "Drift Platform Decommission":                         { "label": "Additional Value Work",                     "type": "extra" },
-    "Sales Automation Governance Framework":               { "label": "Additional Value Work",                     "type": "extra" },
-    "AE Outreach Expansion — 38 Seats":                    { "label": "Additional Value Work",                     "type": "extra" },
-    "SDR Sequence Cohesion Analysis":                      { "label": "Additional Value Work",                     "type": "extra" },
-    "Content Repository 3.0":                             { "label": "Additional Value Work",                     "type": "extra" },
-    "Upsell Fixer-Upper Project":                          { "label": "Additional Value Work",                     "type": "extra" }
-  };
+  "AI SDR — Phase 1: Build & Test": {
+    "label": "AI SDR Phase 1 & 2",
+    "type": "initiative"
+  },
+  "AI SDR — Phase 2: Global Scale": {
+    "label": "AI SDR Phase 1 & 2",
+    "type": "initiative"
+  },
+  "AI SDR — Webinars & Content Syndication": {
+    "label": "AI SDR Phase 2 — Webinars & CS",
+    "type": "initiative"
+  },
+  "Define Relevance AI Sequence Framework": {
+    "label": "Relevance AI Sequence Framework",
+    "type": "initiative"
+  },
+  "Weighted Sequence-Level AB Testing": {
+    "label": "Weighted AB Testing",
+    "type": "initiative"
+  },
+  "Long Term Nurture Programme": {
+    "label": "Long Term Nurture",
+    "type": "initiative"
+  },
+  "AI Research Brief — All Sequences": {
+    "label": "AI Research Brief for Calls",
+    "type": "initiative"
+  },
+  "Increase AI Adoption — UK": {
+    "label": "Increase AI Adoption — UK",
+    "type": "initiative"
+  },
+  "Increase AI Adoption — Canada": {
+    "label": "Increase AI Adoption — CA",
+    "type": "initiative"
+  },
+  "Optimised Relevance Workforce Setup": {
+    "label": "Optimised Relevance Workflow",
+    "type": "initiative"
+  },
+  "Built-in Evals & Self-Healing Workflows": {
+    "label": "Built-in Evals & Self-Healing",
+    "type": "initiative"
+  },
+  "Self-Maintained Best Practice Playbook": {
+    "label": "Self-Maintained Playbook (Q4)",
+    "type": "initiative"
+  },
+  "Qualified Chatbot — SF Integration": {
+    "label": "Qualified — SF Integration",
+    "type": "initiative"
+  },
+  "Direct SDR Booking — Phase 1 Live": {
+    "label": "Qualified Experience Optimisation",
+    "type": "initiative"
+  },
+  "Qualified Experience Optimisation": {
+    "label": "Qualified Experience Optimisation",
+    "type": "initiative"
+  },
+  "Qualified — Partner Routing Experience": {
+    "label": "Qualified Experience Optimisation",
+    "type": "initiative"
+  },
+  "Qualified Chatbot Reporting & Optimisation": {
+    "label": "Qualified Chatbot Reporting",
+    "type": "initiative"
+  },
+  "SDR Champions Programme": {
+    "label": "SDR Champions Project",
+    "type": "initiative"
+  },
+  "Outreach Performance Reporting 2.0": {
+    "label": "Outreach Performance Reporting 2.0",
+    "type": "initiative"
+  },
+  "Insights-Driven Reporting": {
+    "label": "Insights-Driven Reporting",
+    "type": "initiative"
+  },
+  "Relevance AI Sequence Reporting Framework": {
+    "label": "Relevance AI Reporting Framework",
+    "type": "initiative"
+  },
+  "CRM AB Test Alignment & Squad": {
+    "label": "AB Alignment via CRM AB Test Squad",
+    "type": "initiative"
+  },
+  "Outreach Sequence Outcomes — SF Custom Reporting": {
+    "label": "Outreach Sequence Outcomes — SFDC",
+    "type": "initiative"
+  },
+  "Lost Revive AI Workforce Improvement": {
+    "label": "Lost Revive Relevance AI Workforce",
+    "type": "initiative"
+  },
+  "Outreach Sequence Outcomes — Claude Code": {
+    "label": "Outreach Outcomes — Claude Code (Q4)",
+    "type": "initiative"
+  },
+  "Unified Platform Reporting (Claude Code)": {
+    "label": "Unified Platform Reporting (Q4)",
+    "type": "initiative"
+  },
+  "AI-Driven Content Repository": {
+    "label": "AI-Driven Content Repository (Q4)",
+    "type": "initiative"
+  },
+  "Outreach Meeting Types — Standards Uplift": {
+    "label": "Outreach Meeting Types",
+    "type": "initiative"
+  },
+  "Trigger Conflict Detector": {
+    "label": "Trigger Conflict Detector",
+    "type": "initiative"
+  },
+  "Outreach Trigger Cleanup 2.0": {
+    "label": "Trigger Cleanup 2.0",
+    "type": "initiative"
+  },
+  "Consolidate Outreach Sequences": {
+    "label": "Consolidate Outreach Sequences",
+    "type": "initiative"
+  },
+  "AI-Generated Call Notes → Outreach (Multi-region)": {
+    "label": "Additional Value Work",
+    "type": "extra"
+  },
+  "Standalone Recruitment Agent Launch": {
+    "label": "Additional Value Work",
+    "type": "extra"
+  },
+  "Drift Platform Decommission": {
+    "label": "Additional Value Work",
+    "type": "extra"
+  },
+  "Sales Automation Governance Framework": {
+    "label": "Additional Value Work",
+    "type": "extra"
+  },
+  "AE Outreach Expansion — 38 Seats": {
+    "label": "Additional Value Work",
+    "type": "extra"
+  },
+  "SDR Sequence Cohesion Analysis": {
+    "label": "Additional Value Work",
+    "type": "extra"
+  },
+  "Content Repository 3.0": {
+    "label": "Additional Value Work",
+    "type": "extra"
+  },
+  "Upsell Fixer-Upper Project": {
+    "label": "Additional Value Work",
+    "type": "extra"
+  }
+};
   </script>
   <!-- AGENT-DATA:initiative-alignment-end -->
 
   <!-- AGENT-DATA:progress-start -->
   <script id="progress-data">
   const PROGRESS_DATA = {
-    "AI SDR — Phase 1: Build & Test": 100,
-    "AI SDR — Phase 2: Global Scale": 100,
-    "AI SDR — Webinars & Content Syndication": 75,
-    "Define Relevance AI Sequence Framework": 65,
-    "Weighted Sequence-Level AB Testing": 70,
-    "Long Term Nurture Programme": 50,
-    "AI Research Brief — All Sequences": 80,
-    "Increase AI Adoption — UK": 60,
-    "Increase AI Adoption — Canada": 55,
-    "Optimised Relevance Workforce Setup": 45,
-    "Built-in Evals & Self-Healing Workflows": 0,
-    "Self-Maintained Best Practice Playbook": 0,
-    "Qualified Chatbot — SF Integration": 100,
-    "Direct SDR Booking — Phase 1 Live": 100,
-    "AI-Generated Call Notes → Outreach (Multi-region)": 100,
-    "Standalone Recruitment Agent Launch": 100,
-    "Drift Platform Decommission": 100,
-    "Qualified Experience Optimisation": 55,
-    "SDR Champions Programme": 45,
-    "Qualified — Partner Routing Experience": 35,
-    "Lost Revive AI Workforce Improvement": 70,
-    "AE Outreach Expansion — 38 Seats": 20,
-    "AI-Driven Content Repository": 0,
-    "Content Repository 3.0": 0,
-    "Upsell Fixer-Upper Project": 0,
-    "Outreach Performance Reporting 2.0": 100,
-    "SDR Sequence Cohesion Analysis": 100,
-    "Insights-Driven Reporting": 60,
-    "Relevance AI Sequence Reporting Framework": 65,
-    "Qualified Chatbot Reporting & Optimisation": 70,
-    "CRM AB Test Alignment & Squad": 50,
-    "Outreach Sequence Outcomes — SF Custom Reporting": 25,
-    "Outreach Sequence Outcomes — Claude Code": 0,
-    "Unified Platform Reporting (Claude Code)": 0,
-    "Outreach Meeting Types — Standards Uplift": 100,
-    "Sales Automation Governance Framework": 35,
-    "Trigger Conflict Detector": 0,
-    "Outreach Trigger Cleanup 2.0": 0,
-    "Consolidate Outreach Sequences": 0
-  };
+  "AI SDR — Phase 1: Build & Test": 100,
+  "AI SDR — Phase 2: Global Scale": 100,
+  "AI SDR — Webinars & Content Syndication": 75,
+  "Define Relevance AI Sequence Framework": 65,
+  "Weighted Sequence-Level AB Testing": 70,
+  "Long Term Nurture Programme": 55,
+  "AI Research Brief — All Sequences": 85,
+  "Increase AI Adoption — UK": 60,
+  "Increase AI Adoption — Canada": 55,
+  "Optimised Relevance Workforce Setup": 50,
+  "Built-in Evals & Self-Healing Workflows": 5,
+  "Self-Maintained Best Practice Playbook": 0,
+  "Qualified Chatbot — SF Integration": 100,
+  "Direct SDR Booking — Phase 1 Live": 100,
+  "AI-Generated Call Notes → Outreach (Multi-region)": 100,
+  "Standalone Recruitment Agent Launch": 100,
+  "Drift Platform Decommission": 100,
+  "Qualified Experience Optimisation": 60,
+  "SDR Champions Programme": 45,
+  "Qualified — Partner Routing Experience": 45,
+  "Lost Revive AI Workforce Improvement": 70,
+  "AE Outreach Expansion — 38 Seats": 35,
+  "AI-Driven Content Repository": 0,
+  "Content Repository 3.0": 0,
+  "Upsell Fixer-Upper Project": 0,
+  "Outreach Performance Reporting 2.0": 100,
+  "SDR Sequence Cohesion Analysis": 100,
+  "Insights-Driven Reporting": 60,
+  "Relevance AI Sequence Reporting Framework": 65,
+  "Qualified Chatbot Reporting & Optimisation": 70,
+  "CRM AB Test Alignment & Squad": 50,
+  "Outreach Sequence Outcomes — SF Custom Reporting": 25,
+  "Outreach Sequence Outcomes — Claude Code": 0,
+  "Unified Platform Reporting (Claude Code)": 0,
+  "Outreach Meeting Types — Standards Uplift": 100,
+  "Sales Automation Governance Framework": 35,
+  "Trigger Conflict Detector": 0,
+  "Outreach Trigger Cleanup 2.0": 0,
+  "Consolidate Outreach Sequences": 0
+};
   </script>
   <!-- AGENT-DATA:progress-end -->
 
@@ -493,50 +795,50 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
   "weekOf": "25 May – 29 May 2026",
   "updates": [
     {
-      "title": "Call Notes AI — Conversation History Enhancement (In Build)",
+      "title": "Call Notes AI — Conversation History Now Live (29 May)",
       "category": "ai-build",
-      "detail": "Chris is developing an update to the inbound AI research agent that incorporates historical call note summaries — prior calls, emails, and LinkedIn activity per lead. SDRs flagged this as a high-value addition after strong adoption of the existing research step. Enhancement is in active development and in the inbound workforce build queue.",
-      "impact": "Eliminates manual scrolling through activity timelines; surfaces previous objections and engagement context automatically before every SDR call."
+      "detail": "Chris shipped the 24-month conversation history enhancement to the AI call notes workforce today. The agent now analyses prior calls, emails and LinkedIn activity per lead before generating inbound research notes — surfacing previous objections, system mentions and engagement context automatically. SDRs no longer need to manually scroll through the activity timeline before each call.",
+      "impact": "~30 min/prospect research time saved per SDR per contact. Previous objections are factored in — reps arrive at calls informed and de-risked from repeating known blockers."
     },
     {
-      "title": "Long-Term Nurture → AI Personalisation (Build Started)",
-      "category": "ai-build",
-      "detail": "Claire has started rebuilding the long-term nurture sequence inside Relevance AI so the agent dynamically selects newsroom content assets per prospect rather than using pre-picked items. Cara is running a parallel track on the same initiative. Relevance AI workforce link already configured in Claire's Asana task.",
-      "impact": "Converts a static, manually-curated nurture into a dynamically personalised AI sequence — improving relevance and engagement at the bottom of the funnel."
-    },
-    {
-      "title": "Qualified Onboarding — All SDR Managers Active",
-      "category": "implementation",
-      "detail": "Cara published a full Qualified onboarding update to SDR leaders this week: all managers have invites, Salesforce connection confirmed working for multiple reps, availability logic documented (bookable hours + notice + buffer), and confirmation email template updated. Go-live is targeted for next week.",
-      "impact": "Completes the pre-launch setup phase for direct SDR booking — unblocking full deployment to all inbound SDRs globally."
-    },
-    {
-      "title": "Hero AI Website x Qualified — 5 Integration Flows Confirmed",
-      "category": "implementation",
-      "detail": "Amber Kirkwood (web team) formally documented 5 flows where Qualified will serve as the backend for the Hero AI website redesign: (1) demo booking + calendar routing, (2) live SDR handoff during business hours, (3) qualification gate before fast-call promises, (4) email capture + progressive profiling, (5) SF engagement data passing. Technical kick-off with web team being arranged.",
-      "impact": "Positions Qualified as the core infrastructure layer for the company's new AI-first website — expanding its role well beyond the current chatbot."
-    },
-    {
-      "title": "CRM Q3 Mid-Quarter: Strong Across All Measures",
+      "title": "AE Outreach Expansion — Decision Made, Vendor Meeting Incoming",
       "category": "revenue",
-      "detail": "Amy Le Grange shared the CRM Q3 mid-quarter update this week: 54,000+ campaign responses, 6,200+ MQLs and Recycles driven, 141,900 global leads unlocked via the Consent Audit, 76.28% open rate on Hero Foundation EDM 1, Lost Revive prospect-to-opp conversion more than doubled (4.02% → 8.34%), and AI token costs cut 47%. 12 nurtures, automations and programs launched this quarter.",
-      "impact": "CRM team performance is well ahead of mid-quarter baselines; AI-powered workflows are the primary driver of measurable uplift across all key metrics."
+      "detail": "A major platform expansion is taking shape: 38 AEs could move from Gong Engage onto Outreach. Chris met with three AEs (Adam, Will, Elliott) on 29 May — Gong Engage confirmed non-functional for sequencing, calling, task management and email tracking. Sales, Enablement and RevOps are aligned on Outreach as the right tool. Sheana (RevOps) is booking the Outreach vendor meeting using the HubSpot competitive quote ($58 ppm, 68% discount) as leverage. Pilot target: 150 AE self-sourced SAOs/month and $500K ARR pipeline contribution.",
+      "impact": "If approved, doubles Outreach's user base overnight — expanding Sales Automation's remit to AE enablement and unlocking a new AI personalisation channel for account-based outreach."
+    },
+    {
+      "title": "PS Promo Line + Multi-Region Evals Shipped (Claire, 28–29 May)",
+      "category": "ai-build",
+      "detail": "Claire added the promotional PS line to Inbound static Outreach sequences and updated all Relevance AI copy agent instructions to include it in email 1. She also built two Evals checks: (1) the agent does not generate the PS line after the deadline date, and (2) the agent does not include the PS line for non-Australian prospects. Evals dashboard created. Relevance AI Invent tool used to automate instruction updates.",
+      "impact": "Eliminates the risk of the PS promo appearing in the wrong region or after expiry — previously required manual review of every email output across 4+ regions."
+    },
+    {
+      "title": "Qualified SDR Onboarding Tracker — Full Visibility Published",
+      "category": "implementation",
+      "detail": "Cara published the Qualified SDR Onboarding Tracker to all SDR leaders (28 May) — a live doc tracking which SDRs have accepted their invites, completed SF connection setup, and flagged common issues (e.g. SDRs incorrectly placing booking links in conference fields). SF connection workaround documented: reps must be logged into SF via SSO before attempting the Qualified connection step. SDR roster also updated for June transitions: Paris Holloway, Zhaden Flynn, Luke Shirley, James Molloy, Peter Skok.",
+      "impact": "Unblocks go-live completion for all inbound SDRs globally — gives SDR managers actionable visibility to chase the remaining reps and complete the direct booking rollout."
+    },
+    {
+      "title": "HeroForce AI Workforce — Trigger Issue Identified and Resolved",
+      "category": "ai-build",
+      "detail": "Cara identified a gap in HeroForce SF lead classification: there is no current distinction between GT BADs and GT MQLs at the field level — all leads treated as BADs via 'Became GT Lead Date'. This means the existing HeroForce BAD sequence assumes all HF leads requested contact (International framing) when some are Local. Cara has confirmed the correct trigger approach and will replace the static BAD sequence with the AI-powered workforce-linked versions once the path switch is confirmed.",
+      "impact": "Ensures the HeroForce AI workforce fires with correct lead context — preventing mis-framed outreach to Local HeroForce leads and unblocking the full AI personalisation launch for this audience."
     },
     {
       "title": "UTM Standardisation for Marketo Measure Attribution",
       "category": "optimisation",
-      "detail": "Cara is implementing UTM parameter standardisation across all Outreach email links (utm_medium=email, utm_source=outreach, with campaign/content fields for sequence/step/template identification). This enables Marketo Measure to correctly attribute sales-influenced pipeline activity for the first time.",
-      "impact": "Closes a reporting gap — sales-influenced pipeline will be accurately attributed in revenue reporting, strengthening the SDR team's contribution to ARR."
+      "detail": "Cara is implementing UTM parameter standardisation across all Outreach email links: utm_medium=email, utm_source=outreach, with campaign/content fields for sequence/step/template identification. The UTM logic will also be added to Relevance AI agents so any personalised content automatically includes correct tracking — without agents inventing inconsistent campaign names.",
+      "impact": "Closes a critical reporting gap — sales-influenced pipeline will be accurately attributed in Marketo Measure for the first time, strengthening the SDR team's contribution to ARR reporting."
     },
     {
-      "title": "CAN OB Sequence + Workforce Clone (In Progress)",
+      "title": "CAN OB Sequence + Relevance AI Workforce Clone (In Progress)",
       "category": "sequence",
-      "detail": "Cara is building a Canada-specific outbound sequence cloned from the AU/NZ OB structure, linked to the CAN outbound Relevance AI workforce. Requested by Nathan McCaw. Currently under review to confirm whether structural differences between the CAN and AU/NZ outbound sequences warrant a separate build.",
-      "impact": "Extends AI-personalised outbound to Canada, completing the global AI OB expansion roadmap across all active regions."
+      "detail": "Cara is building a Canada-specific outbound sequence cloned from the AU/NZ OB structure (Seq 914), linked to the CAN outbound Relevance AI workforce. Requested by Nathan McCaw to recirculate leads for a rep returning from extended leave. Structural comparison between CAN OB and AU/NZ OB sequences underway before confirming build approach — due 2 Jun.",
+      "impact": "Extends AI-personalised outbound to Canada's core OB motion, completing the global AI OB expansion roadmap across all active regions."
     }
   ]
 };
-  
+
   </script>
   <!-- AGENT-DATA:key-updates-end -->
 
@@ -559,41 +861,58 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
   <!-- AGENT-DATA:upcoming-priorities-start -->
   <script id="upcoming-priorities-data">
   const UPCOMING_PRIORITIES = {
-    "weekOf": "2 Jun – 8 Jun 2026",
-    "Chris": [
-      "Arrange Outreach vendor meeting for AE pilot (38 seats, HubSpot quote as leverage)",
-      "Qualified + Hero AI technical kick-off with Amber & web team before Thursday",
-      "Announce AI call notes conversation history enhancement to all SDR teams",
-      "Review and finalise AE Outreach pilot commercials and governance approach"
-    ],
-    "Cara": [
-      "Resolve NZ Lost Revive sequence errors (Contact Details Mismatch tags)",
-      "Continue HeroForce sequence optimisation with IB team feedback",
-      "Assess Lost Revive AI approach for UK/CA teams given ANZ conversion results",
-      "Daily Relevance AI workforce monitoring"
-    ],
-    "Claire": [
-      "Qualified partner routing — test and support go-live",
-      "Finalise partner SDR routing list with Usman",
-      "Weekly Outreach usage metrics report",
-      "Monitor direct booking setup completion across SDR teams"
-    ]
-  };
+  "weekOf": "2 Jun – 8 Jun 2026",
+  "Chris": [
+    "WA Day public holiday Monday 2 Jun — offline",
+    "Sheana to book Outreach vendor meeting for 38-seat AE pilot (HubSpot quote as leverage); Chris to review commercials and governance approach",
+    "Present sequence cohesion report at ANZ Lead Council meeting (held back for this forum per Amy's request)",
+    "Announce conversation history call notes enhancement to all SDR teams globally",
+    "Qualified + Hero AI technical kick-off with Amber & web team (before Amber's leave)"
+  ],
+  "Cara": [
+    "Resolve NZ Lost Revive sequence errors (Seq 881 Contact Details Mismatch tags)",
+    "Go live with HeroForce AI workforce — replace static BAD sequences with AI-powered workforce-linked versions",
+    "Continue AI Agent Optimisations (IB Call Notes, AU OB Agent, Global Webinar Agent — due 12 Jun)",
+    "Daily Relevance AI workforce monitoring and triage"
+  ],
+  "Claire": [
+    "Qualified partner routing — support Usman's build and test routing before go-live",
+    "Outreach task cleanup for Paris Holloway: close out ~150 overdue tasks (10+ days, Upsell IB era) before Monday",
+    "Initiate AI call notes scoping for Partnerships SDR team — outbound first, align with Claire Sertori",
+    "Weekly Outreach usage metrics report"
+  ]
+};
   </script>
   <!-- AGENT-DATA:upcoming-priorities-end -->
 
   <!-- AGENT-DATA:highlights-start -->
   <script id="highlights-data">
   const HIGHLIGHTS = [
-    {
-      "emoji": "🚀",
-      "title": "Relevance AI Beta — Invent & Evaluate Access",
-      "detail": "Chris, Cara and Claire were invited to a working session with the Relevance AI co-founder and team to beta test the new Invent and Evaluate functionality. This gives the SA team early access to AI eval tooling that directly supports the roadmap initiative to build self-improving workflows.",
-      "tag": "Beta Access",
-      "tagStyle": "hl-violet",
-      "people": "Chris · Cara · Claire"
-    }
-  ];
+  {
+    "emoji": "🚀",
+    "title": "Relevance AI Beta — Invent & Evaluate Now in Active Use",
+    "detail": "The team was invited to beta test Relevance AI's new Invent and Evaluate functionality. This week it went from access to active use: Claire shipped her first Evals checks (date-awareness + region-awareness for the PS promotional line), built an Evals dashboard, and used Invent to update copy agent instructions. Chris also used Invent to build a new tool this week. Early access to AI eval tooling directly supports the Q4 roadmap initiative.",
+    "tag": "Beta Access",
+    "tagStyle": "hl-violet",
+    "people": "Chris · Cara · Claire"
+  },
+  {
+    "emoji": "🏢",
+    "title": "AE Outreach Expansion — 38 New Seats on the Horizon",
+    "detail": "A potentially major platform expansion is underway: 38 Account Executives could migrate from Gong Engage onto Outreach. Three AEs (Adam, Will, Elliott) confirmed Gong Engage is non-functional for their core workflows. Sales, Enablement, and RevOps are aligned — vendor meeting to be booked by Sheana using a HubSpot competitive quote as leverage. If approved, this would double Outreach's user base and significantly expand Sales Automation's remit.",
+    "tag": "Major Development",
+    "tagStyle": "hl-amber",
+    "people": "Chris · Sheana · Sales"
+  },
+  {
+    "emoji": "💙",
+    "title": "Amy Le Grange: \"What a Privilege to Work With This Team\"",
+    "detail": "In a public message to #crm-crew-leaders on 27 May before going on leave, Amy wrote: \"I also want to add a big thank you to the CRM Team — you are all so efficient and you live all of our values. Working with such a driven, skilled and lovely team is a privilege. Thank you for driving this space forward.\"",
+    "tag": "Recognition",
+    "tagStyle": "hl-green",
+    "people": "Chris · Cara · Claire"
+  }
+];
   </script>
   <!-- AGENT-DATA:highlights-end -->
 
@@ -775,7 +1094,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
-            <p>Live across ANZ, UK and Canada IB sequences. Research notes include TLDR, Lead/Company Overview, 6sense intent data, conversion context, case study suggestions and call talking points. Today (29 May): major new enhancement shipped — 24-month conversation history now analysed to shape hooks/openers and avoid repeating previous objections.</p>
+            <p>Live across ANZ, UK and Canada IB sequences. Research notes include TLDR, Lead/Company Overview, 6sense intent data, conversion context, case study suggestions and call talking points. Shipped 29 May: 24-month conversation history now analysed — agent reads prior calls, emails and LinkedIn activity to shape hooks and avoid repeating previous objections.</p>
           </div>
           <div class="cb-section">
             <span class="cb-label lbl-activity">Recent Activity</span>
@@ -1793,17 +2112,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         "open": 0
       },
       "Claire": {
-        "completed": 0,
+        "completed": 3,
         "open": 0
       }
     },
     "May": {
       "Chris": {
-        "completed": 35,
+        "completed": 37,
         "open": 26
       },
       "Cara": {
-        "completed": 4,
+        "completed": 5,
         "open": 21
       },
       "Claire": {
@@ -1814,20 +2133,20 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
   },
   "ytd": {
     "Chris": {
-      "completed": 79,
+      "completed": 81,
       "open": 26
     },
     "Cara": {
-      "completed": 13,
+      "completed": 14,
       "open": 21
     },
     "Claire": {
-      "completed": 8,
+      "completed": 11,
       "open": 8
     }
   }
 };
-  
+
   </script>
   <!-- AGENT-DATA:task-counts-end -->
 
