@@ -166,6 +166,13 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .update-impact { font-size: 10px; color: #64748B; font-style: italic; border-top: 1px solid #E2E8F0; padding-top: 6px; }
 .update-impact::before { content: "↳ "; font-style: normal; }
 
+/* ── CARD DUE DATE ─────────────────────────────────────── */
+.card-due { font-size: 10px; color: #64748B; margin-top: 4px; margin-bottom: 1px; display: flex; align-items: center; gap: 4px; }
+.card-due.due-tbc   { color: #94A3B8; }
+.card-due.due-ok    { color: #059669; font-weight: 600; }
+.card-due.due-soon  { color: #D97706; font-weight: 600; }
+.card-due.due-over  { color: #DC2626; font-weight: 700; }
+
 @media (max-width: 768px) {
   .wins-grid, .ytd-grid, .updates-grid { grid-template-columns: 1fr; }
 }
@@ -327,6 +334,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">AI SDR — Phase 1: Build &amp; Test</div>
         <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q1</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -349,6 +357,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">AI SDR — Phase 2: Global Scale</div>
         <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q2</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -375,6 +384,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">AI SDR — Webinars &amp; Content Syndication</div>
         <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -411,6 +421,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Define Relevance AI Sequence Framework</div>
         <div class="card-meta">Owner: Mocks / Cara &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -433,6 +444,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Weighted Sequence-Level AB Testing</div>
         <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -455,6 +467,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">AI Research Brief — All Sequences</div>
         <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -490,6 +503,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Increase AI Adoption — UK</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -516,6 +530,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Increase AI Adoption — Canada</div>
         <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -541,6 +556,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Optimised Relevance Workforce Setup</div>
         <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-should">Should Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -581,6 +597,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Built-in Evals &amp; Self-Healing Workflows</div>
         <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q4</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-should">Should Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -599,6 +616,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Self-Maintained Best Practice Playbook</div>
         <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q4</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -626,6 +644,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Qualified Chatbot — SF Integration</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; April 2026</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -644,6 +663,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Direct SDR Booking — Phase 1 Live</div>
         <div class="card-meta">Owner: Mocks / Cara &nbsp;·&nbsp; May 19, 2026</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -676,6 +696,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">AI-Generated Call Notes → Outreach (Multi-region)</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; April–May 2026</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -702,6 +723,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Standalone Recruitment Agent Launch</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; April 24, 2026</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -720,6 +742,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Drift Platform Decommission</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; May 2026</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -742,6 +765,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Qualified Experience Optimisation</div>
         <div class="card-meta">Owner: Claire / Cara &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -772,6 +796,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">SDR Champions Programme</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-nice">Nice to Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -793,6 +818,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Qualified — Partner Routing Experience</div>
         <div class="card-meta">Owner: Claire / Cara &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -823,6 +849,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Lost Revive AI Workforce Improvement</div>
         <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -864,6 +891,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">AE Outreach Expansion — 38 Seats</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -905,6 +933,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">AI-Driven Content Repository</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q4</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -923,6 +952,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Content Repository 3.0</div>
         <div class="card-meta">Owner: Claire &nbsp;·&nbsp; Q4</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -941,6 +971,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Upsell Fixer-Upper Project</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q4</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-should">Should Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -968,6 +999,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Outreach Performance Reporting 2.0</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q1</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -990,6 +1022,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">SDR Sequence Cohesion Analysis</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q2</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1024,6 +1057,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Insights-Driven Reporting</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-should">Should Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1045,6 +1079,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Relevance AI Sequence Reporting Framework</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1067,6 +1102,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Qualified Chatbot Reporting &amp; Optimisation</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1089,6 +1125,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">CRM AB Test Alignment &amp; Squad</div>
         <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-nice">Nice to Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1110,6 +1147,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Outreach Sequence Outcomes — SF Custom Reporting</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-should">Should Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1139,6 +1177,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Outreach Sequence Outcomes — Claude Code</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q4</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-should">Should Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1157,6 +1196,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Unified Platform Reporting (Claude Code)</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q4</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1184,6 +1224,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Outreach Meeting Types — Standards Uplift</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q2</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-should">Should Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1198,6 +1239,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Drift Platform Decommission</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; May 2026</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1216,6 +1258,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Sales Automation Governance Framework</div>
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-should">Should Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1242,6 +1285,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Trigger Conflict Detector</div>
         <div class="card-meta">Owner: Claire / Cara &nbsp;·&nbsp; Q4</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-should">Should Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1256,6 +1300,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Outreach Trigger Cleanup 2.0</div>
         <div class="card-meta">Owner: Claire / Cara &nbsp;·&nbsp; Q4</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
@@ -1270,6 +1315,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <span class="expand-indicator">▼</span>
         <div class="card-title">Consolidate Outreach Sequences</div>
         <div class="card-meta">Owner: Claire &nbsp;·&nbsp; Q4</div>
+        <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
         <div class="card-body">
           <div class="cb-section">
