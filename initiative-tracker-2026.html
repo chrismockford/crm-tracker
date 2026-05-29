@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM Team — Initiative Tracker 2026</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif; background: #F1F5F9; color: #1E293B; }
+
+.header { background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); padding: 36px 48px 28px; }
+.header h1 { color: #F8FAFC; font-size: 26px; font-weight: 800; letter-spacing: -0.3px; }
+.header .subline { color: #94A3B8; font-size: 13px; margin-top: 8px; }
+.header-meta { display: flex; align-items: center; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+.audience-tag { display: inline-block; background: #334155; color: #CBD5E1; font-size: 11px; padding: 4px 12px; border-radius: 12px; }
+.refresh-tag { display: inline-block; background: #1D4ED8; color: #BFDBFE; font-size: 11px; padding: 4px 12px; border-radius: 12px; }
+
+.legend { background: #1E293B; padding: 10px 48px; display: flex; gap: 28px; align-items: center; flex-wrap: wrap; border-bottom: 1px solid #334155; }
+.legend span { font-size: 11px; color: #94A3B8; display: flex; align-items: center; gap: 6px; }
+.dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+.hint { margin-left: auto; font-size: 11px; color: #475569; font-style: italic; }
+
+.board { padding: 28px 48px; max-width: 1900px; margin: 0 auto; }
+
+.summary-bar { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+.sum { background: white; border-radius: 10px; padding: 12px 20px; border: 1px solid #E2E8F0; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.sum-n { font-size: 24px; font-weight: 800; }
+.sum-l { font-size: 11px; color: #64748B; line-height: 1.4; }
+.n-green { color: #16A34A; } .n-blue { color: #2563EB; } .n-amber { color: #D97706; } .n-grey { color: #64748B; } .n-violet { color: #7C3AED; } .n-teal { color: #0D9488; }
+
+.col-headers { display: grid; grid-template-columns: 200px 1fr 1.5fr 1.2fr; gap: 10px; margin-bottom: 10px; }
+.ch { padding: 10px 16px; border-radius: 8px; font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-align: center; text-transform: uppercase; }
+.ch-lbl { background: transparent; }
+.ch-done { background: #166534; color: #BBF7D0; }
+.ch-live { background: #1D4ED8; color: #BFDBFE; }
+.ch-plan { background: #475569; color: #CBD5E1; }
+
+.swimlane { display: grid; grid-template-columns: 200px 1fr 1.5fr 1.2fr; gap: 10px; margin-bottom: 10px; }
+.sl-label { display: flex; }
+.sl-label-inner { width: 100%; border-radius: 10px; padding: 16px 10px; display: flex; align-items: center; justify-content: center; }
+.sl-label-text { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.2px; color: white; text-align: center; line-height: 1.4; }
+.sl-ai   .sl-label-inner { background: #4F46E5; }
+.sl-qual .sl-label-inner { background: #7C3AED; }
+.sl-data .sl-label-inner { background: #EA580C; }
+.sl-gov  .sl-label-inner { background: #059669; }
+
+.col-cells { padding: 12px; border-radius: 10px; display: flex; flex-direction: column; gap: 8px; }
+.done-col { background: #F0FDF4; border: 1px solid #BBF7D0; }
+.live-col { background: #EFF6FF; border: 1px solid #BFDBFE; }
+.plan-col { background: #F8FAFC; border: 1px solid #E2E8F0; }
+
+/* ── CARDS ─────────────────────────────────────────────────────── */
+.card { background: white; border-radius: 8px; padding: 12px 14px; border-left: 4px solid; cursor: pointer; transition: box-shadow 0.15s, transform 0.1s; position: relative; outline: none; }
+.card:hover, .card:focus { box-shadow: 0 4px 16px rgba(0,0,0,.12); transform: translateY(-1px); }
+.card-done     { border-left-color: #22C55E; }
+.card-live     { border-left-color: #3B82F6; }
+.card-progress { border-left-color: #F59E0B; }
+.card-planned  { border-left-color: #94A3B8; }
+.card-title { font-size: 12px; font-weight: 700; color: #0F172A; line-height: 1.4; }
+.card-meta  { font-size: 10px; color: #94A3B8; margin-top: 3px; }
+.card-badges { display: flex; gap: 5px; margin-top: 8px; flex-wrap: wrap; }
+.badge { font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+.b-done     { background: #DCFCE7; color: #166534; }
+.b-live     { background: #DBEAFE; color: #1D4ED8; }
+.b-progress { background: #FEF3C7; color: #92400E; }
+.b-planned  { background: #F1F5F9; color: #475569; }
+.b-must     { background: #FEE2E2; color: #991B1B; }
+.b-should   { background: #FFFBEB; color: #78350F; }
+.b-nice     { background: #F5F3FF; color: #4C1D95; }
+.expand-indicator { position: absolute; top: 10px; right: 10px; font-size: 10px; color: #CBD5E1; transition: transform 0.2s; }
+.card.open .expand-indicator { transform: rotate(180deg); }
+
+/* ── CARD BODY SECTIONS ─────────────────────────────────────────── */
+.card-body { font-size: 11px; color: #475569; line-height: 1.6; margin-top: 9px; border-top: 1px solid #F1F5F9; padding-top: 9px; display: none; }
+.card.open .card-body { display: block; }
+
+.cb-section { margin-bottom: 10px; }
+.cb-section:last-child { margin-bottom: 0; }
+.cb-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px; display: block; }
+.lbl-status  { color: #1D4ED8; }
+.lbl-activity { color: #059669; }
+.lbl-next    { color: #7C3AED; }
+.lbl-blocker { color: #DC2626; }
+.lbl-metrics { color: #D97706; }
+.lbl-value   { color: #64748B; }
+
+.card-body p { font-size: 11px; color: #475569; line-height: 1.6; margin-bottom: 4px; }
+.card-body ul { padding-left: 16px; margin: 4px 0; }
+.card-body li { font-size: 11px; color: #475569; margin-bottom: 3px; line-height: 1.5; }
+
+.blocker-box { background: #FEF2F2; border-left: 3px solid #DC2626; padding: 7px 10px; border-radius: 4px; margin-top: 4px; font-size: 11px; color: #991B1B; line-height: 1.5; }
+.metrics-box { background: #F0FDF4; border-left: 3px solid #16A34A; padding: 7px 10px; border-radius: 4px; margin-top: 4px; font-size: 11px; color: #166534; line-height: 1.5; }
+.metrics-box ul { padding-left: 14px; }
+.metrics-box li { color: #166534; }
+
+.card-updated { font-size: 10px; color: #94A3B8; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #E2E8F0; }
+
+/* ── BAU & METRICS ──────────────────────────────────────────────── */
+.bau { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.section-hdr { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: #64748B; margin-bottom: 14px; }
+.bau-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 20px; padding: 6px 14px; font-size: 12px; color: #334155; }
+.chip b { color: #0F172A; }
+
+.metrics { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 32px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 14px; }
+.metric { background: #F8FAFC; border-radius: 8px; padding: 16px 18px; border: 1px solid #E2E8F0; text-align: center; }
+.metric-n { font-size: 26px; font-weight: 900; color: #1E293B; }
+.metric-n.tbd { font-size: 15px; color: #94A3B8; font-weight: 400; padding-top: 6px; }
+.metric-lbl { font-size: 11px; color: #64748B; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+.metric-sub { font-size: 10px; color: #94A3B8; margin-top: 5px; line-height: 1.4; }
+.metric-trend { font-size: 11px; font-weight: 700; margin-top: 4px; }
+.trend-up { color: #16A34A; } .trend-dn { color: #DC2626; }
+
+.footer { background: #0F172A; padding: 14px 48px; text-align: center; color: #475569; font-size: 11px; }
+
+@media (max-width: 1100px) {
+  .col-headers, .swimlane { grid-template-columns: 140px 1fr 1.5fr 1.2fr; }
+  .board, .header, .legend { padding-left: 24px; padding-right: 24px; }
+}
+@media (max-width: 768px) {
+  .col-headers { display: none; }
+  .swimlane { grid-template-columns: 1fr; }
+  .sl-label { display: none; }
+  .board { padding: 16px; }
+  .header { padding: 20px; }
+  .legend { padding: 10px 20px; }
+  .hint { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>CRM Team — Initiative Tracker 2026</h1>
+  <p class="subline">Partners · Direct · Swag &nbsp;·&nbsp; Chris Mockford (Mocks) · Cara Ng · Claire Lee</p>
+  <div class="header-meta">
+    <span class="audience-tag">Audience: Direct Manager · Head of Growth Marketing · CMO</span>
+    <span class="refresh-tag">Last refreshed: 29 May 2026 &nbsp;·&nbsp; Updated weekly</span>
+  </div>
+</div>
+
+<div class="legend">
+  <span><span class="dot" style="background:#22C55E"></span>Delivered</span>
+  <span><span class="dot" style="background:#3B82F6"></span>Live</span>
+  <span><span class="dot" style="background:#F59E0B"></span>In Progress</span>
+  <span><span class="dot" style="background:#94A3B8"></span>Planned (Q4)</span>
+  <span class="hint">Click any card to expand status detail</span>
+</div>
+
+<div class="board">
+
+  <div class="summary-bar">
+    <div class="sum"><span class="sum-n n-green">11</span><span class="sum-l">Delivered<br>this year</span></div>
+    <div class="sum"><span class="sum-n n-blue">11</span><span class="sum-l">Live &amp;<br>ongoing</span></div>
+    <div class="sum"><span class="sum-n n-amber">7</span><span class="sum-l">In<br>progress</span></div>
+    <div class="sum"><span class="sum-n n-grey">10</span><span class="sum-l">Planned<br>Q4</span></div>
+    <div class="sum"><span class="sum-n n-violet">5</span><span class="sum-l">Relevance AI<br>workforces live</span></div>
+    <div class="sum"><span class="sum-n n-teal">4</span><span class="sum-l">Regions with<br>AI sequences</span></div>
+  </div>
+
+  <div class="col-headers">
+    <div class="ch ch-lbl"></div>
+    <div class="ch ch-done">✅&nbsp; Q1–Q2 &nbsp;·&nbsp; Delivered</div>
+    <div class="ch ch-live">🔵&nbsp; Q3 &nbsp;·&nbsp; Live &amp; In Progress</div>
+    <div class="ch ch-plan">📋&nbsp; Q4 &nbsp;·&nbsp; Planned</div>
+  </div>
+
+  <!-- ── SWIMLANE 1: AI OUTBOUND & PERSONALISATION ─────────────────── -->
+  <div class="swimlane sl-ai">
+    <div class="sl-label"><div class="sl-label-inner"><span class="sl-label-text">AI-Powered Outbound &amp; Personalisation</span></div></div>
+
+    <div class="col-cells done-col">
+
+      <div class="card card-done" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">AI SDR — Phase 1: Build &amp; Test</div>
+        <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q1</div>
+        <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Delivered. Foundational AI SDR infrastructure operational in AU+NZ OB. Now the baseline for all AI sequence work globally.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-metrics">Key Outcomes</span>
+            <div class="metrics-box"><ul>
+              <li>All ANZ OB SDRs on AI personalised sequences</li>
+              <li>Average token spend reduced from 32.61 → 17.27 per run (−47%) via ongoing optimisations</li>
+              <li>Backup models (OpenAI) added for resilience</li>
+            </ul></div>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-done" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">AI SDR — Phase 2: Global Scale</div>
+        <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q2</div>
+        <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Delivered. All OB SDRs globally transitioned to AI-personalised sequences. Legacy fixed sequences archived. Feedback loops in place.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-metrics">Key Outcomes</span>
+            <div class="metrics-box"><ul>
+              <li>ANZ Lost Revive conversion more than doubled: 4.02% → 8.34%</li>
+              <li>Total opps tripled: 11 → 32</li>
+              <li>Click rates up: 2.1% → 5.1%</li>
+            </ul></div>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-cells live-col">
+
+      <div class="card card-live" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">AI SDR — Webinars &amp; Content Syndication</div>
+        <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Live across ANZ, UK and Canada. AI dynamically references the lead's latest conversion source (webinar, content download) to frame personalised emails. Campaign member status triggers determine pre/post-event email tone automatically.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-activity">Recent Activity</span>
+            <ul>
+              <li>UK webinar sequences deployed with dynamic event timing logic (May 2026)</li>
+              <li>Canada SRED webinar personalisation sequence completed and live (May 2026)</li>
+              <li>Webinar &amp; events sequences in UK rolled over to AI-powered versions (May 11)</li>
+            </ul>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-metrics">Early Metrics</span>
+            <div class="metrics-box"><ul>
+              <li>UK reply rate: 4.7% → 5.7%</li>
+              <li>CA reply rate: 15% → 16.2%</li>
+            </ul></div>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Monitor UK/CA performance; optimise based on SDR feedback</li>
+              <li>Consider expanding AI event sequences to additional event types</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-live" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Define Relevance AI Sequence Framework</div>
+        <div class="card-meta">Owner: Mocks / Cara &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Live. Framework documented covering email vs snippet configuration, best-practice sequence structure, and AI personalisation trigger setup. Rev Ops alignment in progress.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Full operationalisation with all SDR leaders</li>
+              <li>Rev Ops sign-off on trigger architecture</li>
+              <li>Use as onboarding reference for new regions</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-live" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Weighted Sequence-Level AB Testing</div>
+        <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Live. SF AB field incorporated into auto-enrolment conditions. Volume splitting between competing AI sequences at configurable ratios. Enables direct comparison of prompt variants at sequence level.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Build additional sequence variants to actively test</li>
+              <li>Measure competing prompt effectiveness over 4–6 week periods</li>
+              <li>Integrate findings into Self-Maintained Playbook (Q4 initiative)</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-progress" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">AI Research Brief — All Sequences</div>
+        <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Live across ANZ, UK and Canada IB sequences. Research notes include TLDR, Lead/Company Overview, 6sense intent data, conversion context, case study suggestions and call talking points. Today (29 May): major new enhancement shipped — 24-month conversation history now analysed to shape hooks/openers and avoid repeating previous objections.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-activity">Recent Activity</span>
+            <ul>
+              <li>UK inbound call notes live for 50+ sequences as of May 11</li>
+              <li>Canada call notes live (confirmed in Q3 roadmap)</li>
+              <li>May 29: New conversation history tool deployed — agent reads 24 months of calls, emails and LinkedIn activity to shape research notes and re-engagement angle</li>
+              <li>In ~8% of runs, agent detects data discrepancies (job change, region mismatch) and pauses for SDR input</li>
+            </ul>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-metrics">Qualitative Feedback</span>
+            <div class="metrics-box">SDR and manager feedback has been "highly positive" (Amy Le Grange, CRM Q3 update, May 2026). Time saving estimated at ~30 min/prospect.</div>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Announce conversation history enhancement to SDR teams</li>
+              <li>Evaluate SF data enrichment using research findings (8% discrep rate = enrichment opportunity)</li>
+              <li>Gather structured feedback to shape call note format</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-progress" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Increase AI Adoption — UK</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>AI personalisation live for UK inbound sequences including webinar and event leads. Call notes live for 50+ UK IB sequences. Jim Maynard (UK SDR Leader) engaged and communicating updates to team.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-metrics">Early Metrics</span>
+            <div class="metrics-box">UK reply rate: 4.7% → 5.7% (early signal, building over time)</div>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Expand AI personalisation to broader UK OB sequences</li>
+              <li>Gather structured feedback from UK SDR team</li>
+              <li>Monitor reply rates and opp conversion over next 4–6 weeks</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-progress" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Increase AI Adoption — Canada</div>
+        <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>AI personalisation live for Canada webinar MQL sequences and SRED campaign. Call notes live. Early reply rate improvement confirmed.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-metrics">Early Metrics</span>
+            <div class="metrics-box">CA reply rate: 15% → 16.2%</div>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Expand to broader CA IB sequences beyond webinar/SRED</li>
+              <li>Align with CA SDR leadership on rollout plan</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-progress" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Optimised Relevance Workforce Setup</div>
+        <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Significant improvements already deployed. Key remaining work: webhook implementation to replace fragile Salesforce sync dependency, and resolution of the organisation-wide Relevance AI concurrency cap.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-activity">Improvements Shipped</span>
+            <ul>
+              <li>Token spend cut 47%: 32.61 → 17.27 per run</li>
+              <li>Backup model (OpenAI) added as fallback to Anthropic</li>
+              <li>SDR Alert &amp; Pause workflow (detects job changes, region mismatches, contact errors)</li>
+              <li>Slack notification flows + Outreach tagging for faster troubleshooting</li>
+              <li>Search guardrail caps and auto-autonomy limit reductions</li>
+            </ul>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-blocker">Active Blocker</span>
+            <div class="blocker-box">Organisation-wide hard cap of 30 concurrent Relevance AI tasks. Bid to increase was rejected. As AI SDR usage scales, this cap will be hit more frequently — potentially queuing or blocking business-critical workflows. Amy Le Grange has escalated to Christophe Eymery &amp; Tas (Apr 30). No resolution yet.</div>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Implement webhooks to replace Salesforce sync triggers</li>
+              <li>Build autonomous failure alerting so issues are caught without manual monitoring</li>
+              <li>Re-raise concurrency cap with leadership; explore task prioritisation feature with Relevance AI</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-cells plan-col">
+
+      <div class="card card-planned" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Built-in Evals &amp; Self-Healing Workflows</div>
+        <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q4</div>
+        <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Not started. Scoped and prioritised. Will build on the existing Relevance AI eval harness functionality once Q3 infrastructure work stabilises.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-value">Value</span>
+            <p>Provides evidence-based confidence that AI prompt changes are genuinely improving output quality. Becoming industry standard for AI operations.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-planned" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Self-Maintained Best Practice Playbook</div>
+        <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q4</div>
+        <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Not started. Concept defined. Will be built using Relevance AI to auto-write AB test conclusions to a centralised knowledge base.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-value">Value</span>
+            <p>Institutional knowledge preserved automatically. Accelerates onboarding. Prevents insights being lost in Slack threads.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SWIMLANE 2: QUALIFIED CHATBOT & INBOUND ──────────────────────── -->
+  <div class="swimlane sl-qual">
+    <div class="sl-label"><div class="sl-label-inner"><span class="sl-label-text">Qualified Chatbot &amp; Inbound Modernisation</span></div></div>
+
+    <div class="col-cells done-col">
+
+      <div class="card card-done" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Qualified Chatbot — SF Integration</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; April 2026</div>
+        <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Live. Salesforce integration operational. Enables real-time prospect identification via account fuzzy-matching, omni-channel segmentation and routing logic based on live SF data. Resolved after a multi-week escalation to engineering and Qualified support teams (March–April 2026).</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-value">Value Unlocked</span>
+            <p>Foundation for direct SDR booking, partner routing, and proactive pouncing features. Faster routing = shorter time-to-SAO from chatbot interactions.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-done" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Direct SDR Booking — Phase 1 Live</div>
+        <div class="card-meta">Owner: Mocks / Cara &nbsp;·&nbsp; May 19, 2026</div>
+        <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Launched May 19, 2026 for inbound SDRs. Visitors book directly with the right SDR via the chatbot based on routing rules (RoE-aware, customer/prospect segmentation). SDRs receiving new meetings directly in calendar — no BAD process required.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-activity">Recent Activity</span>
+            <ul>
+              <li>Go-live announced by Cara to all IB SDR managers May 19</li>
+              <li>Post-launch Q&amp;A with Usman (May 22): missing reps can be self-invited; calendar "free" slots correctly shown as available</li>
+              <li>RoE territory reallocation question raised with Usman — routing logic confirmed and documented (May 26–27)</li>
+              <li>Routing logic confirmed: existing customers route to owner; SF records with RoE=true route to owner; no record routes to country/market team</li>
+            </ul>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Confirm all SDRs have completed onboarding setup (some still pending)</li>
+              <li>Engage web redesign team — Qualified confirmed as engine for 5 Hero AI business flows (May 22)</li>
+              <li>Clarify bogus booking crediting process with Usman</li>
+              <li>Extend direct booking to RoE territory edge cases</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-done" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">AI-Generated Call Notes → Outreach (Multi-region)</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; April–May 2026</div>
+        <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Live across AU, NZ, UK and Canada IB sequences. Notes populated to Outreach Prospect Notes field with clean formatting. Also persisted to Salesforce for full lead→opp journey visibility.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-activity">Latest Enhancement (May 29)</span>
+            <ul>
+              <li>New tool added: 24-month conversation history (calls, emails, LinkedIn) analysed to shape hooks and identify re-engagement angles</li>
+              <li>Previous objections factored in — agent avoids repeating known blockers</li>
+              <li>Strategic backup pitch generated for common objection scenarios</li>
+            </ul>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-metrics">Feedback</span>
+            <div class="metrics-box">SDR and manager feedback "highly positive" (May 2026 CRM Q3 update). Time saving: ~30 min/prospect research.</div>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-done" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Standalone Recruitment Agent Launch</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; April 24, 2026</div>
+        <div class="card-badges"><span class="badge b-done">Done</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Delivered. Dedicated Relevance AI workforce, Outreach sequence (recruitment-specific structure: 2 calls + SMS early), Outreach meeting type, and triggers all live. Zhaden Flynn (Recruitment SDR) operational on the sequence.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-value">Value</span>
+            <p>Demonstrates team's ability to build bespoke AI-powered outbound infrastructure for new product lines beyond core SDR. New revenue angle with fast ramp potential.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-done" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Drift Platform Decommission</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; May 2026</div>
+        <div class="card-badges"><span class="badge b-done">Done</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Complete. Drift fully decommissioned. Clari/Salesloft (Drift's parent) announced platform sunset in March 2026 — timing aligned with our own migration.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-value">Value</span>
+            <p>Legacy platform overhead removed. Chatbot operations consolidated in Qualified. Avoids being stranded on a sunsetting product.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-cells live-col">
+
+      <div class="card card-live" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Qualified Experience Optimisation</div>
+        <div class="card-meta">Owner: Claire / Cara &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Active. Direct booking journey live (Phase 1). Partner routing pathway being built. Major expansion underway: Qualified confirmed as the backend engine for 5 flows in the forthcoming Hero AI website redesign (demo booking routing, live SDR handoff, qualification gate, email capture, SF data push).</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-activity">Recent Activity</span>
+            <ul>
+              <li>May 22: Website redesign team confirmed Qualified to support 5 Hero AI business flows</li>
+              <li>Mocks engaging Amber (web team) and Usman to align Qualified's role in Hero AI chat widget</li>
+              <li>Qualified KPI dashboards live globally for all regions</li>
+            </ul>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Partner routing: Usman to complete build (spec submitted May 25)</li>
+              <li>Qualified + web redesign technical kick-off (Amber on leave from Thursday)</li>
+              <li>Knowledge base manual re-crawl triggered (monthly auto-crawl insufficient for content updates)</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-live" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">SDR Champions Programme</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Active. Champions identified in key SDR teams. Regular catch-up cadence established. AB test ideas being channelled through champion structure.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Run first champion-attributed AB test and report results back to the team</li>
+              <li>Expand champion network to UK and Canada teams</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-progress" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Qualified — Partner Routing Experience</div>
+        <div class="card-meta">Owner: Claire / Cara &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Spec submitted and accepted. Usman (Qualified) building the experience. Two-option approach: (1) standalone "I'm exploring on behalf of a client" button for self-identifying partners; (2) branching within "Request sales meeting" flow to route partner intent to Partnership SDRs. Button copy approved by Claire Sertori (Partnerships).</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-activity">Recent Activity</span>
+            <ul>
+              <li>May 25: Claire submitted 2-option partner routing spec to team</li>
+              <li>May 26: Claire shared partner SDR routing list with Usman (mirrors Direct SDR structure)</li>
+              <li>May 27: Usman confirmed understanding — partner visitors who inquire about becoming a partner will book into Partner SDR queue</li>
+            </ul>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Usman to complete build</li>
+              <li>Test partner routing before go-live</li>
+              <li>Align on new Marketo program for partner lead capture (Greg Beazley)</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-progress" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Lost Revive AI Workforce Improvement</div>
+        <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>AU/NZ live with significantly improved v3 workforce. Delivering major conversion improvements. NZ OB sequence experiencing some "Contact Details Mismatch" errors being investigated.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-activity">Recent Activity</span>
+            <ul>
+              <li>Apr 9: Updated LR workforce live — shorter emails, calendar links in emails 1 &amp; 3, call notes included</li>
+              <li>Apr 21: Further update — focus on single main pain point per email, correct formatting</li>
+              <li>Apr 23: SDR Alert &amp; Pause Workflow added — detects job changes, company moves, region mismatches, contact detail discrepancies; SDR gets Slack DM with A/B/C choice</li>
+            </ul>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-metrics">Metrics</span>
+            <div class="metrics-box"><ul>
+              <li>Prospect-to-opp conversion: 4.02% → 8.34% (+108%)</li>
+              <li>Total opps: 11 → 32 (tripled)</li>
+              <li>Click rates: 2.1% → 5.1%</li>
+            </ul></div>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-blocker">Active Issue</span>
+            <div class="blocker-box">NZ OB sequence (Seq 881) showing "Contact Details Mismatch (Relevance AI) / Workforce not fired" errors reported by Ashton McHardy's team (May 25). Under investigation by Cara.</div>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Resolve NZ sequence mismatch errors</li>
+              <li>Consider replicating LR AI approach for UK/CA Lost Revive teams</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-progress" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">AE Outreach Expansion — 38 Seats</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Discovery complete. Decision made to expand Outreach to AU Core AEs. Gong Engage confirmed as non-functional by 3 AEs (not used for sequencing, calling, or task management; email tracking unreliable; SF &amp; Gmail integrations broken). Even the network-level fix (Cloudflare ZTNA migration) won't land until end of July at earliest. RevOps (Sheana) flagging capacity constraints — needs Sales to own project with proper discovery phase.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-activity">Recent Activity (today — 29 May)</span>
+            <ul>
+              <li>Met with AEs Adam, Will and Elliott — Gong Engage formally ruled out</li>
+              <li>Mariea (Sales Ops) aligned: don't introduce new system, expand what works</li>
+              <li>Clare (Enablement) confirmed existing playbooks and SDR infrastructure ready to extend</li>
+              <li>Sheana (RevOps) raised bandwidth concerns to Thomas Pyle and Allan De Brincat</li>
+              <li>Sheana recommending small-scale trial first rather than full 38-seat rollout</li>
+            </ul>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-blocker">Active Risk</span>
+            <div class="blocker-box">RevOps at capacity — cannot own the project scoping. Sales is moving fast without full cross-functional alignment (Enablement, Sales Automation not yet formally scoped in). Risk of permanent commitment under a "6-month trial" framing. Sheana has escalated to Thomas Pyle and Allan De Brincat for governance support.</div>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Sheana to book Outreach vendor meeting to discuss pilot upgrade options</li>
+              <li>Use HubSpot competitive quote ($58 ppm, 68% discount, 6-month term) as negotiation lever</li>
+              <li>Pilot target: 150 AE self-sourced SAOs/month, $500K ARR pipeline contribution</li>
+              <li>Thomas Pyle + Allan De Brincat to provide governance oversight</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-cells plan-col">
+
+      <div class="card card-planned" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">AI-Driven Content Repository</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q4</div>
+        <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Not started. Concept developed. Requires stakeholder alignment on content ownership before build. Phase 2 (UI via Claude Code) dependent on Claude Code access being formalised.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-value">Value</span>
+            <p>Single source of truth for all content. Eliminates outdated/off-brand materials. Removes content hunting from SDR workflows.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-planned" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Content Repository 3.0</div>
+        <div class="card-meta">Owner: Claire &nbsp;·&nbsp; Q4</div>
+        <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Not started. Process designed. Dependent on Claude Code access.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-value">Value</span>
+            <p>Bulk content amendments (previously 10+ hours manual) become a fast automated process across 445+ sequences.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-planned" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Upsell Fixer-Upper Project</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q4</div>
+        <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Not started. Requires alignment between RevOps, SalesOps, MarOps and Upsell SDR teams on field usage and trigger configuration before build can commence.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-value">Value</span>
+            <p>Fixes systematic gaps preventing upsell team from using Outreach. Better ROI, unified process across all SDR cohorts.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SWIMLANE 3: ANALYTICS, REPORTING & INSIGHTS ─────────────────── -->
+  <div class="swimlane sl-data">
+    <div class="sl-label"><div class="sl-label-inner"><span class="sl-label-text">Analytics, Reporting &amp; Insights</span></div></div>
+
+    <div class="col-cells done-col">
+
+      <div class="card card-done" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Outreach Performance Reporting 2.0</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q1</div>
+        <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Live. Weekly cadence maintained by Claire. 2026 reporting template operational, covering regional and segment-level performance. Claire shares weekly usage metrics to SDR leaders every week.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-activity">Recent Metrics (week of May 18)</span>
+            <ul>
+              <li>Overdue tasks: 2,499 (↓35% vs prior week of 3,868)</li>
+              <li>Bounced emails: 209 (↓4%)</li>
+              <li>Skipped tasks: 726 (↑74% — worth monitoring)</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-done" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">SDR Sequence Cohesion Analysis</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q2</div>
+        <div class="card-badges"><span class="badge b-done">Done</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Completed and shared. Novel methodology measuring step-level cadence adherence — surfaces a blind spot in standard Outreach task reporting. Findings shared with Amy Le Grange and being integrated into insights reporting framework.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-metrics">Key Findings</span>
+            <div class="metrics-box"><ul>
+              <li>60% of prospects in each sequence receiving a broken buyer journey</li>
+              <li>~1,100 prospects with overdue tasks in Seq 868 alone; ~54% more than 3 days overdue</li>
+              <li>Sequence cohesion yields 6x better opp conversion when done well vs poorly (Claude Code PoC confirmed)</li>
+              <li>SDRs executing bursts of on-time activity then stopping — not visible in standard task reporting</li>
+            </ul></div>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Scale sample size for broader validation</li>
+              <li>Feed findings into SDR leader conversations on task prioritisation</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-cells live-col">
+
+      <div class="card card-live" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Insights-Driven Reporting</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Live. Monthly insights cadence established. Shifting from data tables to contextual, actionable narratives for SDR leaders.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Incorporate cohesion analysis findings into monthly insights format</li>
+              <li>Build template for consistent insight structure across regions</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-live" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Relevance AI Sequence Reporting Framework</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Live. Framework for measuring AI sequence performance in place. Shared with Amy Le Grange and SDR leadership. Now being used to surface AI-specific metrics alongside standard reporting.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-metrics">Headlines</span>
+            <div class="metrics-box"><ul>
+              <li>UK AI reply rate improvement: 4.7% → 5.7%</li>
+              <li>CA AI reply rate improvement: 15% → 16.2%</li>
+              <li>Lost Revive conversion: 4.02% → 8.34%</li>
+            </ul></div>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-live" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Qualified Chatbot Reporting &amp; Optimisation</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>KPI dashboards live globally for all regions. Monthly reporting process operational. Reporting covers: total sessions, sessions with bot/rep conversation, gated content completions, and direct booking conversion.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Add direct booking volume to dashboard now Phase 1 is live (since May 19)</li>
+              <li>Build partner pathway metrics once routing goes live</li>
+              <li>Connect Qualified analytics to broader CRM Intelligence Hub Dashboard build</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-live" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">CRM AB Test Alignment &amp; Squad</div>
+        <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Active. Unified AB test log in place. Cross-functional insights being consolidated for the first time. Squad meeting cadence established.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Formalise process for updating log after each test conclusion</li>
+              <li>Share insights digest with SDR Champions (link to Champions Programme)</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-progress" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Outreach Sequence Outcomes — SF Custom Reporting</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>In progress. Scoped. Requires custom SF field build by the SFDC dev team. Rev Ops buy-in being sought.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-value">Value</span>
+            <p>Breaks the current Outreach/Salesforce data silo. Enables SDR performance conversations to include sequence journey data for the first time.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Formal sign-off from Rev Ops</li>
+              <li>SFDC dev team engagement for field build</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-cells plan-col">
+
+      <div class="card card-planned" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Outreach Sequence Outcomes — Claude Code</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q4</div>
+        <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Not started. Builds on the AI-Powered Platform Reporting PoC (Claude Code MCP) which confirmed feasibility — sequence cohesion analysis already produced via this approach.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-value">Value</span>
+            <p>Strategic visibility into how sequence journey depth impacts sales conversion. Informs future sequence structure, cadence and length decisions.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-planned" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Unified Platform Reporting (Claude Code)</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q4</div>
+        <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Not started. Dependent on individual platform reporting processes being established first (Outreach ✓, Qualified ✓, Gong Engage — now likely being replaced by Outreach AE expansion).</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-value">Value</span>
+            <p>One-stop insights dashboard for leadership. Removes fragmented, tool-by-tool reporting.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── SWIMLANE 4: CRM GOVERNANCE & TOOLING ───────────────────────── -->
+  <div class="swimlane sl-gov">
+    <div class="sl-label"><div class="sl-label-inner"><span class="sl-label-text">CRM Governance &amp; Tooling</span></div></div>
+
+    <div class="col-cells done-col">
+
+      <div class="card card-done" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Outreach Meeting Types — Standards Uplift</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q2</div>
+        <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Delivered. All Outreach meeting types standardised — naming conventions, settings, routing rules, invite copy, reminder timings. Inactive types archived. Communicated to all teams.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-done" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Drift Platform Decommission</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; May 2026</div>
+        <div class="card-badges"><span class="badge b-done">Done</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Complete. Drift fully removed from the tech stack. All chatbot operations in Qualified. (Note: Clari/Salesloft announced Drift sunset March 2026.)</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-cells live-col">
+
+      <div class="card card-progress" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Sales Automation Governance Framework</div>
+        <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
+        <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Draft governance model published in Confluence. Advocating for adoption with Amy Le Grange. Covers UK and Canada expansion standards — ownership, process, and decision-making framework for all SA tooling globally.</p>
+          </div>
+          <div class="cb-section">
+            <span class="cb-label lbl-next">Next Steps</span>
+            <ul>
+              <li>Share model with Claire Lee and key stakeholders for input</li>
+              <li>Formal sign-off from Amy Le Grange</li>
+              <li>Use AE Outreach expansion as first live application of the framework</li>
+            </ul>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-cells plan-col">
+
+      <div class="card card-planned" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Trigger Conflict Detector</div>
+        <div class="card-meta">Owner: Claire / Cara &nbsp;·&nbsp; Q4</div>
+        <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Not started. 49 active triggers currently in system. Growing complexity creating risk of leads being enrolled in multiple or incorrect sequences. Identified as a Q4 priority following Cassie's departure from RevOps.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-planned" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Outreach Trigger Cleanup 2.0</div>
+        <div class="card-meta">Owner: Claire / Cara &nbsp;·&nbsp; Q4</div>
+        <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Not started. Requires Rev Ops support to execute. Lower priority until Cassie's successor (Sheana) stabilises BAU.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+      <div class="card card-planned" tabindex="0">
+        <span class="expand-indicator">▼</span>
+        <div class="card-title">Consolidate Outreach Sequences</div>
+        <div class="card-meta">Owner: Claire &nbsp;·&nbsp; Q4</div>
+        <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-body">
+          <div class="cb-section">
+            <span class="cb-label lbl-status">Current Status</span>
+            <p>Not started. Currently 445 active sequences. Many made redundant by AI iterations. Archiving project will reduce noise and improve SDR navigation and admin efficiency.</p>
+          </div>
+          <div class="card-updated">Updated: 29 May 2026</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── BAU ───────────────────────────────────────────────────────────── -->
+  <div class="bau">
+    <div class="section-hdr">Ongoing Operational Work (BAU) — Always on, not tied to a fixed timeline</div>
+    <div class="bau-chips">
+      <div class="chip"><b>Claire</b> · Weekly Outreach Usage Metrics Report (every Monday to SDR leaders)</div>
+      <div class="chip"><b>Cara</b> · Daily Relevance AI Workforce Monitoring &amp; Fixes</div>
+      <div class="chip"><b>Mocks / Team</b> · Monthly Performance Reporting &amp; Insights</div>
+      <div class="chip"><b>Cara / Claire</b> · Sequence Content Cycling &amp; Updates</div>
+      <div class="chip"><b>Team</b> · Ongoing Sequence Performance Optimisations</div>
+      <div class="chip"><b>Cara</b> · AB Test Cadence &amp; Review</div>
+      <div class="chip"><b>Mocks</b> · Stakeholder Reporting &amp; Communications</div>
+      <div class="chip"><b>Mocks</b> · Cross-functional project contributions (Website redesign, CRM AI Training, Consent audit)</div>
+    </div>
+  </div>
+
+  <!-- ── METRICS ───────────────────────────────────────────────────────── -->
+  <div class="metrics">
+    <div class="section-hdr">Key Metrics — Updated 29 May 2026</div>
+    <div class="metrics-grid">
+      <div class="metric">
+        <div class="metric-n n-green">8.34%</div>
+        <div class="metric-lbl">Lost Revive Conversion</div>
+        <div class="metric-sub">Prospect-to-opp</div>
+        <div class="metric-trend trend-up">↑ from 4.02% (+108%)</div>
+      </div>
+      <div class="metric">
+        <div class="metric-n n-green">32</div>
+        <div class="metric-lbl">Lost Revive Opps</div>
+        <div class="metric-sub">From AI sequences (was 11)</div>
+        <div class="metric-trend trend-up">↑ tripled</div>
+      </div>
+      <div class="metric">
+        <div class="metric-n n-blue">5.7%</div>
+        <div class="metric-lbl">UK AI Reply Rate</div>
+        <div class="metric-sub">AI-personalised sequences</div>
+        <div class="metric-trend trend-up">↑ from 4.7%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-n n-blue">16.2%</div>
+        <div class="metric-lbl">CA AI Reply Rate</div>
+        <div class="metric-sub">AI-personalised sequences</div>
+        <div class="metric-trend trend-up">↑ from 15.0%</div>
+      </div>
+      <div class="metric">
+        <div class="metric-n n-violet">−47%</div>
+        <div class="metric-lbl">AI Token Efficiency</div>
+        <div class="metric-sub">32.61 → 17.27 per run</div>
+        <div class="metric-trend trend-up">Cost &amp; speed improvement</div>
+      </div>
+      <div class="metric">
+        <div class="metric-n n-teal">6x</div>
+        <div class="metric-lbl">Cohesion Impact</div>
+        <div class="metric-sub">Better opp conversion: high vs low sequence cohesion</div>
+        <div class="metric-trend">Sequence Cohesion PoC</div>
+      </div>
+      <div class="metric">
+        <div class="metric-n tbd">[ Add ]</div>
+        <div class="metric-lbl">Qualified Bookings</div>
+        <div class="metric-sub">Direct bookings since May 19 go-live</div>
+      </div>
+      <div class="metric">
+        <div class="metric-n n-green">2,499</div>
+        <div class="metric-lbl">Overdue Tasks (Outreach)</div>
+        <div class="metric-sub">Week of May 18</div>
+        <div class="metric-trend trend-up">↓ 35% vs prior week (3,868)</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  CRM Team — Initiative Tracker 2026 &nbsp;·&nbsp; Partners · Direct · Swag &nbsp;·&nbsp; Refreshed weekly &nbsp;·&nbsp; Last updated: 29 May 2026
+</div>
+
+<script>
+document.querySelectorAll('.card').forEach(card => {
+  card.addEventListener('click', () => card.classList.toggle('open'));
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('open'); }
+  });
+});
+</script>
+
+</body>
+</html>
