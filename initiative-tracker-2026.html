@@ -143,6 +143,31 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .ytd-open { color: #D97706; font-weight: 700; }
 .chart-wrap { position: relative; height: 260px; }
 
+/* ── UPCOMING PRIORITIES ───────────────────────────────── */
+.priorities-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.priorities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
+.priority-card { background: #F8FAFC; border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; }
+.priority-list { list-style: none; padding: 0; margin: 0; }
+.priority-list li { font-size: 11px; color: #475569; padding: 5px 0; border-bottom: 1px solid #E2E8F0; line-height: 1.45; display: flex; gap: 6px; }
+.priority-list li:last-child { border-bottom: none; }
+.pri-arrow { color: #2563EB; font-weight: 700; flex-shrink: 0; font-size: 12px; }
+
+/* ── TEAM HIGHLIGHTS ───────────────────────────────────── */
+.highlights-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.highlights-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px; margin-top: 14px; scrollbar-width: thin; }
+.highlight-card { background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%); border-radius: 10px; padding: 16px 18px; border: 1px solid #DBEAFE; min-width: 300px; max-width: 360px; flex-shrink: 0; }
+.highlight-emoji { font-size: 26px; margin-bottom: 8px; line-height: 1; }
+.highlight-title { font-size: 13px; font-weight: 700; color: #0F172A; margin-bottom: 6px; line-height: 1.35; }
+.highlight-detail { font-size: 11px; color: #475569; line-height: 1.6; }
+.highlight-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 10px; }
+.hl-tag { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.4px; }
+.hl-violet { background: #F3E8FF; color: #6D28D9; }
+.hl-green  { background: #DCFCE7; color: #166534; }
+.hl-blue   { background: #DBEAFE; color: #1D4ED8; }
+.hl-amber  { background: #FEF3C7; color: #92400E; }
+.hl-indigo { background: #EDE9FE; color: #4C1D95; }
+.hl-people { font-size: 10px; color: #94A3B8; }
+
 /* ── KEY UPDATES ───────────────────────────────────────── */
 .updates-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
 .updates-hdr { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
@@ -315,6 +340,60 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
       <span class="wins-date" id="wins-date"></span>
     </div>
     <div class="wins-grid" id="wins-grid"></div>
+  </div>
+
+  <!-- AGENT-DATA:upcoming-priorities-start -->
+  <script id="upcoming-priorities-data">
+  const UPCOMING_PRIORITIES = {
+    "weekOf": "2 Jun – 8 Jun 2026",
+    "Chris": [
+      "Arrange Outreach vendor meeting for AE pilot (38 seats, HubSpot quote as leverage)",
+      "Qualified + Hero AI technical kick-off with Amber & web team before Thursday",
+      "Announce AI call notes conversation history enhancement to all SDR teams",
+      "Review and finalise AE Outreach pilot commercials and governance approach"
+    ],
+    "Cara": [
+      "Resolve NZ Lost Revive sequence errors (Contact Details Mismatch tags)",
+      "Continue HeroForce sequence optimisation with IB team feedback",
+      "Assess Lost Revive AI approach for UK/CA teams given ANZ conversion results",
+      "Daily Relevance AI workforce monitoring"
+    ],
+    "Claire": [
+      "Qualified partner routing — test and support go-live",
+      "Finalise partner SDR routing list with Usman",
+      "Weekly Outreach usage metrics report",
+      "Monitor direct booking setup completion across SDR teams"
+    ]
+  };
+  </script>
+  <!-- AGENT-DATA:upcoming-priorities-end -->
+
+  <!-- AGENT-DATA:highlights-start -->
+  <script id="highlights-data">
+  const HIGHLIGHTS = [
+    {
+      "emoji": "🚀",
+      "title": "Relevance AI Beta — Invent & Evaluate Access",
+      "detail": "Chris, Cara and Claire were invited to a working session with the Relevance AI co-founder and team to beta test the new Invent and Evaluate functionality. This gives the SA team early access to AI eval tooling that directly supports the roadmap initiative to build self-improving workflows.",
+      "tag": "Beta Access",
+      "tagStyle": "hl-violet",
+      "people": "Chris · Cara · Claire"
+    }
+  ];
+  </script>
+  <!-- AGENT-DATA:highlights-end -->
+
+  <div class="priorities-section">
+    <div class="section-hdr wins-hdr">
+      <span>&#127919; Coming Up This Week</span>
+      <span class="wins-date" id="priorities-date"></span>
+    </div>
+    <div class="priorities-grid" id="priorities-grid"></div>
+  </div>
+
+  <div class="highlights-section">
+    <div class="section-hdr">&#10024; Team Spotlight &nbsp;<span style="font-weight:400;color:#94A3B8;font-size:10px;text-transform:none;letter-spacing:0">Notable moments, beta access, interesting developments</span></div>
+    <div class="highlights-scroll" id="highlights-scroll"></div>
   </div>
 
   <div class="col-headers">
@@ -1515,6 +1594,44 @@ document.querySelectorAll('.card').forEach(card => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('open'); }
   });
 });
+
+// ── Upcoming Priorities renderer ───────────────────────
+(function renderPriorities() {
+  const people = [
+    { key: 'Chris',  name: 'Chris Mockford', role: 'Sales Automation Lead',        cls: 'wa-chris',  init: 'CM' },
+    { key: 'Cara',   name: 'Cara Ng',         role: 'AI Sequences & Relevance AI',  cls: 'wa-cara',   init: 'CN' },
+    { key: 'Claire', name: 'Claire Lee',      role: 'Partner Routing & Reporting',  cls: 'wa-claire', init: 'CL' }
+  ];
+  const dateEl = document.getElementById('priorities-date');
+  if (dateEl) dateEl.textContent = 'Week of ' + UPCOMING_PRIORITIES.weekOf;
+  document.getElementById('priorities-grid').innerHTML = people.map(p => `
+    <div class="priority-card">
+      <div class="win-card-hdr">
+        <div class="win-avatar ${p.cls}">${p.init}</div>
+        <div><div class="win-name">${p.name}</div><div class="win-role">${p.role}</div></div>
+      </div>
+      <ul class="priority-list">${(UPCOMING_PRIORITIES[p.key]||[]).map(item=>`<li><span class="pri-arrow">→</span><span>${item}</span></li>`).join('')}</ul>
+    </div>`).join('');
+})();
+
+// ── Highlights renderer ────────────────────────────────
+(function renderHighlights() {
+  const container = document.getElementById('highlights-scroll');
+  if (!HIGHLIGHTS || !HIGHLIGHTS.length) {
+    container.innerHTML = '<p style="font-size:12px;color:#94A3B8;padding:8px 0">No highlights this week.</p>';
+    return;
+  }
+  container.innerHTML = HIGHLIGHTS.map(h => `
+    <div class="highlight-card">
+      <div class="highlight-emoji">${h.emoji}</div>
+      <div class="highlight-title">${h.title}</div>
+      <div class="highlight-detail">${h.detail}</div>
+      <div class="highlight-footer">
+        <span class="hl-tag ${h.tagStyle}">${h.tag}</span>
+        <span class="hl-people">${h.people || ''}</span>
+      </div>
+    </div>`).join('');
+})();
 
 // ── Key Updates renderer ───────────────────────────────
 (function renderUpdates() {
