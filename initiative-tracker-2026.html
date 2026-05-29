@@ -191,6 +191,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .update-impact { font-size: 10px; color: #64748B; font-style: italic; border-top: 1px solid #E2E8F0; padding-top: 6px; }
 .update-impact::before { content: "↳ "; font-style: normal; }
 
+/* ── PROGRESS BAR ─────────────────────────────────────── */
+.card-progress { display: flex; align-items: center; gap: 8px; margin-top: 8px; margin-bottom: 2px; }
+.progress-track { flex: 1; height: 5px; background: #E2E8F0; border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+.progress-pct { font-size: 10px; font-weight: 700; min-width: 28px; text-align: right; color: #94A3B8; }
+
 /* ── CARD DUE DATE ─────────────────────────────────────── */
 .card-due { font-size: 10px; color: #64748B; margin-top: 4px; margin-bottom: 1px; display: flex; align-items: center; gap: 4px; }
 .card-due.due-tbc   { color: #94A3B8; }
@@ -272,6 +278,52 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
   
   </script>
   <!-- AGENT-DATA:weekly-wins-end -->
+
+  <!-- AGENT-DATA:progress-start -->
+  <script id="progress-data">
+  const PROGRESS_DATA = {
+    "AI SDR — Phase 1: Build & Test": 100,
+    "AI SDR — Phase 2: Global Scale": 100,
+    "AI SDR — Webinars & Content Syndication": 75,
+    "Define Relevance AI Sequence Framework": 65,
+    "Weighted Sequence-Level AB Testing": 70,
+    "Long Term Nurture Programme": 50,
+    "AI Research Brief — All Sequences": 80,
+    "Increase AI Adoption — UK": 60,
+    "Increase AI Adoption — Canada": 55,
+    "Optimised Relevance Workforce Setup": 45,
+    "Built-in Evals & Self-Healing Workflows": 0,
+    "Self-Maintained Best Practice Playbook": 0,
+    "Qualified Chatbot — SF Integration": 100,
+    "Direct SDR Booking — Phase 1 Live": 100,
+    "AI-Generated Call Notes → Outreach (Multi-region)": 100,
+    "Standalone Recruitment Agent Launch": 100,
+    "Drift Platform Decommission": 100,
+    "Qualified Experience Optimisation": 55,
+    "SDR Champions Programme": 45,
+    "Qualified — Partner Routing Experience": 35,
+    "Lost Revive AI Workforce Improvement": 70,
+    "AE Outreach Expansion — 38 Seats": 20,
+    "AI-Driven Content Repository": 0,
+    "Content Repository 3.0": 0,
+    "Upsell Fixer-Upper Project": 0,
+    "Outreach Performance Reporting 2.0": 100,
+    "SDR Sequence Cohesion Analysis": 100,
+    "Insights-Driven Reporting": 60,
+    "Relevance AI Sequence Reporting Framework": 65,
+    "Qualified Chatbot Reporting & Optimisation": 70,
+    "CRM AB Test Alignment & Squad": 50,
+    "Outreach Sequence Outcomes — SF Custom Reporting": 25,
+    "Outreach Sequence Outcomes — Claude Code": 0,
+    "Unified Platform Reporting (Claude Code)": 0,
+    "Outreach Meeting Types — Standards Uplift": 100,
+    "Sales Automation Governance Framework": 35,
+    "Trigger Conflict Detector": 0,
+    "Outreach Trigger Cleanup 2.0": 0,
+    "Consolidate Outreach Sequences": 0
+  };
+  </script>
+  <!-- AGENT-DATA:progress-end -->
 
   <!-- AGENT-DATA:key-updates-start -->
   <script id="key-updates-data">
@@ -415,6 +467,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q1</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -438,6 +491,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q2</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -465,6 +519,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -502,6 +557,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks / Cara &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -525,6 +581,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -548,6 +605,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -584,6 +642,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -611,6 +670,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -637,6 +697,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -678,6 +739,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q4</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -697,6 +759,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q4</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -725,6 +788,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; April 2026</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -744,6 +808,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks / Cara &nbsp;·&nbsp; May 19, 2026</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -777,6 +842,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; April–May 2026</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -804,6 +870,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; April 24, 2026</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -823,6 +890,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; May 2026</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -846,6 +914,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Claire / Cara &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -877,6 +946,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -899,6 +969,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Claire / Cara &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -930,6 +1001,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Cara / Mocks &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -972,6 +1044,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1014,6 +1087,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q4</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1033,6 +1107,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Claire &nbsp;·&nbsp; Q4</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1052,6 +1127,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q4</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1080,6 +1156,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q1</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1103,6 +1180,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q2</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1138,6 +1216,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1160,6 +1239,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1183,6 +1263,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-must">Must Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1206,6 +1287,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Cara &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-live">Live</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1228,6 +1310,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1258,6 +1341,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q4</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1277,6 +1361,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q4</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1305,6 +1390,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q2</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1320,6 +1406,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; May 2026</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-done">Done</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1339,6 +1426,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Mocks &nbsp;·&nbsp; Q3</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-progress">In Progress</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1366,6 +1454,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Claire / Cara &nbsp;·&nbsp; Q4</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-should">Should Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1381,6 +1470,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Claire / Cara &nbsp;·&nbsp; Q4</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1396,6 +1486,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
         <div class="card-meta">Owner: Claire &nbsp;·&nbsp; Q4</div>
         <div class="card-due due-tbc">&#128197; Due: TBC</div>
         <div class="card-badges"><span class="badge b-planned">Planned</span><span class="badge b-nice">Nice to Deliver</span></div>
+        <div class="card-progress"><div class="progress-track"><div class="progress-fill" style="width:0%"></div></div><span class="progress-pct">–</span></div>
         <div class="card-body">
           <div class="cb-section">
             <span class="cb-label lbl-status">Current Status</span>
@@ -1594,6 +1685,31 @@ document.querySelectorAll('.card').forEach(card => {
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.classList.toggle('open'); }
   });
 });
+
+// ── Progress bar renderer ──────────────────────────────
+(function renderProgressBars() {
+  const color = p => {
+    if (p === 0)   return '#E2E8F0';
+    if (p <= 30)   return '#F59E0B';
+    if (p <= 70)   return '#3B82F6';
+    if (p < 100)   return '#0D9488';
+    return '#22C55E';
+  };
+  document.querySelectorAll('.card').forEach(card => {
+    const titleEl = card.querySelector('.card-title');
+    if (!titleEl) return;
+    const title = titleEl.textContent.trim();
+    const pct = PROGRESS_DATA[title];
+    if (pct === undefined) return;
+    const fill  = card.querySelector('.progress-fill');
+    const label = card.querySelector('.progress-pct');
+    if (!fill || !label) return;
+    fill.style.width = pct + '%';
+    fill.style.background = color(pct);
+    label.textContent = pct + '%';
+    label.style.color = pct === 0 ? '#94A3B8' : color(pct);
+  });
+})();
 
 // ── Upcoming Priorities renderer ───────────────────────
 (function renderPriorities() {
