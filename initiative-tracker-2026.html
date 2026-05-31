@@ -5,18 +5,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CRM Team — Initiative Tracker 2026</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..900;1,9..40,300..900&display=swap" rel="stylesheet">
 <style>
+:root {
+  --eh-purple:       #3B0055;
+  --eh-purple-deep:  #2D003F;
+  --eh-purple-mid:   #460078;
+  --eh-purple-tint:  #EDECF1;
+  --eh-purple-light: #b382fd;
+  --eh-black:        #111318;
+  --eh-gray:         #CFCED4;
+  --eh-gray-blue:    #8FA0AE;
+  --eh-white:        #FDFBFF;
+}
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif; background: #F1F5F9; color: #1E293B; }
+body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--eh-purple-tint); color: var(--eh-black); }
 
-.header { background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%); padding: 36px 48px 28px; }
+.header { background: linear-gradient(135deg, var(--eh-purple) 0%, var(--eh-purple-mid) 100%); padding: 36px 48px 28px; }
 .header h1 { color: #F8FAFC; font-size: 26px; font-weight: 800; letter-spacing: -0.3px; }
 .header .subline { color: #94A3B8; font-size: 13px; margin-top: 8px; }
 .header-meta { display: flex; align-items: center; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
 .audience-tag { display: inline-block; background: #334155; color: #CBD5E1; font-size: 11px; padding: 4px 12px; border-radius: 12px; }
 .refresh-tag { display: inline-block; background: #1D4ED8; color: #BFDBFE; font-size: 11px; padding: 4px 12px; border-radius: 12px; }
 
-.legend { background: #1E293B; padding: 10px 48px; display: flex; gap: 28px; align-items: center; flex-wrap: wrap; border-bottom: 1px solid #334155; }
+.legend { background: var(--eh-purple-deep); padding: 10px 48px; display: flex; gap: 28px; align-items: center; flex-wrap: wrap; border-bottom: 1px solid #5A006E; }
 .legend span { font-size: 11px; color: #94A3B8; display: flex; align-items: center; gap: 6px; }
 .dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
 .hint { margin-left: auto; font-size: 11px; color: #475569; font-style: italic; }
@@ -24,7 +37,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .board { padding: 28px 48px; max-width: 1900px; margin: 0 auto; }
 
 .summary-bar { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
-.sum { background: white; border-radius: 10px; padding: 12px 20px; border: 1px solid #E2E8F0; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.sum { background: var(--eh-white); border-radius: 10px; padding: 12px 20px; border: 1px solid #E2E8F0; display: flex; align-items: center; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
 .sum-n { font-size: 24px; font-weight: 800; }
 .sum-l { font-size: 11px; color: #64748B; line-height: 1.4; }
 .n-green { color: #16A34A; } .n-blue { color: #2563EB; } .n-amber { color: #D97706; } .n-grey { color: #64748B; } .n-violet { color: #7C3AED; } .n-teal { color: #0D9488; }
@@ -51,7 +64,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .plan-col { background: #F8FAFC; border: 1px solid #E2E8F0; }
 
 /* ── CARDS ─────────────────────────────────────────────────────── */
-.card { background: white; border-radius: 8px; padding: 12px 14px; border-left: 4px solid; cursor: pointer; transition: box-shadow 0.15s, transform 0.1s; position: relative; outline: none; }
+.card { background: var(--eh-white); border-radius: 8px; padding: 12px 14px; border-left: 4px solid; cursor: pointer; transition: box-shadow 0.15s, transform 0.1s; position: relative; outline: none; }
 .card:hover, .card:focus { box-shadow: 0 4px 16px rgba(0,0,0,.12); transform: translateY(-1px); }
 .card-done     { border-left-color: #22C55E; }
 .card-live     { border-left-color: #3B82F6; }
@@ -97,15 +110,15 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .card-updated { font-size: 10px; color: #94A3B8; margin-top: 10px; padding-top: 8px; border-top: 1px dashed #E2E8F0; }
 
 /* ── BAU & METRICS ──────────────────────────────────────────────── */
-.bau { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.bau { background: var(--eh-white); border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
 .section-hdr { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; color: #64748B; margin-bottom: 14px; }
 .bau-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chip { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 20px; padding: 6px 14px; font-size: 12px; color: #334155; }
 .chip b { color: #0F172A; }
 
-.metrics { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 32px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.metrics { background: var(--eh-white); border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 32px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
 .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 14px; }
-.metric { background: #F8FAFC; border-radius: 8px; padding: 16px 18px; border: 1px solid #E2E8F0; text-align: center; }
+.metric { background: var(--eh-purple-tint); border-radius: 8px; padding: 16px 18px; border: 1px solid #E2E8F0; text-align: center; }
 .metric-n { font-size: 26px; font-weight: 900; color: #1E293B; }
 .metric-n.tbd { font-size: 15px; color: #94A3B8; font-weight: 400; padding-top: 6px; }
 .metric-lbl { font-size: 11px; color: #64748B; margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
@@ -113,14 +126,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .metric-trend { font-size: 11px; font-weight: 700; margin-top: 4px; }
 .trend-up { color: #16A34A; } .trend-dn { color: #DC2626; }
 
-.footer { background: #0F172A; padding: 14px 48px; text-align: center; color: #475569; font-size: 11px; }
+.footer { background: var(--eh-purple); padding: 14px 48px; text-align: center; color: #475569; font-size: 11px; }
 
 /* ── WEEKLY WINS ───────────────────────────────────────── */
-.wins-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.wins-section { background: var(--eh-white); border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
 .wins-hdr { display: flex; align-items: center; justify-content: space-between; }
 .wins-date { font-size: 11px; color: #94A3B8; font-weight: 400; text-transform: none; letter-spacing: 0; }
 .wins-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
-.win-card { background: #F8FAFC; border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; }
+.win-card { background: var(--eh-purple-tint); border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; }
 .win-card-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
 .win-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 12px; color: white; flex-shrink: 0; }
 .wa-chris { background: #4F46E5; } .wa-cara { background: #EA580C; } .wa-claire { background: #059669; }
@@ -132,9 +145,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .win-check { color: #16A34A; font-weight: 700; flex-shrink: 0; }
 
 /* ── TEAM ACTIVITY ─────────────────────────────────────── */
-.activity-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 32px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.activity-section { background: var(--eh-white); border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 32px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
 .ytd-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; margin-top: 14px; }
-.ytd-card { background: #F8FAFC; border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; display: flex; align-items: center; gap: 12px; }
+.ytd-card { background: var(--eh-purple-tint); border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; display: flex; align-items: center; gap: 12px; }
 .ytd-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: white; flex-shrink: 0; }
 .ytd-info { flex: 1; }
 .ytd-name { font-size: 12px; font-weight: 700; color: #0F172A; }
@@ -144,7 +157,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .chart-wrap { position: relative; height: 260px; }
 
 /* ── INITIATIVE ALIGNMENT DASHBOARD ───────────────────── */
-.align-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.align-section { background: var(--eh-white); border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
 .align-grid { display: grid; grid-template-columns: 280px 1fr; gap: 24px; align-items: start; margin-top: 16px; }
 .donut-wrap { position: relative; width: 200px; height: 200px; margin: 0 auto; }
 .donut-centre { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; pointer-events: none; }
@@ -157,10 +170,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 /* Initiative grid */
 .init-grid-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; gap: 8px; }
 .init-filter { display: flex; gap: 6px; }
-.init-filter-btn { font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 10px; border: 1px solid #E2E8F0; background: white; color: #64748B; cursor: pointer; transition: all 0.15s; }
-.init-filter-btn.active, .init-filter-btn:hover { background: #1E293B; color: white; border-color: #1E293B; }
+.init-filter-btn { font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 10px; border: 1px solid #E2E8F0; background: var(--eh-white); color: #64748B; cursor: pointer; transition: all 0.15s; }
+.init-filter-btn.active, .init-filter-btn:hover { background: var(--eh-purple); color: white; border-color: var(--eh-purple); }
 .init-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 8px; }
-.init-card { background: #F8FAFC; border-radius: 8px; padding: 10px 12px; border: 1px solid #E2E8F0; border-left: 3px solid; }
+.init-card { background: var(--eh-purple-tint); border-radius: 8px; padding: 10px 12px; border: 1px solid #E2E8F0; border-left: 3px solid; }
 .ic-must   { border-left-color: #DC2626; }
 .ic-should { border-left-color: #D97706; }
 .ic-nice   { border-left-color: #6366F1; }
@@ -180,7 +193,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 
 /* Q3 stats */
 .q3-stats { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
-.q3-stat { text-align: center; background: #F8FAFC; border-radius: 8px; padding: 8px 14px; border: 1px solid #E2E8F0; }
+.q3-stat { text-align: center; background: var(--eh-purple-tint); border-radius: 8px; padding: 8px 14px; border: 1px solid #E2E8F0; }
 .q3-stat-n { font-size: 20px; font-weight: 800; }
 .q3-stat-l { font-size: 10px; color: #64748B; text-transform: uppercase; letter-spacing: 0.4px; }
 
@@ -190,18 +203,18 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .init-tag.bau   { color: #64748B; background: #F1F5F9; }
 
 /* ── UPCOMING PRIORITIES ───────────────────────────────── */
-.priorities-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.priorities-section { background: var(--eh-white); border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
 .priorities-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 14px; }
-.priority-card { background: #F8FAFC; border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; }
+.priority-card { background: var(--eh-purple-tint); border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; }
 .priority-list { list-style: none; padding: 0; margin: 0; }
 .priority-list li { font-size: 11px; color: #475569; padding: 5px 0; border-bottom: 1px solid #E2E8F0; line-height: 1.45; display: flex; gap: 6px; }
 .priority-list li:last-child { border-bottom: none; }
 .pri-arrow { color: #2563EB; font-weight: 700; flex-shrink: 0; font-size: 12px; }
 
 /* ── TEAM HIGHLIGHTS ───────────────────────────────────── */
-.highlights-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.highlights-section { background: var(--eh-white); border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
 .highlights-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 6px; margin-top: 14px; scrollbar-width: thin; }
-.highlight-card { background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%); border-radius: 10px; padding: 16px 18px; border: 1px solid #DBEAFE; min-width: 300px; max-width: 360px; flex-shrink: 0; }
+.highlight-card { background: linear-gradient(135deg, var(--eh-purple-tint) 0%, #EDE9FE 100%); border-radius: 10px; padding: 16px 18px; border: 1px solid #D4B0FA; min-width: 300px; max-width: 360px; flex-shrink: 0; }
 .highlight-emoji { font-size: 26px; margin-bottom: 8px; line-height: 1; }
 .highlight-title { font-size: 13px; font-weight: 700; color: #0F172A; margin-bottom: 6px; line-height: 1.35; }
 .highlight-detail { font-size: 11px; color: #475569; line-height: 1.6; }
@@ -215,11 +228,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .hl-people { font-size: 10px; color: #94A3B8; }
 
 /* ── KEY UPDATES ───────────────────────────────────────── */
-.updates-section { background: white; border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.updates-section { background: var(--eh-white); border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
 .updates-hdr { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
 .updates-note { font-size: 10px; color: #94A3B8; font-weight: 400; text-transform: none; letter-spacing: 0; font-style: italic; }
 .updates-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 10px; margin-top: 14px; }
-.update-card { background: #F8FAFC; border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; border-top: 3px solid; }
+.update-card { background: var(--eh-purple-tint); border-radius: 8px; padding: 14px 16px; border: 1px solid #E2E8F0; border-top: 3px solid; }
 .uc-ai-build     { border-top-color: #7C3AED; }
 .uc-implementation { border-top-color: #2563EB; }
 .uc-revenue      { border-top-color: #16A34A; }
@@ -236,6 +249,49 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 .update-detail { font-size: 11px; color: #475569; line-height: 1.6; margin-bottom: 7px; }
 .update-impact { font-size: 10px; color: #64748B; font-style: italic; border-top: 1px solid #E2E8F0; padding-top: 6px; }
 .update-impact::before { content: "↳ "; font-style: normal; }
+
+/* ── GLOBAL PAGE FILTER BAR ───────────────────────────── */
+.page-filter-bar { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+.pf-label { font-size: 11px; font-weight: 700; color: var(--eh-gray-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 4px; }
+.pf-btn { font-size: 11px; font-weight: 600; padding: 6px 16px; border-radius: 20px; border: 1.5px solid var(--eh-gray); background: var(--eh-white); color: #64748B; cursor: pointer; transition: all 0.15s; }
+.pf-btn:hover { border-color: var(--eh-purple); color: var(--eh-purple); }
+.pf-btn.active { background: var(--eh-purple); color: white; border-color: var(--eh-purple); }
+.pf-btn.pf-risk.active { background: #DC2626; border-color: #DC2626; color: white; }
+.pf-count { font-size: 10px; font-weight: 700; background: rgba(255,255,255,0.3); padding: 1px 5px; border-radius: 8px; margin-left: 3px; }
+
+/* ── OPEN TASK CARDS ───────────────────────────────────── */
+.tasks-section { background: var(--eh-white); border-radius: 10px; border: 1px solid #E2E8F0; padding: 20px 24px; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
+.tasks-grid { display: flex; flex-direction: column; gap: 6px; margin-top: 12px; }
+.task-card { background: var(--eh-purple-tint); border-radius: 8px; padding: 10px 14px; border-left: 4px solid; display: flex; align-items: center; gap: 12px; transition: box-shadow 0.15s; }
+.task-card:hover { box-shadow: 0 2px 8px rgba(59,0,85,.1); }
+.tc-overdue { border-left-color: #DC2626; }
+.tc-at-risk  { border-left-color: #F59E0B; }
+.tc-watch    { border-left-color: #3B82F6; }
+.tc-on-track { border-left-color: #22C55E; }
+.task-risk-badge { font-size: 9px; font-weight: 800; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: 0.4px; white-space: nowrap; flex-shrink: 0; }
+.trb-overdue { background: #FEE2E2; color: #991B1B; }
+.trb-at-risk { background: #FEF3C7; color: #92400E; }
+.trb-watch   { background: #DBEAFE; color: #1D4ED8; }
+.trb-on-track { background: #DCFCE7; color: #166534; }
+.task-name { font-size: 12px; font-weight: 600; color: var(--eh-black); flex: 1; line-height: 1.3; }
+.task-info { font-size: 10px; color: var(--eh-gray-blue); display: flex; gap: 10px; align-items: center; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+.task-info span { display: flex; align-items: center; gap: 3px; }
+.task-init-link { font-size: 9px; font-weight: 600; color: var(--eh-purple); background: rgba(59,0,85,.08); padding: 1px 6px; border-radius: 8px; white-space: nowrap; }
+
+/* Task health mini-stats (inside alignment dashboard) */
+.task-health-row { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.th-pill { display: flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 12px; }
+.thp-overdue { background: #FEE2E2; color: #991B1B; }
+.thp-risk    { background: #FEF3C7; color: #92400E; }
+.thp-watch   { background: #DBEAFE; color: #1D4ED8; }
+.thp-ok      { background: #DCFCE7; color: #166534; }
+
+/* ── SECTION DIVIDERS ──────────────────────────────────── */
+.section-divider { display: flex; align-items: center; gap: 12px; margin: 6px 0 10px; }
+.sd-label { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.8px; padding: 4px 12px; border-radius: 12px; white-space: nowrap; }
+.sd-initiatives { background: var(--eh-purple); color: white; }
+.sd-tasks { background: #475569; color: white; }
+.sd-line { flex: 1; height: 1px; background: #E2E8F0; }
 
 /* ── PROGRESS BAR ─────────────────────────────────────── */
 .card-progress { display: flex; align-items: center; gap: 8px; margin-top: 8px; margin-bottom: 2px; }
@@ -289,6 +345,14 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 </div>
 
 <div class="board">
+
+  <div class="page-filter-bar">
+    <span class="pf-label">View</span>
+    <button class="pf-btn active" onclick="setPageFilter('all',this)">All</button>
+    <button class="pf-btn" onclick="setPageFilter('initiatives',this)">Initiatives</button>
+    <button class="pf-btn" onclick="setPageFilter('tasks',this)">Open Tasks</button>
+    <button class="pf-btn pf-risk" onclick="setPageFilter('risk',this)">&#128308; At Risk</button>
+  </div>
 
   <div class="summary-bar">
     <div class="sum"><span class="sum-n n-green">11</span><span class="sum-l">Delivered<br>this year</span></div>
@@ -654,6 +718,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
           </div>
         </div>
         <div class="donut-legend" id="donut-legend"></div>
+        <div class="task-health-row" id="task-health-row"></div>
       </div>
       <!-- Initiative grid column -->
       <div>
@@ -723,6 +788,37 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 };
   </script>
   <!-- AGENT-DATA:key-updates-end -->
+
+  <!-- AGENT-DATA:open-tasks-start -->
+  <script id="open-tasks-data">
+  const OPEN_TASKS = [
+    { "gid": "placeholder", "name": "Qualified — Partner Routing Experience", "assignee": "Claire", "due_on": "2026-06-05", "days_until_due": 5, "days_since_update": 2, "risk": "watch", "initiative_link": "Qualified Experience Optimisation" },
+    { "gid": "placeholder", "name": "AE Outreach Expansion — Vendor Meeting", "assignee": "Chris", "due_on": "2026-06-06", "days_until_due": 6, "days_since_update": 1, "risk": "watch", "initiative_link": "AE Outreach Expansion" },
+    { "gid": "placeholder", "name": "Resolve NZ Lost Revive Sequence Errors", "assignee": "Cara", "due_on": null, "days_until_due": null, "days_since_update": 5, "risk": "at_risk", "initiative_link": "Lost Revive Relevance AI Workforce" },
+    { "gid": "placeholder", "name": "Optimised Relevance Workflow — Webhook Implementation", "assignee": "Cara/Mocks", "due_on": null, "days_until_due": null, "days_since_update": 3, "risk": "watch", "initiative_link": "Optimised Relevance AI Workflow" },
+    { "gid": "placeholder", "name": "Outreach Sequence Outcomes — SF Custom Reporting", "assignee": "Chris", "due_on": null, "days_until_due": null, "days_since_update": 6, "risk": "at_risk", "initiative_link": "Outreach Sequence Outcomes SFDC" },
+    { "gid": "placeholder", "name": "AI Research Brief — Conversation History Announcement to SDR Teams", "assignee": "Chris", "due_on": "2026-06-02", "days_until_due": 2, "days_since_update": 1, "risk": "at_risk", "initiative_link": "AI Research Brief for Calls" }
+  ];
+  </script>
+  <!-- AGENT-DATA:open-tasks-end -->
+
+  <div id="section-open-tasks">
+    <div class="section-divider">
+      <span class="sd-label sd-tasks">&#128203; Open Tasks</span>
+      <div class="sd-line"></div>
+    </div>
+    <div class="tasks-section">
+      <div class="section-hdr" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <span>Active Work Items</span>
+        <span style="font-size:10px;color:var(--eh-gray-blue);font-weight:400;font-style:italic;text-transform:none;letter-spacing:0">
+          🔴 At risk = overdue or no update &gt;4 days &nbsp;·&nbsp;
+          🟡 Watch = due &lt;7 days or no update &gt;2 days &nbsp;·&nbsp;
+          🟢 On track
+        </span>
+      </div>
+      <div class="tasks-grid" id="tasks-grid"></div>
+    </div>
+  </div>
 
   <div class="updates-section">
     <div class="section-hdr updates-hdr">
@@ -813,9 +909,11 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
     <div class="highlights-scroll" id="highlights-scroll"></div>
   </div>
 
-  <div style="margin-bottom:10px;padding:4px 0;">
-    <span style="font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:0.7px;color:#64748B">Detailed Work View</span>
-    <span style="font-size:11px;color:#94A3B8;margin-left:10px">Each card tagged with its formal initiative &nbsp;·&nbsp; Click any card to expand status detail</span>
+  <div id="section-initiatives">
+  <div class="section-divider">
+    <span class="sd-label sd-initiatives">&#127919; Initiatives — Detailed View</span>
+    <div class="sd-line"></div>
+    <span style="font-size:10px;color:var(--eh-gray-blue);white-space:nowrap">Each card tagged to its formal initiative &nbsp;·&nbsp; Click to expand</span>
   </div>
   <div class="col-headers">
     <div class="ch ch-lbl"></div>
@@ -1867,6 +1965,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 
     </div>
   </div>
+  </div> <!-- /section-initiatives -->
 
   <!-- ── BAU ───────────────────────────────────────────────────────────── -->
   <div class="bau">
@@ -1993,6 +2092,88 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans
 </div>
 
 <script>
+// ── Global page filter ────────────────────────────────
+let _currentFilter = 'all';
+function setPageFilter(filter, btn) {
+  _currentFilter = filter;
+  document.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const showInit  = filter === 'all' || filter === 'initiatives' || filter === 'risk';
+  const showTasks = filter === 'all' || filter === 'tasks' || filter === 'risk';
+  const si = document.getElementById('section-initiatives');
+  const st = document.getElementById('section-open-tasks');
+  if (si) si.style.display = showInit  ? '' : 'none';
+  if (st) st.style.display = showTasks ? '' : 'none';
+  if (filter === 'risk') {
+    // Dim non-blocked initiative cards
+    document.querySelectorAll('.card').forEach(card => {
+      const hasBlocker = card.querySelector('.blocker-box');
+      card.style.opacity = hasBlocker ? '1' : '0.35';
+    });
+    // Dim on-track task cards
+    document.querySelectorAll('.task-card').forEach(tc => {
+      const isRisk = tc.classList.contains('tc-at-risk') || tc.classList.contains('tc-overdue');
+      tc.style.opacity = isRisk ? '1' : '0.35';
+    });
+  } else {
+    document.querySelectorAll('.card').forEach(c => c.style.opacity = '');
+    document.querySelectorAll('.task-card').forEach(c => c.style.opacity = '');
+  }
+}
+
+// ── Open tasks renderer ───────────────────────────────
+(function renderOpenTasks() { try {
+  const riskMeta = {
+    overdue:  { cls: 'tc-overdue', badge: 'trb-overdue', label: 'Overdue' },
+    at_risk:  { cls: 'tc-at-risk',  badge: 'trb-at-risk',  label: 'At Risk' },
+    watch:    { cls: 'tc-watch',    badge: 'trb-watch',    label: 'Watch' },
+    on_track: { cls: 'tc-on-track', badge: 'trb-on-track', label: 'On Track' }
+  };
+  const grid = document.getElementById('tasks-grid');
+  if (!grid || !OPEN_TASKS || !OPEN_TASKS.length) return;
+  grid.innerHTML = OPEN_TASKS.map(t => {
+    const m = riskMeta[t.risk] || riskMeta.on_track;
+    const dueStr = t.due_on
+      ? (t.days_until_due < 0 ? `<span style="color:#DC2626">&#128197; ${Math.abs(t.days_until_due)}d overdue</span>`
+       : `&#128197; Due ${t.due_on}`)
+      : '&#128197; No due date';
+    const updStr = t.days_since_update != null
+      ? `&#128336; Updated ${t.days_since_update}d ago` : '';
+    const linkHtml = t.initiative_link
+      ? `<span class="task-init-link">&#128204; ${t.initiative_link}</span>` : '';
+    return `<div class="task-card ${m.cls}">
+      <span class="task-risk-badge ${m.badge}">${m.label}</span>
+      <div class="task-name">${t.name}</div>
+      <div class="task-info">
+        ${linkHtml}
+        <span>${t.assignee}</span>
+        <span>${dueStr}</span>
+        ${updStr ? `<span>${updStr}</span>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+
+  // Task health pills in the alignment dashboard
+  const counts = { overdue: 0, at_risk: 0, watch: 0, on_track: 0 };
+  OPEN_TASKS.forEach(t => { if (counts[t.risk] !== undefined) counts[t.risk]++; });
+  const hr = document.getElementById('task-health-row');
+  if (hr) {
+    const items = [
+      counts.overdue  ? `<span class="th-pill thp-overdue">&#128308; ${counts.overdue} overdue</span>` : '',
+      counts.at_risk  ? `<span class="th-pill thp-risk">&#128993; ${counts.at_risk} at risk</span>` : '',
+      counts.watch    ? `<span class="th-pill thp-watch">&#128992; ${counts.watch} watch</span>` : '',
+      counts.on_track ? `<span class="th-pill thp-ok">&#128994; ${counts.on_track} on track</span>` : ''
+    ].filter(Boolean);
+    hr.innerHTML = items.length ? items.join('') : '';
+  }
+  // Update At Risk filter button count
+  const riskCount = (counts.overdue || 0) + (counts.at_risk || 0);
+  const riskBtn = document.querySelector('.pf-btn.pf-risk');
+  if (riskBtn && riskCount > 0) {
+    riskBtn.innerHTML = `&#128308; At Risk <span class="pf-count">${riskCount}</span>`;
+  }
+} catch(e) { console.warn('Open tasks error:', e); } })();
+
 // ── Card expand/collapse ────────────────────────────────
 try {
   document.querySelectorAll('.card').forEach(card => {
