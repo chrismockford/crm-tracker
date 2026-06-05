@@ -1959,17 +1959,17 @@ body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sa
     </div>
     <div class="updates-filter-row" id="updates-filter-row">
       <span style="font-size:10px;font-weight:700;color:var(--eh-gray-blue);text-transform:uppercase;letter-spacing:.5px;margin-right:2px">Person</span>
-      <button class="uf-btn active" onclick="setUpdatesFilter('person','all',this)">All</button>
-      <button class="uf-btn uf-chris" onclick="setUpdatesFilter('person','Chris',this)">Chris</button>
-      <button class="uf-btn uf-cara"  onclick="setUpdatesFilter('person','Cara',this)">Cara</button>
-      <button class="uf-btn uf-claire" onclick="setUpdatesFilter('person','Claire',this)">Claire</button>
+      <button class="uf-btn active" data-uf-dim="person" onclick="setUpdatesFilter('person','all',this)">All</button>
+      <button class="uf-btn uf-chris" data-uf-dim="person" onclick="setUpdatesFilter('person','Chris',this)">Chris</button>
+      <button class="uf-btn uf-cara"  data-uf-dim="person" onclick="setUpdatesFilter('person','Cara',this)">Cara</button>
+      <button class="uf-btn uf-claire" data-uf-dim="person" onclick="setUpdatesFilter('person','Claire',this)">Claire</button>
       <div class="uf-divider"></div>
       <span style="font-size:10px;font-weight:700;color:var(--eh-gray-blue);text-transform:uppercase;letter-spacing:.5px;margin-right:2px">Type</span>
-      <button class="uf-btn active" onclick="setUpdatesFilter('cat','all',this)">All</button>
-      <button class="uf-btn" onclick="setUpdatesFilter('cat','shipped',this)">&#9989; Shipped</button>
-      <button class="uf-btn" onclick="setUpdatesFilter('cat','update',this)">&#128309; Key Update</button>
-      <button class="uf-btn" onclick="setUpdatesFilter('cat','blocker',this)">&#9888;&#65039; Blockers</button>
-      <button class="uf-btn" onclick="setUpdatesFilter('cat','metric',this)">&#128202; Metrics</button>
+      <button class="uf-btn active" data-uf-dim="cat" onclick="setUpdatesFilter('cat','all',this)">All</button>
+      <button class="uf-btn" data-uf-dim="cat" onclick="setUpdatesFilter('cat','shipped',this)">&#9989; Shipped</button>
+      <button class="uf-btn" data-uf-dim="cat" onclick="setUpdatesFilter('cat','update',this)">&#128309; Key Update</button>
+      <button class="uf-btn" data-uf-dim="cat" onclick="setUpdatesFilter('cat','blocker',this)">&#9888;&#65039; Blockers</button>
+      <button class="uf-btn" data-uf-dim="cat" onclick="setUpdatesFilter('cat','metric',this)">&#128202; Metrics</button>
     </div>
     <div class="updates-grid" id="updates-grid"></div>
   </div>
@@ -2360,7 +2360,7 @@ const _catLabel = {
 
 function renderUpdates() { try {
   const el = document.getElementById('updates-note');
-  if (el) el.textContent = 'Week of ' + KEY_UPDATES.weekOf + ' · Also published to Amy's Weekly OKR Notes canvas';
+  if (el) el.textContent = `Week of ${KEY_UPDATES.weekOf} · Also published to Amy’s Weekly OKR Notes canvas`;
   const updates = KEY_UPDATES.updates || [];
   const filtered = updates.filter(u => {
     const matchPerson = _updPerson === 'all' || (u.person && u.person === _updPerson);
@@ -2388,14 +2388,10 @@ function renderUpdates() { try {
 function setUpdatesFilter(dimension, value, btn) {
   if (dimension === 'person') {
     _updPerson = value;
-    document.querySelectorAll('.updates-filter-row .uf-btn').forEach(b => {
-      if (b.onclick && b.onclick.toString().includes("'person'")) b.classList.remove('active');
-    });
+    document.querySelectorAll('.updates-filter-row [data-uf-dim="person"]').forEach(b => b.classList.remove('active'));
   } else {
     _updCat = value;
-    document.querySelectorAll('.updates-filter-row .uf-btn').forEach(b => {
-      if (b.onclick && b.onclick.toString().includes("'cat'")) b.classList.remove('active');
-    });
+    document.querySelectorAll('.updates-filter-row [data-uf-dim="cat"]').forEach(b => b.classList.remove('active'));
   }
   btn.classList.add('active');
   renderUpdates();
