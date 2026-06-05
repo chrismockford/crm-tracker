@@ -323,6 +323,58 @@ body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sa
   .legend { padding: 10px 20px; }
   .hint { display: none; }
 }
+
+/* ── UNIFIED WORK BOARD ─────────────────────────────────── */
+.wb-filter-row { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+.wb-sub-row { display: flex; align-items: center; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+.wb-label { font-size: 11px; font-weight: 700; color: var(--eh-gray-blue); text-transform: uppercase; letter-spacing: 0.5px; margin-right: 2px; }
+.wb-btn { font-size: 11px; font-weight: 600; padding: 5px 14px; border-radius: 18px; border: 1.5px solid var(--eh-gray); background: var(--eh-white); color: #64748B; cursor: pointer; transition: all 0.15s; }
+.wb-btn:hover { border-color: var(--eh-purple); color: var(--eh-purple); }
+.wb-btn.active { background: var(--eh-purple); color: white; border-color: var(--eh-purple); }
+.wb-btn.wb-risk.active { background: #DC2626; border-color: #DC2626; color: white; }
+.wb-sub-btn { font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 12px; border: 1px solid var(--eh-gray); background: var(--eh-white); color: #64748B; cursor: pointer; transition: all 0.15s; }
+.wb-sub-btn:hover { background: var(--eh-purple-tint); color: var(--eh-purple); }
+.wb-sub-btn.active { background: var(--eh-purple-tint); color: var(--eh-purple); border-color: var(--eh-purple); font-weight: 800; }
+
+/* Flatten swimlane grid into a flat card grid */
+#section-initiatives { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 10px; }
+#section-initiatives .col-headers { display: none; }
+#section-initiatives .section-divider { grid-column: 1 / -1; }
+#section-initiatives .swimlane { display: contents; }
+#section-initiatives .sl-label { display: none; }
+#section-initiatives .col-cells { display: contents; }
+
+/* BAU card in work board */
+.bau-card { background: var(--eh-white); border-radius: 8px; padding: 11px 14px; border: 1px solid #E2E8F0; border-left: 4px solid #94A3B8; }
+.bau-card-owner { font-size: 10px; font-weight: 700; color: #64748B; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.3px; }
+.bau-card-title { font-size: 12px; color: #334155; line-height: 1.4; }
+.bau-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 8px; margin-top: 8px; }
+
+/* Tasks inside work board */
+.wb-tasks-grid { display: flex; flex-direction: column; gap: 6px; margin-top: 8px; }
+
+/* ── UPDATES FILTER ─────────────────────────────────────── */
+.updates-filter-row { display: flex; align-items: center; gap: 6px; margin-top: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+.uf-divider { width: 1px; height: 20px; background: #E2E8F0; margin: 0 4px; }
+.uf-btn { font-size: 10px; font-weight: 600; padding: 3px 10px; border-radius: 10px; border: 1px solid #E2E8F0; background: var(--eh-white); color: #64748B; cursor: pointer; transition: all 0.15s; }
+.uf-btn:hover { background: var(--eh-purple-tint); color: var(--eh-purple); }
+.uf-btn.active { background: var(--eh-purple); color: white; border-color: var(--eh-purple); }
+.uf-btn.active.uf-chris { background: #4F46E5; border-color: #4F46E5; }
+.uf-btn.active.uf-cara  { background: #EA580C; border-color: #EA580C; }
+.uf-btn.active.uf-claire { background: #059669; border-color: #059669; }
+
+/* Input-category styles for updates */
+.cb-shipped { background: #DCFCE7; color: #166534; }
+.cb-update  { background: #DBEAFE; color: #1D4ED8; }
+.cb-blocker { background: #FEE2E2; color: #991B1B; }
+.cb-metric  { background: #FEF3C7; color: #92400E; }
+.uc-shipped { border-top-color: #22C55E; }
+.uc-update  { border-top-color: #3B82F6; }
+.uc-blocker { border-top-color: #DC2626; }
+.uc-metric  { border-top-color: #D97706; }
+.update-person { font-size: 10px; color: #64748B; margin-top: 6px; padding-top: 6px; border-top: 1px solid #E2E8F0; display: flex; align-items: center; gap: 5px; }
+.up-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; display: inline-block; }
+.up-chris { background: #4F46E5; } .up-cara { background: #EA580C; } .up-claire { background: #059669; }
 </style>
 </head>
 <body>
@@ -346,12 +398,21 @@ body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sa
 
 <div class="board">
 
-  <div class="page-filter-bar">
-    <span class="pf-label">View</span>
-    <button class="pf-btn active" onclick="setPageFilter('all',this)">All</button>
-    <button class="pf-btn" onclick="setPageFilter('initiatives',this)">Initiatives</button>
-    <button class="pf-btn" onclick="setPageFilter('tasks',this)">Open Tasks</button>
-    <button class="pf-btn pf-risk" onclick="setPageFilter('risk',this)">&#128308; At Risk</button>
+  <div class="wb-filter-row">
+    <span class="wb-label">View</span>
+    <button class="wb-btn active" onclick="setWorkFilter('all',this)">All</button>
+    <button class="wb-btn" onclick="setWorkFilter('initiative',this)">&#128204; Q3 Initiatives</button>
+    <button class="wb-btn" onclick="setWorkFilter('extra',this)">&#11088; Additional Value</button>
+    <button class="wb-btn" onclick="setWorkFilter('bau',this)">&#9881;&#65039; BAU</button>
+    <button class="wb-btn" onclick="setWorkFilter('tasks',this)">&#128203; Open Tasks</button>
+    <button class="wb-btn wb-risk" onclick="setWorkFilter('risk',this)" id="wb-risk-btn">&#128308; At Risk</button>
+  </div>
+  <div class="wb-sub-row">
+    <span class="wb-label">Status</span>
+    <button class="wb-sub-btn active" onclick="setStatusFilter('all',this)">All</button>
+    <button class="wb-sub-btn" onclick="setStatusFilter('active',this)">Active</button>
+    <button class="wb-sub-btn" onclick="setStatusFilter('done',this)">Completed</button>
+    <button class="wb-sub-btn" onclick="setStatusFilter('planned',this)">Planned</button>
   </div>
 
   <div class="summary-bar">
@@ -704,35 +765,22 @@ body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sa
 
   <div class="align-section">
     <div class="section-hdr" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-      <span>&#127919; Initiative Alignment — Q3 2026</span>
+      <span>&#127919; Work Overview &mdash; Q3 2026</span>
       <span style="font-size:10px;color:#94A3B8;font-weight:400;font-style:italic;text-transform:none;letter-spacing:0" id="align-generated"></span>
     </div>
-    <div class="align-grid">
-      <!-- Donut chart column -->
+    <div style="display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap;margin-top:16px">
       <div>
-        <div class="donut-wrap">
-          <canvas id="initChart"></canvas>
+        <div class="donut-wrap"><canvas id="initChart"></canvas>
           <div class="donut-centre">
-            <div class="donut-main-pct" id="donut-main-pct">–</div>
+            <div class="donut-main-pct" id="donut-main-pct">&ndash;</div>
             <div class="donut-main-lbl">initiative<br>work</div>
           </div>
         </div>
         <div class="donut-legend" id="donut-legend"></div>
-        <div class="task-health-row" id="task-health-row"></div>
       </div>
-      <!-- Initiative grid column -->
-      <div>
+      <div style="flex:1;min-width:180px">
         <div class="q3-stats" id="q3-stats"></div>
-        <div class="init-grid-header">
-          <span style="font-size:11px;font-weight:700;color:#0F172A">Q3 Initiatives</span>
-          <div class="init-filter">
-            <button class="init-filter-btn active" onclick="filterInits('all',this)">All</button>
-            <button class="init-filter-btn" onclick="filterInits('active',this)">Active</button>
-            <button class="init-filter-btn" onclick="filterInits('done',this)">Delivered</button>
-            <button class="init-filter-btn" onclick="filterInits('planned',this)">Planned</button>
-          </div>
-        </div>
-        <div class="init-cards" id="init-cards"></div>
+        <div class="task-health-row" id="task-health-row" style="margin-top:12px"></div>
       </div>
     </div>
   </div>
@@ -745,42 +793,56 @@ body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sa
     {
       "title": "Call Notes AI — Conversation History Now Live (29 May)",
       "category": "ai-build",
+      "person": "Chris",
+      "input_category": "shipped",
       "detail": "Chris shipped the 24-month conversation history enhancement to the AI call notes workforce on 29 May. The agent now analyses prior calls, emails and LinkedIn activity per lead before generating inbound research notes — surfacing previous objections, system mentions and engagement context automatically. SDRs no longer need to manually scroll through the activity timeline before each call.",
       "impact": "~30 min/prospect research time saved per SDR per contact. Previous objections factored in — reps arrive at calls informed and de-risked from repeating known blockers."
     },
     {
       "title": "AE Outreach Expansion — Decision Made, Vendor Meeting Incoming",
       "category": "revenue",
+      "person": "Chris",
+      "input_category": "update",
       "detail": "A major platform expansion is taking shape: 38 AEs could move from Gong Engage onto Outreach. Chris met with three AEs (Adam, Will, Elliott) on 29 May — Gong Engage confirmed non-functional for sequencing, calling, task management and email tracking. Sales, Enablement and RevOps are aligned on Outreach as the right tool. Sheana (RevOps) is booking the Outreach vendor meeting using the HubSpot competitive quote ($58 ppm, 68% discount) as leverage. Pilot target: 150 AE self-sourced SAOs/month and $500K ARR pipeline contribution.",
       "impact": "If approved, doubles Outreach's user base overnight — expanding Sales Automation's remit to AE enablement and unlocking a new AI personalisation channel for account-based outreach."
     },
     {
       "title": "PS Promo Line + Multi-Region Evals Shipped (Claire, 28–29 May)",
       "category": "ai-build",
+      "person": "Claire",
+      "input_category": "shipped",
       "detail": "Claire added the promotional PS line to Inbound static Outreach sequences and updated all Relevance AI copy agent instructions to include it in email 1. She built two Evals checks: (1) agent does not generate the PS line after the deadline date, and (2) agent does not include the PS line for non-Australian prospects. Evals dashboard created. Relevance AI Invent tool used to automate instruction updates. Claire also identified agents lack native date-awareness — adding a get time & date tool to resolve this.",
       "impact": "Eliminates risk of PS promo appearing in wrong region or after expiry — previously required manual review of every email output across 4+ regions."
     },
     {
       "title": "Qualified SDR Onboarding Tracker — Full Visibility Published",
       "category": "implementation",
+      "person": "Cara",
+      "input_category": "shipped",
       "detail": "Cara published the Qualified SDR Onboarding Tracker to all SDR leaders (28 May) — a live doc tracking which SDRs have accepted invites, completed SF connection setup, and flagged common issues (e.g. SDRs incorrectly placing booking links in conference fields). SF connection workaround documented: reps must be logged into SF via SSO before attempting the Qualified connection step. SDR roster also updated for June transitions: Paris Holloway, Zhaden Flynn, Luke Shirley, James Molloy, Peter Skok.",
       "impact": "Unblocks go-live completion for all inbound SDRs globally — gives SDR managers actionable visibility to chase remaining reps and complete the direct booking rollout."
     },
     {
       "title": "HeroForce AI Workforce — Trigger Issue Identified and Resolved",
       "category": "ai-build",
+      "person": "Cara",
+      "input_category": "update",
       "detail": "Cara identified a gap in HeroForce SF lead classification: no current distinction between GT BADs and GT MQLs at the field level — all leads treated as BADs via 'Became GT Lead Date'. This means the existing HeroForce BAD sequence assumes all HF leads requested contact (International framing) when some are Local. Cara confirmed the correct trigger approach and will replace static BAD sequences with AI-powered workforce-linked versions once the path switch is confirmed.",
       "impact": "Ensures HeroForce AI workforce fires with correct lead context — preventing mis-framed outreach to Local HeroForce leads and unblocking the full AI personalisation launch for this audience."
     },
     {
       "title": "UTM Standardisation for Marketo Measure Attribution",
       "category": "optimisation",
+      "person": "Cara",
+      "input_category": "update",
       "detail": "Cara is implementing UTM parameter standardisation across all Outreach email links: utm_medium=email, utm_source=outreach, with campaign/content fields for sequence/step/template identification. The UTM logic will also be added to Relevance AI agents so any personalised content automatically includes correct tracking — without agents inventing inconsistent campaign names.",
       "impact": "Closes a critical reporting gap — sales-influenced pipeline will be accurately attributed in Marketo Measure for the first time, strengthening the SDR team's contribution to ARR reporting."
     },
     {
       "title": "CAN OB Sequence + Relevance AI Workforce Clone (In Progress)",
       "category": "sequence",
+      "person": "Cara",
+      "input_category": "update",
       "detail": "Cara is building a Canada-specific outbound sequence cloned from the AU/NZ OB structure (Seq 914), linked to the CAN outbound Relevance AI workforce. Requested by Nathan McCaw to recirculate leads for a rep returning from extended leave. Structural comparison between CAN OB and AU/NZ OB sequences underway before confirming build approach — due 2 Jun.",
       "impact": "Extends AI-personalised outbound to Canada's core OB motion, completing the global AI OB expansion roadmap across all active regions."
     }
@@ -802,118 +864,23 @@ body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sa
   </script>
   <!-- AGENT-DATA:open-tasks-end -->
 
-  <div id="section-open-tasks">
-    <div class="section-divider">
+  <!-- ── UNIFIED WORK BOARD ────────────────────────────────────────── -->
+  <div id="wb-tasks-section">
+    <div class="section-divider" style="margin-top:0">
       <span class="sd-label sd-tasks">&#128203; Open Tasks</span>
       <div class="sd-line"></div>
+      <span style="font-size:10px;color:var(--eh-gray-blue);white-space:nowrap">
+        &#128308; Overdue &nbsp;&middot;&nbsp; &#128993; At risk = no update &gt;4 days or due &le;3 days &nbsp;&middot;&nbsp; &#128992; Watch &nbsp;&middot;&nbsp; &#128994; On track
+      </span>
     </div>
-    <div class="tasks-section">
-      <div class="section-hdr" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
-        <span>Active Work Items</span>
-        <span style="font-size:10px;color:var(--eh-gray-blue);font-weight:400;font-style:italic;text-transform:none;letter-spacing:0">
-          🔴 At risk = overdue or no update &gt;4 days &nbsp;·&nbsp;
-          🟡 Watch = due &lt;7 days or no update &gt;2 days &nbsp;·&nbsp;
-          🟢 On track
-        </span>
-      </div>
-      <div class="tasks-grid" id="tasks-grid"></div>
-    </div>
-  </div>
-
-  <div class="updates-section">
-    <div class="section-hdr updates-hdr">
-      <span>&#128203; Key Updates for Leadership</span>
-      <span class="updates-note" id="updates-note"></span>
-    </div>
-    <div class="updates-grid" id="updates-grid"></div>
-  </div>
-
-  <div class="wins-section">
-    <div class="section-hdr wins-hdr">
-      <span>&#127942; Last Week&rsquo;s Wins</span>
-      <span class="wins-date" id="wins-date"></span>
-    </div>
-    <div class="wins-grid" id="wins-grid"></div>
-  </div>
-
-  <!-- AGENT-DATA:upcoming-priorities-start -->
-  <script id="upcoming-priorities-data">
-  const UPCOMING_PRIORITIES = {
-  "weekOf": "1 Jun – 7 Jun 2026",
-  "Chris": [
-    "WA Day public holiday Monday 1 Jun — offline",
-    "Sheana to book Outreach vendor meeting for 38-seat AE pilot (HubSpot quote as leverage); Chris to review commercials and governance approach",
-    "Present sequence cohesion report at ANZ Lead Council meeting (held back for this forum per Amy's request)",
-    "Announce conversation history call notes enhancement to all SDR teams globally",
-    "Qualified + Hero AI technical kick-off with Amber & web team (before Amber's leave)"
-  ],
-  "Cara": [
-    "Go live with HeroForce AI workforce — replace static BAD sequences with AI-powered workforce-linked versions",
-    "Complete CAN OB Sequence + Workforce link build (due 2 Jun)",
-    "Resolve NZ Lost Revive sequence errors (Seq 881 Contact Details Mismatch tags)",
-    "Continue AI Agent Optimisations (IB Call Notes, AU OB Agent, Global Webinar Agent — due 12 Jun)",
-    "Daily Relevance AI workforce monitoring and triage"
-  ],
-  "Claire": [
-    "Qualified partner routing — support Usman's build and test routing before go-live",
-    "Outreach task cleanup for Paris Holloway: close out ~150 overdue tasks (10+ days, Upsell IB era) before Monday",
-    "Evals refinement — add get time & date tool to AI agents for improved date-awareness",
-    "Initiate AI call notes scoping for Partnerships SDR team — outbound first, align with Claire Sertori",
-    "Weekly Outreach usage metrics report"
-  ]
-};
-  </script>
-  <!-- AGENT-DATA:upcoming-priorities-end -->
-
-  <!-- AGENT-DATA:highlights-start -->
-  <script id="highlights-data">
-  const HIGHLIGHTS = [
-  {
-    "emoji": "🚀",
-    "title": "Relevance AI Beta — Evals & Invent Now Delivering Real Value",
-    "detail": "This week the Relevance AI beta moved from access to active delivery. Claire shipped her first Evals checks (date-awareness + region-awareness for the PS promo line), built an Evals dashboard, and used Invent to auto-update copy agent instructions. She also identified that agents lack native date-awareness and is adding a get time & date tool to fix it. Chris used Invent to build a new tool. The team is now the most advanced internal user of Relevance AI's beta eval tooling.",
-    "tag": "Beta Access",
-    "tagStyle": "hl-violet",
-    "people": "Chris · Cara · Claire"
-  },
-  {
-    "emoji": "🏢",
-    "title": "AE Outreach Expansion — 38 New Seats on the Horizon",
-    "detail": "A potentially major platform expansion is underway: 38 Account Executives could migrate from Gong Engage onto Outreach. Three AEs (Adam, Will, Elliott) confirmed Gong Engage is non-functional for their core workflows. Sales, Enablement, and RevOps are aligned — vendor meeting to be booked by Sheana using a HubSpot competitive quote as leverage. Chris has raised governance considerations with Thomas Pyle and Allan De Brincat. If approved, this would double Outreach's user base and significantly expand Sales Automation's remit.",
-    "tag": "Major Development",
-    "tagStyle": "hl-amber",
-    "people": "Chris · Sheana · Sales"
-  },
-  {
-    "emoji": "💙",
-    "title": "Amy Le Grange: \"What a Privilege to Work With This Team\"",
-    "detail": "In a public message to #crm-crew-leaders on 27 May before going on leave, Amy wrote: \"I also want to add a big thank you to the CRM Team — you are all so efficient and you live all of our values. Working with such a driven, skilled and lovely team is a privilege. Thank you for driving this space forward.\"",
-    "tag": "Recognition",
-    "tagStyle": "hl-green",
-    "people": "Chris · Cara · Claire"
-  }
-];
-  </script>
-  <!-- AGENT-DATA:highlights-end -->
-
-  <div class="priorities-section">
-    <div class="section-hdr wins-hdr">
-      <span>&#127919; Coming Up This Week</span>
-      <span class="wins-date" id="priorities-date"></span>
-    </div>
-    <div class="priorities-grid" id="priorities-grid"></div>
-  </div>
-
-  <div class="highlights-section">
-    <div class="section-hdr">&#10024; Team Spotlight &nbsp;<span style="font-weight:400;color:#94A3B8;font-size:10px;text-transform:none;letter-spacing:0">Notable moments, beta access, interesting developments</span></div>
-    <div class="highlights-scroll" id="highlights-scroll"></div>
+    <div class="wb-tasks-grid" id="tasks-grid"></div>
   </div>
 
   <div id="section-initiatives">
   <div class="section-divider">
-    <span class="sd-label sd-initiatives">&#127919; Initiatives — Detailed View</span>
+    <span class="sd-label sd-initiatives">&#127919; Initiatives &amp; Additional Work</span>
     <div class="sd-line"></div>
-    <span style="font-size:10px;color:var(--eh-gray-blue);white-space:nowrap">Each card tagged to its formal initiative &nbsp;·&nbsp; Click to expand</span>
+    <span style="font-size:10px;color:var(--eh-gray-blue);white-space:nowrap">Click any card to expand detail &nbsp;&middot;&nbsp; &#128204; = Q3 initiative &nbsp;&middot;&nbsp; &#11088; = additional value work</span>
   </div>
   <div class="col-headers">
     <div class="ch ch-lbl"></div>
@@ -1967,19 +1934,125 @@ body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sa
   </div>
   </div> <!-- /section-initiatives -->
 
-  <!-- ── BAU ───────────────────────────────────────────────────────────── -->
-  <div class="bau">
-    <div class="section-hdr">Ongoing Operational Work (BAU) — Always on, not tied to a fixed timeline</div>
-    <div class="bau-chips">
-      <div class="chip"><b>Claire</b> · Weekly Outreach Usage Metrics Report (every Monday to SDR leaders)</div>
-      <div class="chip"><b>Cara</b> · Daily Relevance AI Workforce Monitoring &amp; Fixes</div>
-      <div class="chip"><b>Mocks / Team</b> · Monthly Performance Reporting &amp; Insights</div>
-      <div class="chip"><b>Cara / Claire</b> · Sequence Content Cycling &amp; Updates</div>
-      <div class="chip"><b>Team</b> · Ongoing Sequence Performance Optimisations</div>
-      <div class="chip"><b>Cara</b> · AB Test Cadence &amp; Review</div>
-      <div class="chip"><b>Mocks</b> · Stakeholder Reporting &amp; Communications</div>
-      <div class="chip"><b>Mocks</b> · Cross-functional project contributions (Website redesign, CRM AI Training, Consent audit)</div>
+  <div id="wb-bau-section">
+    <div class="section-divider">
+      <span class="sd-label" style="background:#475569;color:white">&#9881;&#65039; BAU — Always On</span>
+      <div class="sd-line"></div>
+      <span style="font-size:10px;color:var(--eh-gray-blue);white-space:nowrap">Ongoing operational work not tied to a fixed timeline</span>
     </div>
+    <div class="bau-cards-grid">
+      <div class="bau-card"><div class="bau-card-owner">Claire</div><div class="bau-card-title">Weekly Outreach Usage Metrics Report — every Monday to SDR leaders</div></div>
+      <div class="bau-card"><div class="bau-card-owner">Cara</div><div class="bau-card-title">Daily Relevance AI Workforce Monitoring &amp; Fixes</div></div>
+      <div class="bau-card"><div class="bau-card-owner">Mocks / Team</div><div class="bau-card-title">Monthly Performance Reporting &amp; Insights</div></div>
+      <div class="bau-card"><div class="bau-card-owner">Cara / Claire</div><div class="bau-card-title">Sequence Content Cycling &amp; Updates</div></div>
+      <div class="bau-card"><div class="bau-card-owner">Team</div><div class="bau-card-title">Ongoing Sequence Performance Optimisations</div></div>
+      <div class="bau-card"><div class="bau-card-owner">Cara</div><div class="bau-card-title">AB Test Cadence &amp; Review</div></div>
+      <div class="bau-card"><div class="bau-card-owner">Mocks</div><div class="bau-card-title">Stakeholder Reporting &amp; Communications</div></div>
+      <div class="bau-card"><div class="bau-card-owner">Mocks</div><div class="bau-card-title">Cross-functional project contributions (Website redesign, CRM AI Training, Consent audit)</div></div>
+    </div>
+  </div>
+
+  <div class="updates-section">
+    <div class="section-hdr updates-hdr">
+      <span>&#128203; Key Updates for Leadership</span>
+      <span class="updates-note" id="updates-note"></span>
+    </div>
+    <div class="updates-filter-row" id="updates-filter-row">
+      <span style="font-size:10px;font-weight:700;color:var(--eh-gray-blue);text-transform:uppercase;letter-spacing:.5px;margin-right:2px">Person</span>
+      <button class="uf-btn active" onclick="setUpdatesFilter('person','all',this)">All</button>
+      <button class="uf-btn uf-chris" onclick="setUpdatesFilter('person','Chris',this)">Chris</button>
+      <button class="uf-btn uf-cara"  onclick="setUpdatesFilter('person','Cara',this)">Cara</button>
+      <button class="uf-btn uf-claire" onclick="setUpdatesFilter('person','Claire',this)">Claire</button>
+      <div class="uf-divider"></div>
+      <span style="font-size:10px;font-weight:700;color:var(--eh-gray-blue);text-transform:uppercase;letter-spacing:.5px;margin-right:2px">Type</span>
+      <button class="uf-btn active" onclick="setUpdatesFilter('cat','all',this)">All</button>
+      <button class="uf-btn" onclick="setUpdatesFilter('cat','shipped',this)">&#9989; Shipped</button>
+      <button class="uf-btn" onclick="setUpdatesFilter('cat','update',this)">&#128309; Key Update</button>
+      <button class="uf-btn" onclick="setUpdatesFilter('cat','blocker',this)">&#9888;&#65039; Blockers</button>
+      <button class="uf-btn" onclick="setUpdatesFilter('cat','metric',this)">&#128202; Metrics</button>
+    </div>
+    <div class="updates-grid" id="updates-grid"></div>
+  </div>
+
+  <div class="wins-section">
+    <div class="section-hdr wins-hdr">
+      <span>&#127942; Last Week&rsquo;s Wins</span>
+      <span class="wins-date" id="wins-date"></span>
+    </div>
+    <div class="wins-grid" id="wins-grid"></div>
+  </div>
+
+  <!-- AGENT-DATA:upcoming-priorities-start -->
+  <script id="upcoming-priorities-data">
+  const UPCOMING_PRIORITIES = {
+  "weekOf": "1 Jun – 7 Jun 2026",
+  "Chris": [
+    "WA Day public holiday Monday 1 Jun — offline",
+    "Sheana to book Outreach vendor meeting for 38-seat AE pilot (HubSpot quote as leverage); Chris to review commercials and governance approach",
+    "Present sequence cohesion report at ANZ Lead Council meeting (held back for this forum per Amy's request)",
+    "Announce conversation history call notes enhancement to all SDR teams globally",
+    "Qualified + Hero AI technical kick-off with Amber & web team (before Amber's leave)"
+  ],
+  "Cara": [
+    "Go live with HeroForce AI workforce — replace static BAD sequences with AI-powered workforce-linked versions",
+    "Complete CAN OB Sequence + Workforce link build (due 2 Jun)",
+    "Resolve NZ Lost Revive sequence errors (Seq 881 Contact Details Mismatch tags)",
+    "Continue AI Agent Optimisations (IB Call Notes, AU OB Agent, Global Webinar Agent — due 12 Jun)",
+    "Daily Relevance AI workforce monitoring and triage"
+  ],
+  "Claire": [
+    "Qualified partner routing — support Usman's build and test routing before go-live",
+    "Outreach task cleanup for Paris Holloway: close out ~150 overdue tasks (10+ days, Upsell IB era) before Monday",
+    "Evals refinement — add get time & date tool to AI agents for improved date-awareness",
+    "Initiate AI call notes scoping for Partnerships SDR team — outbound first, align with Claire Sertori",
+    "Weekly Outreach usage metrics report"
+  ]
+};
+  </script>
+  <!-- AGENT-DATA:upcoming-priorities-end -->
+
+  <!-- AGENT-DATA:highlights-start -->
+  <script id="highlights-data">
+  const HIGHLIGHTS = [
+  {
+    "emoji": "🚀",
+    "title": "Relevance AI Beta — Evals & Invent Now Delivering Real Value",
+    "detail": "This week the Relevance AI beta moved from access to active delivery. Claire shipped her first Evals checks (date-awareness + region-awareness for the PS promo line), built an Evals dashboard, and used Invent to auto-update copy agent instructions. She also identified that agents lack native date-awareness and is adding a get time & date tool to fix it. Chris used Invent to build a new tool. The team is now the most advanced internal user of Relevance AI's beta eval tooling.",
+    "tag": "Beta Access",
+    "tagStyle": "hl-violet",
+    "people": "Chris · Cara · Claire"
+  },
+  {
+    "emoji": "🏢",
+    "title": "AE Outreach Expansion — 38 New Seats on the Horizon",
+    "detail": "A potentially major platform expansion is underway: 38 Account Executives could migrate from Gong Engage onto Outreach. Three AEs (Adam, Will, Elliott) confirmed Gong Engage is non-functional for their core workflows. Sales, Enablement, and RevOps are aligned — vendor meeting to be booked by Sheana using a HubSpot competitive quote as leverage. Chris has raised governance considerations with Thomas Pyle and Allan De Brincat. If approved, this would double Outreach's user base and significantly expand Sales Automation's remit.",
+    "tag": "Major Development",
+    "tagStyle": "hl-amber",
+    "people": "Chris · Sheana · Sales"
+  },
+  {
+    "emoji": "💙",
+    "title": "Amy Le Grange: \"What a Privilege to Work With This Team\"",
+    "detail": "In a public message to #crm-crew-leaders on 27 May before going on leave, Amy wrote: \"I also want to add a big thank you to the CRM Team — you are all so efficient and you live all of our values. Working with such a driven, skilled and lovely team is a privilege. Thank you for driving this space forward.\"",
+    "tag": "Recognition",
+    "tagStyle": "hl-green",
+    "people": "Chris · Cara · Claire"
+  }
+];
+  </script>
+  <!-- AGENT-DATA:highlights-end -->
+
+  <div class="priorities-section">
+    <div class="section-hdr wins-hdr">
+      <span>&#127919; Coming Up This Week</span>
+      <span class="wins-date" id="priorities-date"></span>
+    </div>
+    <div class="priorities-grid" id="priorities-grid"></div>
+  </div>
+
+  <div class="highlights-section">
+    <div class="section-hdr">&#10024; Team Spotlight &nbsp;<span style="font-weight:400;color:#94A3B8;font-size:10px;text-transform:none;letter-spacing:0">Notable moments, beta access, interesting developments</span></div>
+    <div class="highlights-scroll" id="highlights-scroll"></div>
   </div>
 
   <!-- ── METRICS ───────────────────────────────────────────────────────── -->
@@ -2092,88 +2165,6 @@ body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sa
 </div>
 
 <script>
-// ── Global page filter ────────────────────────────────
-let _currentFilter = 'all';
-function setPageFilter(filter, btn) {
-  _currentFilter = filter;
-  document.querySelectorAll('.pf-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const showInit  = filter === 'all' || filter === 'initiatives' || filter === 'risk';
-  const showTasks = filter === 'all' || filter === 'tasks' || filter === 'risk';
-  const si = document.getElementById('section-initiatives');
-  const st = document.getElementById('section-open-tasks');
-  if (si) si.style.display = showInit  ? '' : 'none';
-  if (st) st.style.display = showTasks ? '' : 'none';
-  if (filter === 'risk') {
-    // Dim non-blocked initiative cards
-    document.querySelectorAll('.card').forEach(card => {
-      const hasBlocker = card.querySelector('.blocker-box');
-      card.style.opacity = hasBlocker ? '1' : '0.35';
-    });
-    // Dim on-track task cards
-    document.querySelectorAll('.task-card').forEach(tc => {
-      const isRisk = tc.classList.contains('tc-at-risk') || tc.classList.contains('tc-overdue');
-      tc.style.opacity = isRisk ? '1' : '0.35';
-    });
-  } else {
-    document.querySelectorAll('.card').forEach(c => c.style.opacity = '');
-    document.querySelectorAll('.task-card').forEach(c => c.style.opacity = '');
-  }
-}
-
-// ── Open tasks renderer ───────────────────────────────
-(function renderOpenTasks() { try {
-  const riskMeta = {
-    overdue:  { cls: 'tc-overdue', badge: 'trb-overdue', label: 'Overdue' },
-    at_risk:  { cls: 'tc-at-risk',  badge: 'trb-at-risk',  label: 'At Risk' },
-    watch:    { cls: 'tc-watch',    badge: 'trb-watch',    label: 'Watch' },
-    on_track: { cls: 'tc-on-track', badge: 'trb-on-track', label: 'On Track' }
-  };
-  const grid = document.getElementById('tasks-grid');
-  if (!grid || !OPEN_TASKS || !OPEN_TASKS.length) return;
-  grid.innerHTML = OPEN_TASKS.map(t => {
-    const m = riskMeta[t.risk] || riskMeta.on_track;
-    const dueStr = t.due_on
-      ? (t.days_until_due < 0 ? `<span style="color:#DC2626">&#128197; ${Math.abs(t.days_until_due)}d overdue</span>`
-       : `&#128197; Due ${t.due_on}`)
-      : '&#128197; No due date';
-    const updStr = t.days_since_update != null
-      ? `&#128336; Updated ${t.days_since_update}d ago` : '';
-    const linkHtml = t.initiative_link
-      ? `<span class="task-init-link">&#128204; ${t.initiative_link}</span>` : '';
-    return `<div class="task-card ${m.cls}">
-      <span class="task-risk-badge ${m.badge}">${m.label}</span>
-      <div class="task-name">${t.name}</div>
-      <div class="task-info">
-        ${linkHtml}
-        <span>${t.assignee}</span>
-        <span>${dueStr}</span>
-        ${updStr ? `<span>${updStr}</span>` : ''}
-      </div>
-    </div>`;
-  }).join('');
-
-  // Task health pills in the alignment dashboard
-  const counts = { overdue: 0, at_risk: 0, watch: 0, on_track: 0 };
-  OPEN_TASKS.forEach(t => { if (counts[t.risk] !== undefined) counts[t.risk]++; });
-  const hr = document.getElementById('task-health-row');
-  if (hr) {
-    const items = [
-      counts.overdue  ? `<span class="th-pill thp-overdue">&#128308; ${counts.overdue} overdue</span>` : '',
-      counts.at_risk  ? `<span class="th-pill thp-risk">&#128993; ${counts.at_risk} at risk</span>` : '',
-      counts.watch    ? `<span class="th-pill thp-watch">&#128992; ${counts.watch} watch</span>` : '',
-      counts.on_track ? `<span class="th-pill thp-ok">&#128994; ${counts.on_track} on track</span>` : ''
-    ].filter(Boolean);
-    hr.innerHTML = items.length ? items.join('') : '';
-  }
-  // Update At Risk filter button count
-  const riskCount = (counts.overdue || 0) + (counts.at_risk || 0);
-  const riskBtn = document.querySelector('.pf-btn.pf-risk');
-  if (riskBtn && riskCount > 0) {
-    riskBtn.innerHTML = `&#128308; At Risk <span class="pf-count">${riskCount}</span>`;
-  }
-} catch(e) { console.warn('Open tasks error:', e); } })();
-
 // ── Card expand/collapse ────────────────────────────────
 try {
   document.querySelectorAll('.card').forEach(card => {
@@ -2184,13 +2175,137 @@ try {
   });
 } catch(e) { console.warn('Card expand error:', e); }
 
+// ── Tag initiative cards with data attributes (for filtering) ──
+(function tagCards() { try {
+  document.querySelectorAll('#section-initiatives .card').forEach(card => {
+    const titleEl = card.querySelector('.card-title');
+    if (!titleEl) return;
+    const title = titleEl.textContent.trim();
+    const tag = INITIATIVE_TAGS[title];
+    card.dataset.type = tag ? tag.type : 'initiative';
+
+    // status from class
+    if (card.classList.contains('card-done'))     card.dataset.status = 'done';
+    else if (card.classList.contains('card-live')) card.dataset.status = 'live';
+    else if (card.classList.contains('card-progress')) card.dataset.status = 'progress';
+    else if (card.classList.contains('card-planned'))  card.dataset.status = 'planned';
+    else card.dataset.status = 'active';
+
+    // initiative tag chip
+    if (tag) {
+      const dueEl = card.querySelector('.card-due');
+      if (dueEl) {
+        const tagEl = document.createElement('div');
+        tagEl.className = 'init-tag' + (tag.type === 'extra' ? ' extra' : tag.type === 'bau' ? ' bau' : '');
+        tagEl.textContent = (tag.type === 'initiative' ? '📌 ' : tag.type === 'extra' ? '⭐ ' : '⚙️ ') + tag.label;
+        dueEl.insertAdjacentElement('afterend', tagEl);
+      }
+    }
+  });
+} catch(e) { console.warn('Tag cards error:', e); } })();
+
+// ── Work board filter state ─────────────────────────────
+let _wbType = 'all', _wbStatus = 'all';
+
+function applyWorkBoardFilter() {
+  const type = _wbType, status = _wbStatus;
+
+  // Task section
+  const tasksSec = document.getElementById('wb-tasks-section');
+  if (tasksSec) tasksSec.style.display = (type === 'all' || type === 'tasks' || type === 'risk') ? '' : 'none';
+
+  // BAU section
+  const bauSec = document.getElementById('wb-bau-section');
+  if (bauSec) bauSec.style.display = (type === 'all' || type === 'bau') ? '' : 'none';
+
+  // Initiatives section
+  const initSec = document.getElementById('section-initiatives');
+  if (initSec) {
+    const showInits = type === 'all' || type === 'initiative' || type === 'extra';
+    initSec.style.display = showInits ? '' : 'none';
+    if (showInits) {
+      document.querySelectorAll('#section-initiatives .card').forEach(card => {
+        const matchType   = type === 'all' || card.dataset.type === type;
+        const matchStatus = status === 'all' || card.dataset.status === status
+                         || (status === 'active' && (card.dataset.status === 'live' || card.dataset.status === 'progress'));
+        card.style.display = (matchType && matchStatus) ? '' : 'none';
+      });
+    }
+  }
+
+  // At-risk task filter
+  if (type === 'risk') {
+    document.querySelectorAll('.task-card').forEach(tc => {
+      const isRisk = tc.classList.contains('tc-at-risk') || tc.classList.contains('tc-overdue');
+      tc.style.opacity = isRisk ? '1' : '0.3';
+    });
+  } else {
+    document.querySelectorAll('.task-card').forEach(tc => tc.style.opacity = '');
+  }
+}
+
+function setWorkFilter(type, btn) {
+  _wbType = type;
+  document.querySelectorAll('.wb-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyWorkBoardFilter();
+}
+
+function setStatusFilter(status, btn) {
+  _wbStatus = status;
+  document.querySelectorAll('.wb-sub-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyWorkBoardFilter();
+}
+
+// ── Open tasks renderer ────────────────────────────────
+(function renderOpenTasks() { try {
+  const grid = document.getElementById('tasks-grid');
+  if (!grid || !OPEN_TASKS || !OPEN_TASKS.length) return;
+  const riskCls = { overdue: 'tc-overdue', at_risk: 'tc-at-risk', watch: 'tc-watch', on_track: 'tc-on-track' };
+  const badgeCls = { overdue: 'trb-overdue', at_risk: 'trb-at-risk', watch: 'trb-watch', on_track: 'trb-on-track' };
+  const badgeLbl = { overdue: '🔴 Overdue', at_risk: '🟡 At Risk', watch: '🔵 Watch', on_track: '🟢 On Track' };
+  grid.innerHTML = OPEN_TASKS.map(t => {
+    const dueStr = t.due_on ? `📅 Due ${t.due_on}${t.days_until_due !== null ? ` (${t.days_until_due < 0 ? Math.abs(t.days_until_due) + 'd overdue' : t.days_until_due + 'd left'})` : ''}` : '📅 No due date';
+    const updStr = `🔄 Updated ${t.days_since_update}d ago`;
+    return `<div class="task-card ${riskCls[t.risk] || ''}">
+      <span class="task-risk-badge ${badgeCls[t.risk] || ''}">${badgeLbl[t.risk] || t.risk}</span>
+      <div class="task-name">${t.name}</div>
+      <div class="task-info">
+        <span>👤 ${t.assignee}</span>
+        ${t.initiative_link ? `<span class="task-init-link">📌 ${t.initiative_link}</span>` : ''}
+        <span>${dueStr}</span>
+        <span>${updStr}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Task health pills
+  const counts = { overdue: 0, at_risk: 0, watch: 0, on_track: 0 };
+  OPEN_TASKS.forEach(t => { if (counts[t.risk] !== undefined) counts[t.risk]++; });
+  const hr = document.getElementById('task-health-row');
+  if (hr) {
+    const items = [
+      counts.overdue  ? `<span class="th-pill thp-overdue">🔴 ${counts.overdue} overdue</span>` : '',
+      counts.at_risk  ? `<span class="th-pill thp-risk">🟡 ${counts.at_risk} at risk</span>` : '',
+      counts.watch    ? `<span class="th-pill thp-watch">🔵 ${counts.watch} watch</span>` : '',
+      counts.on_track ? `<span class="th-pill thp-ok">🟢 ${counts.on_track} on track</span>` : ''
+    ].filter(Boolean);
+    hr.innerHTML = items.length ? items.join('') : '';
+  }
+
+  // At Risk button count
+  const riskCount = (counts.overdue || 0) + (counts.at_risk || 0);
+  const riskBtn = document.getElementById('wb-risk-btn');
+  if (riskBtn && riskCount > 0) riskBtn.innerHTML = `&#128308; At Risk <span class="pf-count">${riskCount}</span>`;
+} catch(e) { console.warn('Open tasks error:', e); } })();
+
 // ── Initiative Alignment Dashboard ────────────────────
 (function renderInitiativeAlignment() { try {
-  const { distribution, q3Stats, initiatives, generated } = INITIATIVE_ALIGNMENT;
+  const { distribution, q3Stats, generated } = INITIATIVE_ALIGNMENT;
   const genEl = document.getElementById('align-generated');
   if (genEl) genEl.textContent = 'Generated: ' + generated;
 
-  // Donut chart
   const initPct = distribution[0].pct;
   document.getElementById('donut-main-pct').textContent = initPct + '%';
   if (typeof Chart !== 'undefined') new Chart(document.getElementById('initChart'), {
@@ -2205,90 +2320,24 @@ try {
     }
   });
 
-  // Donut legend (text fallback always renders even without Chart.js)
   document.getElementById('donut-legend').innerHTML = distribution.map(d =>
     `<div class="donut-legend-item"><span class="donut-legend-dot" style="background:${d.color}"></span>${d.label}: <strong>${d.pct}%</strong></div>`
   ).join('');
 
-  // Q3 stats
   document.getElementById('q3-stats').innerHTML = [
     { n: q3Stats.delivered, l: 'Delivered', c: 'n-green' },
     { n: q3Stats.active,    l: 'Active',    c: 'n-blue'  },
     { n: q3Stats.planned,   l: 'Planned',   c: 'n-grey'  }
   ].map(s => `<div class="q3-stat"><div class="q3-stat-n ${s.c}">${s.n}</div><div class="q3-stat-l">${s.l}</div></div>`).join('');
-
-  // Initiative cards
-  renderInitCards('all');
 } catch(e) { console.warn('Initiative alignment error:', e); } })();
-
-let _allInits = [];
-function renderInitCards(filter) {
-  _allInits = INITIATIVE_ALIGNMENT.initiatives;
-  const filtered = filter === 'all' ? _allInits :
-    filter === 'done'    ? _allInits.filter(i => i.status === 'done') :
-    filter === 'active'  ? _allInits.filter(i => i.status === 'live' || i.status === 'active') :
-    filter === 'planned' ? _allInits.filter(i => i.status === 'planned') : _allInits;
-
-  const barColor = p => p >= 100 ? '#22C55E' : p >= 70 ? '#0D9488' : p >= 30 ? '#3B82F6' : p > 0 ? '#F59E0B' : '#E2E8F0';
-  const priLabel = { must: 'Must', should: 'Should', nice: 'Nice' };
-
-  document.getElementById('init-cards').innerHTML = filtered.map(i => {
-    const isDone = i.status === 'done';
-    const cls = isDone ? 'ic-done' : `ic-${i.priority}`;
-    return `<div class="init-card ${cls}">
-      <div class="init-card-name">${i.name}</div>
-      <div class="init-card-row">
-        ${isDone
-          ? '<span class="badge b-done" style="font-size:9px;padding:1px 6px">Done ✓</span>'
-          : `<span class="pri-pill pp-${i.priority}">${priLabel[i.priority]}</span>`
-        }
-        <span class="init-owner">${i.owner}</span>
-      </div>
-      <div class="init-bar-wrap">
-        <div class="init-bar-track"><div class="init-bar-fill" style="width:${i.progress}%;background:${barColor(i.progress)}"></div></div>
-        <div class="init-bar-label" style="color:${barColor(i.progress)}">${i.progress}%</div>
-      </div>
-      <div class="init-note">${i.note}</div>
-    </div>`;
-  }).join('');
-}
-function filterInits(f, btn) {
-  document.querySelectorAll('.init-filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderInitCards(f);
-}
-
-// ── Initiative tags on detail cards ───────────────────
-(function renderInitiativeTags() { try {
-  document.querySelectorAll('.card').forEach(card => {
-    const titleEl = card.querySelector('.card-title');
-    if (!titleEl) return;
-    const title = titleEl.textContent.trim();
-    const tag = INITIATIVE_TAGS[title];
-    if (!tag) return;
-    const dueEl = card.querySelector('.card-due');
-    if (!dueEl) return;
-    const tagEl = document.createElement('div');
-    tagEl.className = 'init-tag' + (tag.type === 'extra' ? ' extra' : tag.type === 'bau' ? ' bau' : '');
-    tagEl.textContent = (tag.type === 'initiative' ? '📌 ' : tag.type === 'extra' ? '⭐ ' : '⚙️ ') + tag.label;
-    dueEl.insertAdjacentElement('afterend', tagEl);
-  });
-} catch(e) { console.warn('Initiative tags error:', e); } })();
 
 // ── Progress bar renderer ──────────────────────────────
 (function renderProgressBars() { try {
-  const color = p => {
-    if (p === 0)   return '#E2E8F0';
-    if (p <= 30)   return '#F59E0B';
-    if (p <= 70)   return '#3B82F6';
-    if (p < 100)   return '#0D9488';
-    return '#22C55E';
-  };
+  const color = p => p === 0 ? '#E2E8F0' : p <= 30 ? '#F59E0B' : p <= 70 ? '#3B82F6' : p < 100 ? '#0D9488' : '#22C55E';
   document.querySelectorAll('.card').forEach(card => {
     const titleEl = card.querySelector('.card-title');
     if (!titleEl) return;
-    const title = titleEl.textContent.trim();
-    const pct = PROGRESS_DATA[title];
+    const pct = PROGRESS_DATA[titleEl.textContent.trim()];
     if (pct === undefined) return;
     const fill  = card.querySelector('.progress-fill');
     const label = card.querySelector('.progress-pct');
@@ -2299,6 +2348,76 @@ function filterInits(f, btn) {
     label.style.color = pct === 0 ? '#94A3B8' : color(pct);
   });
 } catch(e) { console.warn('Progress bars error:', e); } })();
+
+// ── Key Updates renderer ───────────────────────────────
+let _updPerson = 'all', _updCat = 'all';
+
+const _catLabel = {
+  'ai-build': 'AI Build', 'implementation': 'Implementation', 'revenue': 'Revenue / Leads',
+  'optimisation': 'Optimisation', 'sequence': 'Sequences',
+  'shipped': 'Shipped', 'update': 'Key Update', 'blocker': 'Blocker', 'metric': 'Metrics'
+};
+
+function renderUpdates() { try {
+  const el = document.getElementById('updates-note');
+  if (el) el.textContent = 'Week of ' + KEY_UPDATES.weekOf + ' · Also published to Amy's Weekly OKR Notes canvas';
+  const updates = KEY_UPDATES.updates || [];
+  const filtered = updates.filter(u => {
+    const matchPerson = _updPerson === 'all' || (u.person && u.person === _updPerson);
+    const matchCat    = _updCat === 'all' || (u.input_category && u.input_category === _updCat) || (u.category && u.category === _updCat);
+    return matchPerson && matchCat;
+  });
+  const catKey = u => u.input_category || u.category || 'update';
+  const personColor = { Chris: '#4F46E5', Cara: '#EA580C', Claire: '#059669' };
+  document.getElementById('updates-grid').innerHTML = filtered.length
+    ? filtered.map(u => `
+        <div class="update-card uc-${catKey(u)}">
+          <div class="update-card-hdr">
+            <div class="update-title">${u.title}</div>
+            <span class="cat-badge cb-${catKey(u)}">${_catLabel[catKey(u)] || catKey(u)}</span>
+          </div>
+          <div class="update-detail">${u.detail}</div>
+          <div class="update-impact">${u.impact}</div>
+          ${u.person ? `<div class="update-person"><span class="up-dot" style="background:${personColor[u.person]||'#94A3B8'}"></span>${u.person}</div>` : ''}
+        </div>`).join('')
+    : '<p style="font-size:12px;color:#94A3B8;padding:8px 0">No updates match the selected filter.</p>';
+} catch(e) { console.warn('Key updates error:', e); } }
+
+(function initUpdates() { try { renderUpdates(); } catch(e) { console.warn(e); } })();
+
+function setUpdatesFilter(dimension, value, btn) {
+  if (dimension === 'person') {
+    _updPerson = value;
+    document.querySelectorAll('.updates-filter-row .uf-btn').forEach(b => {
+      if (b.onclick && b.onclick.toString().includes("'person'")) b.classList.remove('active');
+    });
+  } else {
+    _updCat = value;
+    document.querySelectorAll('.updates-filter-row .uf-btn').forEach(b => {
+      if (b.onclick && b.onclick.toString().includes("'cat'")) b.classList.remove('active');
+    });
+  }
+  btn.classList.add('active');
+  renderUpdates();
+}
+
+// ── Weekly Wins renderer ────────────────────────────────
+(function renderWins() { try {
+  const people = [
+    { key: 'Chris',  name: 'Chris Mockford', role: 'Sales Automation Lead',         cls: 'wa-chris',  init: 'CM' },
+    { key: 'Cara',   name: 'Cara Ng',         role: 'AI Sequences & Relevance AI',   cls: 'wa-cara',   init: 'CN' },
+    { key: 'Claire', name: 'Claire Lee',      role: 'Partner Routing & Reporting',   cls: 'wa-claire', init: 'CL' }
+  ];
+  document.getElementById('wins-date').textContent = 'Week of ' + WEEKLY_WINS.weekOf;
+  document.getElementById('wins-grid').innerHTML = people.map(p => `
+    <div class="win-card">
+      <div class="win-card-hdr">
+        <div class="win-avatar ${p.cls}">${p.init}</div>
+        <div><div class="win-name">${p.name}</div><div class="win-role">${p.role}</div></div>
+      </div>
+      <ul class="win-list">${(WEEKLY_WINS[p.key]||[]).map(w=>`<li><span class="win-check">✓</span><span>${w}</span></li>`).join('')}</ul>
+    </div>`).join('');
+} catch(e) { console.warn('Wins error:', e); } })();
 
 // ── Upcoming Priorities renderer ───────────────────────
 (function renderPriorities() { try {
@@ -2338,65 +2457,40 @@ function filterInits(f, btn) {
     </div>`).join('');
 } catch(e) { console.warn('Highlights error:', e); } })();
 
-// ── Key Updates renderer ───────────────────────────────
-(function renderUpdates() { try {
-  const catLabel = { 'ai-build': 'AI Build', 'implementation': 'Implementation', 'revenue': 'Revenue / Leads', 'optimisation': 'Optimisation', 'sequence': 'Sequences' };
-  const el = document.getElementById('updates-note');
-  if (el) el.textContent = 'Week of ' + KEY_UPDATES.weekOf + ' · Also published to Amy\'s Weekly OKR Notes canvas';
-  document.getElementById('updates-grid').innerHTML = (KEY_UPDATES.updates || []).map(u => `
-    <div class="update-card uc-${u.category}">
-      <div class="update-card-hdr">
-        <div class="update-title">${u.title}</div>
-        <span class="cat-badge cb-${u.category}">${catLabel[u.category] || u.category}</span>
-      </div>
-      <div class="update-detail">${u.detail}</div>
-      <div class="update-impact">${u.impact}</div>
-    </div>`).join('');
-} catch(e) { console.warn('Key updates error:', e); } })();
-
-// ── Weekly Wins renderer ────────────────────────────────
-(function renderWins() { try {
-  const people = [
-    { key: 'Chris',  name: 'Chris Mockford', role: 'Sales Automation Lead',         cls: 'wa-chris',  init: 'CM' },
-    { key: 'Cara',   name: 'Cara Ng',         role: 'AI Sequences & Relevance AI',   cls: 'wa-cara',   init: 'CN' },
-    { key: 'Claire', name: 'Claire Lee',      role: 'Partner Routing & Reporting',   cls: 'wa-claire', init: 'CL' }
-  ];
-  document.getElementById('wins-date').textContent = 'Week of ' + WEEKLY_WINS.weekOf;
-  document.getElementById('wins-grid').innerHTML = people.map(p => `
-    <div class="win-card">
-      <div class="win-card-hdr">
-        <div class="win-avatar ${p.cls}">${p.init}</div>
-        <div><div class="win-name">${p.name}</div><div class="win-role">${p.role}</div></div>
-      </div>
-      <ul class="win-list">${(WEEKLY_WINS[p.key]||[]).map(w=>`<li><span class="win-check">✓</span><span>${w}</span></li>`).join('')}</ul>
-    </div>`).join('');
-} catch(e) { console.warn('Wins error:', e); } })();
-
 // ── YTD summary + bar chart renderer ───────────────────
 (function renderActivity() { try {
-  const { ytd, monthly, generated } = TASK_COUNTS;
+  const { monthly, generated } = TASK_COUNTS;
   const people = [
     { key: 'Chris',  name: 'Chris Mockford', cls: 'wa-chris',  init: 'CM', color: '79,70,229'  },
     { key: 'Cara',   name: 'Cara Ng',         cls: 'wa-cara',   init: 'CN', color: '234,88,12'  },
     { key: 'Claire', name: 'Claire Lee',      cls: 'wa-claire', init: 'CL', color: '5,150,105'  }
   ];
 
-  // YTD summary cards
+  // YTD summary: count per-person from OPEN_TASKS (board view)
+  const boardCounts = { Chris: { completed: 0, open: 0 }, Cara: { completed: 0, open: 0 }, Claire: { completed: 0, open: 0 } };
+  (OPEN_TASKS || []).forEach(t => {
+    const names = t.assignee.split('/').map(n => n.trim().replace('Mocks','Chris'));
+    names.forEach(n => { if (boardCounts[n]) boardCounts[n].open++; });
+  });
+  // completed from TASK_COUNTS.ytd (Asana historical, per-person)
+  const ytd = TASK_COUNTS.ytd || {};
+  people.forEach(p => { if (ytd[p.key]) boardCounts[p.key].completed = ytd[p.key].completed; });
+
   document.getElementById('ytd-grid').innerHTML = people.map(p => `
     <div class="ytd-card">
       <div class="ytd-avatar ${p.cls}">${p.init}</div>
       <div class="ytd-info">
         <div class="ytd-name">${p.name}</div>
         <div class="ytd-stats">
-          <span class="ytd-done">${ytd[p.key].completed} done</span>
+          <span class="ytd-done">${boardCounts[p.key].completed} done YTD</span>
           &nbsp;&middot;&nbsp;
-          <span class="ytd-open">${ytd[p.key].open} open</span>
+          <span class="ytd-open">${boardCounts[p.key].open} on board</span>
           &nbsp;&middot;&nbsp;as of ${generated}
         </div>
       </div>
     </div>`).join('');
 
-  // Bar chart
+  // Bar chart (monthly completion from Asana)
   const months = Object.keys(monthly);
   const datasets = [];
   people.forEach(p => {
@@ -2420,11 +2514,8 @@ function filterInits(f, btn) {
     type: 'bar',
     data: { labels: months, datasets },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { position: 'top', labels: { font: { size: 11 }, boxWidth: 12, padding: 16 } }
-      },
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'top', labels: { font: { size: 11 }, boxWidth: 12, padding: 16 } } },
       scales: {
         x: { stacked: true, grid: { display: false }, ticks: { font: { size: 11 } } },
         y: { stacked: true, beginAtZero: true, ticks: { font: { size: 11 }, stepSize: 10 }, grid: { color: '#F1F5F9' } }
