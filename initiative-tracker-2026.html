@@ -587,47 +587,36 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       <span style="font-size:10px;color:var(--dimmed);font-weight:400;text-transform:none;letter-spacing:0;font-family:'DM Sans',system-ui,sans-serif" id="align-generated"></span>
     </div>
 
-    <div style="margin-top:16px;padding-bottom:14px;border-bottom:1px solid var(--border)">
-      <div class="filter-row">
-        <span class="f-label">Type</span>
-        <button class="f-btn active" data-dim="type" onclick="setFilter('type','all',this)">All</button>
-        <button class="f-btn" data-dim="type" onclick="setFilter('type','initiative',this)">&#128204; Quarterly Initiatives &#128255;</button>
-        <button class="f-btn" data-dim="type" onclick="setFilter('type','additional',this)">&#11088; Additional Value</button>
-      </div>
-      <div class="filter-row">
-        <span class="f-label">Status</span>
-        <button class="f-btn active" data-dim="status" onclick="setFilter('status','all',this)">All</button>
-        <button class="f-btn" data-dim="status" onclick="setFilter('status','active',this)">Active</button>
-        <button class="f-btn" data-dim="status" onclick="setFilter('status','completed',this)">Completed</button>
-        <button class="f-btn" data-dim="status" onclick="setFilter('status','planned',this)">Planned</button>
-      </div>
-      <div class="filter-row" style="margin-bottom:0">
-        <span class="f-label">Owner</span>
-        <button class="f-btn active" data-dim="owner" onclick="setFilter('owner','all',this)">All</button>
-        <button class="f-btn" data-dim="owner" onclick="setFilter('owner','Mocks',this)">Mocks</button>
-        <button class="f-btn" data-dim="owner" onclick="setFilter('owner','Cara',this)">Cara</button>
-        <button class="f-btn" data-dim="owner" onclick="setFilter('owner','Claire',this)">Claire</button>
-      </div>
+    <div class="updates-filter-row" style="margin-top:14px;padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:0">
+      <span style="font-size:10px;font-weight:700;color:var(--dimmed);text-transform:uppercase;letter-spacing:.6px;margin-right:2px">Owner</span>
+      <button class="f-btn active" data-dim="owner" onclick="setFilter('owner','all',this)">All</button>
+      <button class="f-btn" data-dim="owner" onclick="setFilter('owner','Mocks',this)">Mocks</button>
+      <button class="f-btn" data-dim="owner" onclick="setFilter('owner','Cara',this)">Cara</button>
+      <button class="f-btn" data-dim="owner" onclick="setFilter('owner','Claire',this)">Claire</button>
+      <div class="uf-divider"></div>
+      <span style="font-size:10px;font-weight:700;color:var(--dimmed);text-transform:uppercase;letter-spacing:.6px;margin-right:2px">Status</span>
+      <button class="f-btn active" data-dim="status" onclick="setFilter('status','all',this)">All</button>
+      <button class="f-btn" data-dim="status" onclick="setFilter('status','active',this)">Active</button>
+      <button class="f-btn" data-dim="status" onclick="setFilter('status','completed',this)">Completed</button>
+      <button class="f-btn" data-dim="status" onclick="setFilter('status','planned',this)">Planned</button>
+      <div class="uf-divider"></div>
+      <span style="font-size:10px;font-weight:700;color:var(--dimmed);text-transform:uppercase;letter-spacing:.6px;margin-right:2px">Type</span>
+      <button class="f-btn active" data-dim="type" onclick="setFilter('type','all',this)">All</button>
+      <button class="f-btn" data-dim="type" onclick="setFilter('type','initiative',this)">&#128204; Initiatives &#128255;</button>
+      <button class="f-btn" data-dim="type" onclick="setFilter('type','additional',this)">&#11088; Add. Value</button>
     </div>
 
-    <div id="filter-context" style="display:none;font-size:11px;color:var(--muted);margin-top:12px;margin-bottom:0;padding:6px 12px;background:var(--accent-glow);border:1px solid var(--border);border-radius:8px">
+    <div id="filter-context" style="display:none;font-size:11px;color:var(--muted);margin-top:12px;margin-bottom:8px;padding:6px 12px;background:var(--accent-glow);border:1px solid var(--border);border-radius:8px">
       Showing: <strong id="filter-context-text"></strong>
     </div>
 
-    <div class="overview-layout">
-      <div class="overview-donut-col">
-        <div class="donut-wrap"><canvas id="initChart"></canvas>
-          <div class="donut-centre">
-            <div class="donut-main-pct" id="donut-main-pct">–</div>
-            <div class="donut-main-lbl" id="donut-main-lbl">initiative<br>work</div>
-          </div>
-        </div>
-        <div class="donut-legend" id="donut-legend"></div>
+    <div style="margin-top:16px;">
+      <div style="position:relative;height:88px;width:100%;">
+        <canvas id="initChart"></canvas>
       </div>
-      <div class="overview-right">
-        <div class="q3-stats" id="q3-stats"></div>
-      </div>
+      <div id="donut-legend" style="display:flex;gap:20px;margin-top:10px;flex-wrap:wrap;"></div>
     </div>
+    <div class="q3-stats" id="q3-stats" style="margin-top:14px;"></div>
   </div>
 
   <div class="cards-board" id="cards-board"></div>
@@ -778,6 +767,7 @@ function renderCards() { try {
 
 // ── Work overview donut (reactive to filters) ─────────
 let _initChart = null;
+let _distribution = [];
 
 function renderWorkOverview() { try {
   const cards = getFilteredCards();
@@ -787,7 +777,11 @@ function renderWorkOverview() { try {
   const completed  = cards.filter(c => c.status === 'completed').length;
   const active     = cards.filter(c => c.status === 'active').length;
   const planned    = cards.filter(c => c.status === 'planned').length;
-  const initPct    = total > 0 ? Math.round((initiative / total) * 100) : 0;
+
+  _distribution = [
+    { label: 'Quarterly Initiatives', count: initiative, pct: total > 0 ? Math.round((initiative / total) * 100) : 0, color: '#7622D7' },
+    { label: 'Additional Value',      count: additional, pct: total > 0 ? Math.round((additional / total) * 100) : 0, color: '#f59e0b' }
+  ];
 
   // Filter context indicator
   const parts = [];
@@ -805,42 +799,60 @@ function renderWorkOverview() { try {
     }
   }
 
-  // Centre pct + label
-  const pctEl = document.getElementById('donut-main-pct');
-  const lblEl = document.getElementById('donut-main-lbl');
-  if (pctEl) pctEl.textContent = total > 0 ? initPct + '%' : '–';
-  if (lblEl) lblEl.innerHTML   = total > 0 ? 'initiative<br>work' : 'no cards<br>selected';
-
-  const distribution = [
-    { label: 'Quarterly Initiatives', count: initiative, pct: total > 0 ? Math.round((initiative / total) * 100) : 0, color: '#7622D7' },
-    { label: 'Additional Value',      count: additional, pct: total > 0 ? Math.round((additional / total) * 100) : 0, color: '#f59e0b' }
-  ];
-
-  // Legend
+  // Legend (row layout)
   const legendEl = document.getElementById('donut-legend');
   if (legendEl) {
-    legendEl.innerHTML = distribution.map(d =>
-      `<div class="donut-legend-item"><span class="donut-legend-dot" style="background:${d.color}"></span>${d.label}: <strong>${d.count} (${d.pct}%)</strong></div>`
+    legendEl.innerHTML = _distribution.map(d =>
+      `<div class="donut-legend-item"><span class="donut-legend-dot" style="background:${d.color}"></span><strong style="color:var(--text)">${d.count}</strong>&nbsp;<span>${d.label} (${d.pct}%)</span></div>`
     ).join('');
   }
 
-  // Chart — update existing or create
-  const chartData = total > 0 ? distribution.map(d => d.pct) : [1];
-  const chartColors = total > 0 ? distribution.map(d => d.color) : ['#3D2060'];
+  // Horizontal bar chart — update existing or create
+  const barData   = _distribution.map(d => d.count);
+  const barColors = _distribution.map(d => d.color);
+  const xMax      = Math.max(total, 1);
   if (_initChart) {
-    _initChart.data.datasets[0].data   = chartData;
-    _initChart.data.datasets[0].backgroundColor = chartColors;
+    _initChart.data.datasets[0].data            = barData;
+    _initChart.data.datasets[0].backgroundColor = barColors;
+    _initChart.options.scales.x.max             = xMax;
     _initChart.update('active');
   } else if (typeof Chart !== 'undefined') {
     _initChart = new Chart(document.getElementById('initChart'), {
-      type: 'doughnut',
+      type: 'bar',
       data: {
-        labels: distribution.map(d => d.label),
-        datasets: [{ data: chartData, backgroundColor: chartColors, borderWidth: 2, borderColor: '#1A0D2E' }]
+        labels: _distribution.map(d => d.label),
+        datasets: [{
+          data: barData,
+          backgroundColor: barColors,
+          borderWidth: 0,
+          borderRadius: 4,
+          borderSkipped: false
+        }]
       },
       options: {
-        cutout: '68%', responsive: true, maintainAspectRatio: true,
-        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => total > 0 ? ` ${ctx.label}: ${ctx.raw}%` : ' No cards' } } }
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: { callbacks: { label: ctx => {
+            const d = _distribution[ctx.dataIndex];
+            return d ? ` ${d.count} card${d.count !== 1 ? 's' : ''} (${d.pct}%)` : '';
+          }}}
+        },
+        scales: {
+          x: {
+            max: xMax,
+            grid: { color: 'rgba(61,32,96,0.5)' },
+            ticks: { color: '#9B87C0', font: { size: 11 }, stepSize: 1 },
+            border: { color: 'transparent' }
+          },
+          y: {
+            grid: { display: false },
+            ticks: { color: '#F0E8FF', font: { size: 12, weight: '600' } },
+            border: { color: 'transparent' }
+          }
+        }
       }
     });
   }
