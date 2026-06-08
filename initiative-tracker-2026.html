@@ -285,29 +285,6 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 
 <div class="board">
 
-  <div class="filter-bar">
-    <div class="filter-row">
-      <span class="f-label">Type</span>
-      <button class="f-btn active" data-dim="type" onclick="setFilter('type','all',this)">All</button>
-      <button class="f-btn" data-dim="type" onclick="setFilter('type','initiative',this)">&#128204; Quarterly Initiatives &#128255;</button>
-      <button class="f-btn" data-dim="type" onclick="setFilter('type','additional',this)">&#11088; Additional Value</button>
-    </div>
-    <div class="filter-row">
-      <span class="f-label">Status</span>
-      <button class="f-btn active" data-dim="status" onclick="setFilter('status','all',this)">All</button>
-      <button class="f-btn" data-dim="status" onclick="setFilter('status','active',this)">Active</button>
-      <button class="f-btn" data-dim="status" onclick="setFilter('status','completed',this)">Completed</button>
-      <button class="f-btn" data-dim="status" onclick="setFilter('status','planned',this)">Planned</button>
-    </div>
-    <div class="filter-row">
-      <span class="f-label">Owner</span>
-      <button class="f-btn active" data-dim="owner" onclick="setFilter('owner','all',this)">All</button>
-      <button class="f-btn" data-dim="owner" onclick="setFilter('owner','Mocks',this)">Mocks</button>
-      <button class="f-btn" data-dim="owner" onclick="setFilter('owner','Cara',this)">Cara</button>
-      <button class="f-btn" data-dim="owner" onclick="setFilter('owner','Claire',this)">Claire</button>
-    </div>
-  </div>
-
   <div class="summary-bar" id="summary-bar"></div>
 
   <!-- AGENT-DATA:key-updates-start -->
@@ -604,17 +581,45 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
   </script>
   <!-- AGENT-DATA:all-cards-end -->
 
-  <div class="section-panel">
+  <div class="section-panel" id="work-overview-panel">
     <div class="section-hdr" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:0">
       <span>&#127919; Work Overview &mdash; Q3 2026</span>
       <span style="font-size:10px;color:var(--dimmed);font-weight:400;text-transform:none;letter-spacing:0;font-family:'DM Sans',system-ui,sans-serif" id="align-generated"></span>
     </div>
+
+    <div style="margin-top:16px;padding-bottom:14px;border-bottom:1px solid var(--border)">
+      <div class="filter-row">
+        <span class="f-label">Type</span>
+        <button class="f-btn active" data-dim="type" onclick="setFilter('type','all',this)">All</button>
+        <button class="f-btn" data-dim="type" onclick="setFilter('type','initiative',this)">&#128204; Quarterly Initiatives &#128255;</button>
+        <button class="f-btn" data-dim="type" onclick="setFilter('type','additional',this)">&#11088; Additional Value</button>
+      </div>
+      <div class="filter-row">
+        <span class="f-label">Status</span>
+        <button class="f-btn active" data-dim="status" onclick="setFilter('status','all',this)">All</button>
+        <button class="f-btn" data-dim="status" onclick="setFilter('status','active',this)">Active</button>
+        <button class="f-btn" data-dim="status" onclick="setFilter('status','completed',this)">Completed</button>
+        <button class="f-btn" data-dim="status" onclick="setFilter('status','planned',this)">Planned</button>
+      </div>
+      <div class="filter-row" style="margin-bottom:0">
+        <span class="f-label">Owner</span>
+        <button class="f-btn active" data-dim="owner" onclick="setFilter('owner','all',this)">All</button>
+        <button class="f-btn" data-dim="owner" onclick="setFilter('owner','Mocks',this)">Mocks</button>
+        <button class="f-btn" data-dim="owner" onclick="setFilter('owner','Cara',this)">Cara</button>
+        <button class="f-btn" data-dim="owner" onclick="setFilter('owner','Claire',this)">Claire</button>
+      </div>
+    </div>
+
+    <div id="filter-context" style="display:none;font-size:11px;color:var(--muted);margin-top:12px;margin-bottom:0;padding:6px 12px;background:var(--accent-glow);border:1px solid var(--border);border-radius:8px">
+      Showing: <strong id="filter-context-text"></strong>
+    </div>
+
     <div class="overview-layout">
       <div class="overview-donut-col">
         <div class="donut-wrap"><canvas id="initChart"></canvas>
           <div class="donut-centre">
             <div class="donut-main-pct" id="donut-main-pct">–</div>
-            <div class="donut-main-lbl">initiative<br>work</div>
+            <div class="donut-main-lbl" id="donut-main-lbl">initiative<br>work</div>
           </div>
         </div>
         <div class="donut-legend" id="donut-legend"></div>
@@ -647,6 +652,15 @@ function ownerMatches(cardOwner, filterOwner) {
   return cardOwner.split('/').map(o => o.trim()).includes(filterOwner);
 }
 
+function getFilteredCards() {
+  return (ALL_CARDS || []).filter(c => {
+    const matchType   = _fType   === 'all' || c.type === _fType;
+    const matchStatus = _fStatus === 'all' || c.status === _fStatus;
+    const matchOwner  = ownerMatches(c.owner, _fOwner);
+    return matchType && matchStatus && matchOwner;
+  });
+}
+
 function setFilter(dim, value, btn) {
   if (dim === 'type')   _fType   = value;
   if (dim === 'status') _fStatus = value;
@@ -654,6 +668,7 @@ function setFilter(dim, value, btn) {
   document.querySelectorAll(`.f-btn[data-dim="${dim}"]`).forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderCards();
+  renderWorkOverview();
 }
 
 // ── Progress bar colour ───────────────────────────────
@@ -701,12 +716,7 @@ function renderCards() { try {
   const board = document.getElementById('cards-board');
   if (!board || !ALL_CARDS) return;
 
-  const filtered = ALL_CARDS.filter(c => {
-    const matchType   = _fType   === 'all' || c.type === _fType;
-    const matchStatus = _fStatus === 'all' || c.status === _fStatus;
-    const matchOwner  = ownerMatches(c.owner, _fOwner);
-    return matchType && matchStatus && matchOwner;
-  });
+  const filtered = getFilteredCards();
 
   if (!filtered.length) {
     board.innerHTML = '<div class="board-empty">No cards match the selected filters.</div>';
@@ -766,57 +776,88 @@ function renderCards() { try {
 
 (function initCards() { try { renderCards(); } catch(e) { console.warn(e); } })();
 
-// ── Work overview donut ───────────────────────────────
-(function renderWorkOverview() { try {
-  if (!ALL_CARDS) return;
-  const initiative = ALL_CARDS.filter(c => c.type === 'initiative').length;
-  const additional = ALL_CARDS.filter(c => c.type === 'additional').length;
-  const total = ALL_CARDS.length;
-  const initPct = total > 0 ? Math.round((initiative / total) * 100) : 0;
+// ── Work overview donut (reactive to filters) ─────────
+let _initChart = null;
 
+function renderWorkOverview() { try {
+  const cards = getFilteredCards();
+  const total      = cards.length;
+  const initiative = cards.filter(c => c.type === 'initiative').length;
+  const additional = cards.filter(c => c.type === 'additional').length;
+  const completed  = cards.filter(c => c.status === 'completed').length;
+  const active     = cards.filter(c => c.status === 'active').length;
+  const planned    = cards.filter(c => c.status === 'planned').length;
+  const initPct    = total > 0 ? Math.round((initiative / total) * 100) : 0;
+
+  // Filter context indicator
+  const parts = [];
+  if (_fOwner  !== 'all') parts.push(_fOwner);
+  if (_fStatus !== 'all') parts.push(_fStatus.charAt(0).toUpperCase() + _fStatus.slice(1));
+  if (_fType   !== 'all') parts.push(_fType === 'initiative' ? 'Quarterly Initiatives' : 'Additional Value');
+  const ctxEl  = document.getElementById('filter-context');
+  const ctxTxt = document.getElementById('filter-context-text');
+  if (ctxEl && ctxTxt) {
+    if (parts.length) {
+      ctxTxt.textContent = parts.join(' · ') + ` — ${total} card${total !== 1 ? 's' : ''}`;
+      ctxEl.style.display = '';
+    } else {
+      ctxEl.style.display = 'none';
+    }
+  }
+
+  // Centre pct + label
   const pctEl = document.getElementById('donut-main-pct');
-  if (pctEl) pctEl.textContent = initPct + '%';
+  const lblEl = document.getElementById('donut-main-lbl');
+  if (pctEl) pctEl.textContent = total > 0 ? initPct + '%' : '–';
+  if (lblEl) lblEl.innerHTML   = total > 0 ? 'initiative<br>work' : 'no cards<br>selected';
 
   const distribution = [
-    { label: 'Quarterly Initiatives', pct: Math.round((initiative / total) * 100), color: '#7622D7' },
-    { label: 'Additional Value', pct: Math.round((additional / total) * 100), color: '#f59e0b' }
+    { label: 'Quarterly Initiatives', count: initiative, pct: total > 0 ? Math.round((initiative / total) * 100) : 0, color: '#7622D7' },
+    { label: 'Additional Value',      count: additional, pct: total > 0 ? Math.round((additional / total) * 100) : 0, color: '#f59e0b' }
   ];
 
+  // Legend
   const legendEl = document.getElementById('donut-legend');
   if (legendEl) {
     legendEl.innerHTML = distribution.map(d =>
-      `<div class="donut-legend-item"><span class="donut-legend-dot" style="background:${d.color}"></span>${d.label}: <strong>${d.pct}%</strong></div>`
+      `<div class="donut-legend-item"><span class="donut-legend-dot" style="background:${d.color}"></span>${d.label}: <strong>${d.count} (${d.pct}%)</strong></div>`
     ).join('');
   }
 
-  if (typeof Chart !== 'undefined') {
-    new Chart(document.getElementById('initChart'), {
+  // Chart — update existing or create
+  const chartData = total > 0 ? distribution.map(d => d.pct) : [1];
+  const chartColors = total > 0 ? distribution.map(d => d.color) : ['#3D2060'];
+  if (_initChart) {
+    _initChart.data.datasets[0].data   = chartData;
+    _initChart.data.datasets[0].backgroundColor = chartColors;
+    _initChart.update('active');
+  } else if (typeof Chart !== 'undefined') {
+    _initChart = new Chart(document.getElementById('initChart'), {
       type: 'doughnut',
       data: {
         labels: distribution.map(d => d.label),
-        datasets: [{ data: distribution.map(d => d.pct), backgroundColor: distribution.map(d => d.color), borderWidth: 2, borderColor: '#1A0D2E' }]
+        datasets: [{ data: chartData, backgroundColor: chartColors, borderWidth: 2, borderColor: '#1A0D2E' }]
       },
       options: {
         cutout: '68%', responsive: true, maintainAspectRatio: true,
-        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ` ${ctx.label}: ${ctx.raw}%` } } }
+        plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => total > 0 ? ` ${ctx.label}: ${ctx.raw}%` : ' No cards' } } }
       }
     });
   }
 
-  const completed  = ALL_CARDS.filter(c => c.status === 'completed').length;
-  const active     = ALL_CARDS.filter(c => c.status === 'active').length;
-  const planned    = ALL_CARDS.filter(c => c.status === 'planned').length;
-
+  // Stats chips
   const statsEl = document.getElementById('q3-stats');
   if (statsEl) {
     statsEl.innerHTML = [
-      { n: completed, l: 'Completed', c: 'n-green'  },
-      { n: active,    l: 'Active',    c: 'n-blue'   },
-      { n: planned,   l: 'Planned',   c: 'n-grey'   },
+      { n: active,    l: 'Active',      c: 'n-blue'   },
+      { n: completed, l: 'Completed',   c: 'n-green'  },
+      { n: planned,   l: 'Planned',     c: 'n-grey'   },
       { n: total,     l: 'Total Cards', c: 'n-violet' }
     ].map(s => `<div class="q3-stat"><div class="q3-stat-n ${s.c}">${s.n}</div><div class="q3-stat-l">${s.l}</div></div>`).join('');
   }
-} catch(e) { console.warn('Work overview error:', e); } })();
+} catch(e) { console.warn('Work overview error:', e); } }
+
+(function initWorkOverview() { try { renderWorkOverview(); } catch(e) { console.warn(e); } })();
 
 // ── Team activity ─────────────────────────────────────
 (function renderActivity() { try {
