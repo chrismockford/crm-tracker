@@ -232,6 +232,16 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 .metrics-box  { background: rgba(148,224,34,0.08); border-left: 3px solid var(--green); padding: 7px 10px; border-radius: 4px; margin-top: 4px; font-size: 11px; color: var(--green-light); line-height: 1.5; }
 .card-updated { font-size: 10px; color: var(--dimmed); margin-top: 10px; padding-top: 8px; border-top: 1px dashed var(--border); }
 
+/* Card log / running commentary */
+.card-log { margin-top: 6px; }
+.card-log-entry { display: flex; gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--border); }
+.card-log-entry:last-child { border-bottom: none; }
+.log-date { color: var(--dimmed); white-space: nowrap; font-size: 10px; min-width: 58px; padding-top: 2px; flex-shrink: 0; font-style: italic; }
+.log-note { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.card-link-row { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border); }
+.card-link-btn { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 700; color: var(--violet); background: rgba(118,34,215,0.12); border: 1px solid rgba(118,34,215,0.3); border-radius: 32px; padding: 3px 10px; cursor: pointer; transition: background 0.15s; }
+.card-link-btn:hover { background: rgba(118,34,215,0.25); }
+
 /* ── TEAM ACTIVITY ──────────────────────────────────── */
 .activity-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 14px; }
 .activity-person { background: var(--surface2); border-radius: 10px; padding: 16px 18px; border: 1px solid var(--border); }
@@ -270,7 +280,7 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
   <p class="subline">Partners · Direct · Swag &nbsp;·&nbsp; Chris Mockford (Mocks) · Cara Ng · Claire Lee</p>
   <div class="header-meta">
     <span class="audience-tag">Audience: Direct Manager · Head of Growth Marketing · CMO</span>
-    <span class="refresh-tag" id="refresh-tag">Last refreshed: 13 Jun 2026 &nbsp;&middot;&nbsp; Updated weekly</span>
+    <span class="refresh-tag" id="refresh-tag">Last refreshed: 14 Jun 2026 &nbsp;&middot;&nbsp; Updated weekly</span>
   </div>
 </div>
 
@@ -290,7 +300,7 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
   <!-- AGENT-DATA:key-updates-start -->
   <script id="key-updates-data">
   const KEY_UPDATES = {
-  "weekOf": "9 Jun – 13 Jun 2026",
+  "weekOf": "9 Jun – 14 Jun 2026",
   "updates": [
     {
       "title": "CRM AI Enablement Session — Miro-to-Slack Relevance AI Agent Built Live",
@@ -298,31 +308,35 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       "detail": "Chris facilitated a structured AI enablement session for the full CRM Crew on Friday 12 Jun. Built and pre-recorded a Relevance AI agent that reads a Miro board and generates Slack posts (Caity's use case), walking the team through the complete build including debugging Miro personal access token and Slack tool connections. Warts-and-all build journey shared openly.",
       "impact": "CRM Crew now has a replicable AI agent build template. Reduces dependence on Chris for Miro-to-Slack automation and demonstrates Relevance AI capability to the broader team.",
       "person": "Chris",
-      "input_category": "shipped"
+      "input_category": "shipped",
+      "card_id": "stakeholder-engagement"
     },
     {
       "title": "NZ Content Syndication — Relevance AI Integration Shipped in One Day",
       "category": "ai-build",
-      "detail": "Cara responded to a same-day request from the Growth APAC team on Friday 12 Jun to integrate the relaunched NZ Netline CS campaign into Relevance AI. Built a new Outreach sequence (NZ - Relevance AI Content Syndication - Medium Touch), updated the ANZ IB Relevance workforce to handle CS leads, ran two test leads with personalised email sequences, and updated triggers — all live by end of Friday. Actioned real-time feedback from Chris on Netline naming and region/city personalisation.",
+      "detail": "Cara responded to a same-day request from the Growth APAC team on Friday 12 Jun to integrate the relaunched NZ Netline CS campaign into Relevance AI. Built a new Outreach sequence (NZ - Relevance AI Content Syndication - Medium Touch), updated the ANZ IB Relevance workforce to handle CS leads, ran two test leads with personalised email sequences, and updated triggers — all live by end of Friday. Actioned real-time feedback from Chris on Netline naming and region/city personalisation. Samson reviewed test emails: 'These are great — I would reply if I got this email.'",
       "impact": "NZ CS campaign live within hours of request. Demonstrates team's ability to handle fast-turnaround AI integration requests without disrupting existing workflows.",
       "person": "Cara",
-      "input_category": "shipped"
+      "input_category": "shipped",
+      "card_id": "relevance-sequence-framework"
     },
     {
       "title": "Qualified Routing Bug — Customers Incorrectly Booking IB SDRs — Fixed",
       "category": "implementation",
-      "detail": "Multiple reports surfaced of existing customers being routed to direct IB SDR queues via Qualified. Chris and Cara investigated, joined a live call with the Qualified CSM on Thursday–Friday 11–12 Jun, diagnosed the root cause (routing logic set to exclude instead of include), deployed the fix, and communicated resolution to SDR leadership. Misrouted lead (Sun Fei Ni) passed to Ian with full context.",
+      "detail": "Multiple reports surfaced of existing customers being routed to direct IB SDR queues via Qualified. Chris and Cara investigated, joined a live call with the Qualified CSM on Thursday–Friday 11–12 Jun, diagnosed the root cause (routing logic set to exclude instead of include), deployed the fix, and communicated resolution to SDR leadership. Misrouted lead (Sun Fei Ni) passed to Ian with full context. Secondary Gmail edge case identified — customers using free email accounts bypass SF domain-matching.",
       "impact": "Existing customers no longer routed to new-business IB SDR queues. Prevents customer experience degradation and protects SDR capacity from being consumed by non-ICP contacts.",
       "person": "Chris",
-      "input_category": "shipped"
+      "input_category": "shipped",
+      "card_id": "qualified-optimisation"
     },
     {
       "title": "Long Nurture Copy Agent + 6-Email Populate Agent — Built and Deployed",
       "category": "ai-build",
-      "detail": "Claire finalised the email copy agent and cloned the 6-email populate agent and tool with Cara, edited prompts with Claude, added AI connection prompt, and integrated the full flow into the long nurture workforce on Relevance AI on Thursday 11 Jun. Workforce and agent links shared with Cara for UTM additions and Outreach sequence variant scoping.",
+      "detail": "Claire finalised the email copy agent and cloned the 6-email populate agent and tool with Cara, edited prompts with Claude, added AI connection prompt, and integrated the full flow into the long nurture workforce on Relevance AI on Thursday 11 Jun. Added Custom 72 field in Outreach for Email 6. Workforce and agent links shared with Cara for UTM additions and Outreach sequence variant scoping.",
       "impact": "Long Nurture AI workflow now deployed end-to-end. Awaiting UTM additions and Outreach sequence variant configuration before full activation — core build complete.",
       "person": "Claire",
-      "input_category": "shipped"
+      "input_category": "shipped",
+      "card_id": "long-term-nurture"
     },
     {
       "title": "UTM Implementation — Fully Completed Across All Outreach Sequences",
@@ -330,7 +344,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       "detail": "Cara completed UTM tagging across all AI and static sequences in Outreach on Wednesday 10 Jun — completing the project started the prior week. Confirmed live to Greg Beazley and Chris. Greg validated that touchpoints are now showing correctly in Salesforce under Email.Outreach. Team is also recognised as the #1 AI tooling cost across ~1,700 EH employees.",
       "impact": "Full Marketo Measure attribution now active for all Outreach sequences. Closes a longstanding attribution gap and enables accurate ROI measurement across every AI-personalised send.",
       "person": "Cara",
-      "input_category": "shipped"
+      "input_category": "shipped",
+      "card_id": "utm-standardisation"
     },
     {
       "title": "Skipped Task Reporting Tool — Built",
@@ -338,7 +353,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       "detail": "Claire successfully built a tool to report on skipped tasks for each SDR team with per-SDR breakdown on Friday 12 Jun. Also updated the Outreach reporting agent to accept natural language inputs and look up multiple teams by SDR manager name for Rooney.",
       "impact": "SDR managers will have automated, per-rep skipped task visibility without manual compilation. Next step is combining with the existing overdue task agent for a one-stop reporting tool.",
       "person": "Claire",
-      "input_category": "shipped"
+      "input_category": "shipped",
+      "card_id": "outreach-overdue-task-agent"
     },
     {
       "title": "Concurrent Processing Proposal — Trigger Relevance AI 6 Min Earlier to Meet SDR SLAs",
@@ -346,15 +362,17 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       "detail": "Chris raised a detailed technical proposal in #gtm-managers-and-leaders to trigger Relevance AI workforces at the Marketo→SF sync point (when 'automatically enrol in sequence' flips to true), bypassing the Outreach polling delay. The proposal eliminates up to 6 minutes of pre-processing lag and enables the AI to run concurrently with Outreach enrolment. Mariea confirmed the auto-enrol flag is a viable trigger; a cloned workforce prototype is the next step.",
       "impact": "If validated, this architectural change would enable AI-personalised emails and call notes to be ready for SDRs at the moment they receive a lead — moving from SLA-miss risk to SLA-comfortable timing for all inbound MQLs.",
       "person": "Chris",
-      "input_category": "update"
+      "input_category": "update",
+      "card_id": "concurrent-processing"
     },
     {
       "title": "Outreach MCP Business Case — Required Before Infosec Approval",
       "category": "implementation",
-      "detail": "Following the AI Enablement team's guidance on Claude–Outreach connection security, Connor (AI Enablement) formally asked Chris to write a business case and tag infosec (Eric Fan) for review as the required step before IT Ops can enable the Outreach MCP connector. Chris also raised the team's varied and potentially insecure connection methods directly with AI Enablement on Tuesday 09 Jun — Connor confirmed this process.",
+      "detail": "Following the AI Enablement team's guidance on Claude–Outreach connection security, Connor (AI Enablement) formally asked Chris to write a business case and tag infosec (Eric Fan) for review as the required step before IT Ops can enable the Outreach MCP connector. Chris also raised the team's varied and potentially insecure connection methods directly with AI Enablement on Tuesday 09 Jun — Connor confirmed this process. AI Enablement session with Connor + Ben scheduled for next week.",
       "impact": "Outreach MCP connector cannot be enabled org-wide until infosec approves the business case. Claire also identified a potential Outreach connector via Claude directory pending org owner approval — both pathways blocked pending the same process.",
       "person": "Chris",
-      "input_category": "blocker"
+      "input_category": "blocker",
+      "card_id": "outreach-mcp-business-case"
     },
     {
       "title": "Qualified Partnerships Routing — Branching Logic Not Yet Live",
@@ -362,7 +380,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       "detail": "Claire is actively supporting the Qualified setup for partnerships meeting routing. The Marketo field mapping for partner form questions was confirmed on Friday 12 Jun, but the branching logic is not yet fully implemented by the vendor. Claire provided partner form field details to the Qualified setup vendor to replicate the partnership form.",
       "impact": "Partners cannot be routed via Qualified until branching logic is live. Blocking the ANZ Partnerships Relevance AI expansion initiative from advancing to the routing phase.",
       "person": "Claire",
-      "input_category": "blocker"
+      "input_category": "blocker",
+      "card_id": "anz-partnerships-ai-expansion"
     },
     {
       "title": "Outreach Weekly Metrics — Overdue Tasks ↓20%, Skipped Tasks ↓27%",
@@ -370,7 +389,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       "detail": "Claire published the weekly Outreach usage metrics report for w/c 09 Jun: Overdue Tasks 2,174 (↓20.01% from 2,718); Bounced Emails 381 (↑120.23% from 173 — spike attributed to prior week EOFY bulk send); Skipped Tasks 329 (↓26.89% from 450). Claire ranked 3rd highest AI tooling cost across ~1,700 EH employees.",
       "impact": "Continued improvement in SDR task execution (skipped tasks down for second consecutive week). Bounce spike is a one-off EOFY artefact and expected to normalise next week. Cara confirmed as #1 AI tooling cost, demonstrating Relevance AI workforce volume.",
       "person": "Claire",
-      "input_category": "metric"
+      "input_category": "metric",
+      "card_id": "outreach-reporting-2"
     },
     {
       "title": "UK CIPD Festival of Work — AI-Personalised Follow-Up Sequence Live",
@@ -378,7 +398,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       "detail": "Chris confirmed the Marketo program name with MarOps on Tuesday 09 Jun, set up a new Outreach trigger branching condition for CIPD Festival of Work, activated Kaylee's AI-personalised follow-up sequence, and shared a full AI-personalised email preview. Also built and shared a Miro flow chart mapping all UK Outreach trigger logic for the SDR Performance Coach and UK SDR enablement team.",
       "impact": "CIPD Festival attendees now covered by an AI-personalised follow-up sequence. Trigger logic cheatsheet reduces manual routing questions from UK SDR leaders.",
       "person": "Chris",
-      "input_category": "shipped"
+      "input_category": "shipped",
+      "card_id": "ai-adoption-uk"
     },
     {
       "title": "Relevance AI 'Invent' Closed Beta — 1 of 2 Customers",
@@ -386,7 +407,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       "detail": "The SA team is one of only 2 customers in the closed beta for Relevance AI's new Inventor tool as of Thursday 11 Jun. Chris noted this has implications for the Claude–Relevance MCP connection approach. The team now has early access to functionality the rest of the platform does not yet have.",
       "impact": "Positions SA team ahead of the broader Relevance AI user base for architectural decisions around Claude–Relevance AI connections. May shape how the MCP connector strategy is scoped once infosec approval is obtained.",
       "person": "Chris",
-      "input_category": "update"
+      "input_category": "update",
+      "card_id": "evals-self-healing"
     }
   ]
 };
@@ -418,7 +440,7 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
   <!-- AGENT-DATA:key-metrics-start -->
   <script id="key-metrics-data">
   const KEY_METRICS = {
-  "updated": "13 Jun 2026",
+  "updated": "14 Jun 2026",
   "metrics": [
     {
       "id": "lost-revive-conversion",
@@ -496,7 +518,7 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       "value": "100%",
       "change": "All AI + static sequences done",
       "change_direction": "up",
-      "context": "Marketo Measure attribution",
+      "context": "Confirmed live in Salesforce",
       "color": "teal",
       "card_id": "utm-standardisation"
     },
@@ -539,7 +561,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
     "detail": "Chris facilitated an AI enablement session for the full CRM Crew on Friday 12 Jun, building and pre-recording a Relevance AI agent that reads a Miro board and generates Slack posts in real time. The warts-and-all build included debugging Miro personal access token and Slack tool connections live. The session is part of a broader push to upskill the team on Relevance AI agent construction — Connor and Ben have a follow-up AI enablement session scheduled for next week on Claude–Outreach and Relevance AI connection best practices.",
     "tag": "AI Build",
     "tagStyle": "hl-violet",
-    "people": "Chris · CRM Crew"
+    "people": "Chris · CRM Crew",
+    "card_id": "stakeholder-engagement"
   },
   {
     "emoji": "⚡",
@@ -547,7 +570,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
     "detail": "Chris raised a detailed technical proposal to trigger Relevance AI workforces at the Marketo→SF sync point, bypassing the Outreach polling delay entirely. Currently, 6 minutes of sync overhead means the 5–10 min AI workforce runtime exceeds the 5-min SDR inbound SLA. The proposal runs AI concurrently with standard enrolment, using the 'automatically enrol in sequence' flag as a trigger. Mariea confirmed viability; a cloned workforce prototype is next.",
     "tag": "Architecture",
     "tagStyle": "hl-blue",
-    "people": "Chris"
+    "people": "Chris",
+    "card_id": "concurrent-processing"
   },
   {
     "emoji": "🚀",
@@ -555,7 +579,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
     "detail": "Cara delivered the NZ CS Relevance AI integration as a same-day turnaround on Friday — new Outreach sequence, updated ANZ IB workforce, two test runs, and live before end of day. Meanwhile, Claire shipped the Long Nurture copy agent and 6-email populate agent integration into Relevance AI on Thursday. Two parallel AI workflow builds completed in a single week under delivery pressure.",
     "tag": "Shipped",
     "tagStyle": "hl-green",
-    "people": "Cara · Claire"
+    "people": "Cara · Claire",
+    "card_id": "relevance-sequence-framework"
   },
   {
     "emoji": "🏆",
@@ -563,7 +588,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
     "detail": "A company-wide AI cost analysis confirmed Cara is the #1 AI tooling cost and Claire is #3 across approximately 1,700 Employment Hero employees — a light-hearted but meaningful signal of the volume of Relevance AI workforces running through the team. Chris noted the recognition in the team Slack channel. The SA team's Relevance AI infrastructure is processing more AI runs per week than any other individual or team across the company.",
     "tag": "Recognition",
     "tagStyle": "hl-indigo",
-    "people": "Cara · Claire · Chris"
+    "people": "Cara · Claire · Chris",
+    "card_id": "evals-self-healing"
   }
 ];
   </script>
@@ -577,21 +603,23 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
   <!-- AGENT-DATA:weekly-wins-start -->
   <script id="weekly-wins-data">
     const WEEKLY_WINS = {
-  "weekOf": "9 Jun – 13 Jun 2026",
+  "weekOf": "9 Jun – 14 Jun 2026",
   "Chris": [
     "CRM AI Enablement Session — facilitated live Miro-to-Slack Relevance AI agent build for full CRM Crew, pre-recorded warts-and-all with debugging walkthrough (Fri 12 Jun)",
-    "UK CIPD Festival of Work — confirmed Marketo program, set up Outreach trigger branch, activated Kaylee's AI-personalised follow-up sequence, and shared full email preview (Tue 09 Jun)",
+    "UK CIPD Festival of Work — confirmed Marketo program, set up Outreach trigger branch, activated Kaylee's AI-personalised follow-up sequence, built Miro trigger logic cheatsheet (Tue 09 Jun)",
     "Qualified Routing Bug — investigated live customer-routing-to-IB issue, joined Qualified CSM call, deployed fix, communicated resolution to SDR team (Thu–Fri 11–12 Jun)",
     "Relevance AI Global Workforce Bug Fix — diagnosed and fixed handover node issue causing email content to fail silently; proactively applied fix across all impacted workforces",
-    "Concurrent Processing Proposal — published detailed technical proposal to GTM Managers to trigger Relevance AI at Marketo→SF sync point, eliminating 6-min SLA lag",
-    "AE Prospecting Platform Evaluation — created Confluence page as central due-diligence artefact for Gong Engage vs. Outreach evaluation (Thu–Fri 11–12 Jun)"
+    "Concurrent Processing Proposal — published detailed technical proposal to GTM Managers to trigger Relevance AI at Marketo→SF sync point, eliminating 6-min SLA lag (Mon–Wed 08–10 Jun)",
+    "AE Prospecting Platform Evaluation — created Confluence page as central due-diligence artefact for Gong Engage vs. Outreach evaluation (Thu–Fri 11–12 Jun)",
+    "Fixed SEA (SG + MY) auto-enrol trigger incorrectly restricting New leads (Tue 09 Jun) — removed 21+ day filter to allow all new leads to enrol"
   ],
   "Cara": [
-    "UTM Implementation — completed UTMs across all AI and static Outreach sequences; confirmed live to Greg Beazley (touchpoints showing correctly in Salesforce as Email.Outreach)",
+    "UTM Implementation — completed UTMs across all AI and static Outreach sequences; confirmed live to Greg Beazley (touchpoints showing correctly in Salesforce as Email.Outreach) (Wed 10 Jun)",
     "NZ Content Syndication — built new Outreach sequence and updated ANZ IB Relevance workforce for CS leads in a same-day turnaround; live by end of Friday 12 Jun",
-    "Qualified Routing Bug — joined live call with Qualified CSM, diagnosed root cause (exclude instead of include routing logic), confirmed fix, updated SDR leaders",
-    "Qualified SDR Onboarding — identified Olivia and Charlene's incomplete setups; followed up with tailored next steps for each; investigated upsell guardrails routing question",
-    "Populate-to-Outreach Agent — 6-Email Extension — cloned populate agent with Claire to support 6 emails; added Custom 72 field in Outreach"
+    "Qualified Routing Bug — joined live call with Qualified CSM, diagnosed root cause (exclude instead of include routing logic), confirmed fix, updated SDR leaders (Thu–Fri 11–12 Jun)",
+    "Qualified SDR Onboarding — identified Olivia and Charlene's incomplete setups; followed up with tailored next steps for each (Thu 11 Jun)",
+    "Populate-to-Outreach Agent — 6-Email Extension — cloned populate agent with Claire to support 6 emails; added Custom 72 field in Outreach",
+    "Confirmed Slack polling removal replicated across all ANZ workforces with Connor McSweeney"
   ],
   "Claire": [
     "Long nurture copy + 6-email populate agent — finalised email copy agent, cloned and edited 6-email populate agent with Cara, integrated into long nurture workforce on Relevance AI (Thu 11 Jun)",
@@ -652,569 +680,48 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 
   <!-- AGENT-DATA:all-cards-start -->
   <script id="all-cards-data">
-  const LAST_UPDATED = "13 Jun 2026";
+  const LAST_UPDATED = "14 Jun 2026";
   const ALL_CARDS = [
-  {
-    "id": "ai-sdr-phase1",
-    "title": "AI SDR — Phase 1: Build & Test",
-    "type": "initiative",
-    "status": "completed",
-    "owner": "Cara",
-    "priority": "must",
-    "initiative_tag": "AI SDR Phase 1 & 2",
-    "progress": 100,
-    "due": "Q1 2026",
-    "activity": "Delivered. Foundational AI SDR infrastructure operational in AU+NZ OB. Now the baseline for all AI sequence work globally.",
-    "next_steps": "Foundation for all subsequent AI SDR phases.",
-    "blockers": "",
-    "metrics": "All ANZ OB SDRs on AI personalised sequences. Average token spend reduced from 32.61 → 17.27 per run (−47%) via ongoing optimisations. Backup models (OpenAI) added for resilience.",
-    "last_updated": "30 May 2026"
-  },
-  {
-    "id": "ai-sdr-phase2-global",
-    "title": "AI SDR — Phase 2: Global Scale",
-    "type": "initiative",
-    "status": "completed",
-    "owner": "Cara",
-    "priority": "must",
-    "initiative_tag": "AI SDR Phase 1 & 2",
-    "progress": 100,
-    "due": "Q2 2026",
-    "activity": "Delivered. All OB SDRs globally transitioned to AI-personalised sequences. Legacy fixed sequences archived. Feedback loops in place.",
-    "next_steps": "Ongoing optimisation and expansion to new audience segments.",
-    "blockers": "",
-    "metrics": "ANZ Lost Revive conversion more than doubled: 4.02% → 8.34%. Total opps tripled: 11 → 32. Click rates up: 2.1% → 5.1%.",
-    "last_updated": "30 May 2026"
-  },
-  {
-    "id": "qualified-sf-integration",
-    "title": "Qualified — SF Integration",
-    "type": "initiative",
-    "status": "completed",
-    "owner": "Mocks",
-    "priority": "must",
-    "initiative_tag": "Qualified SF Integration",
-    "progress": 100,
-    "due": "Q1 2026",
-    "activity": "Live. Direct SDR booking and omni-channel routing enabled. SF integration fully operational. Routing bug (customers reaching IB SDR queues) identified and fixed 12 Jun — confirmed live by Qualified CSM.",
-    "next_steps": "Partner routing expansion ongoing under Qualified Experience Optimisation.",
-    "blockers": "",
-    "metrics": "Direct SDR booking live globally. SF integration reduces manual routing steps from ~4 to 0.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "outreach-reporting-2",
-    "title": "Outreach Performance Reporting 2.0",
-    "type": "initiative",
-    "status": "completed",
-    "owner": "Mocks",
-    "priority": "must",
-    "initiative_tag": "Outreach Reporting 2.0",
-    "progress": 100,
-    "due": "Q1 2026",
-    "activity": "2026 reporting template operational with weekly cadence. Claire published w/c 09 Jun metrics: Overdue Tasks 2,174 (↓20.01%), Skipped Tasks 329 (↓26.89%), Bounced Emails 381 (↑120% — EOFY spike, expected to normalise). Skipped task reporting tool also built this week.",
-    "next_steps": "Monthly insights layer being added under Insights-Driven Reporting initiative.",
-    "blockers": "",
-    "metrics": "w/c 09 Jun: Overdue Tasks 2,174 (↓20.01%), Bounced Emails 381 (↑120% EOFY spike), Skipped Tasks 329 (↓26.89%).",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "outreach-meeting-types",
-    "title": "Outreach Meeting Types Uplift",
-    "type": "initiative",
-    "status": "completed",
-    "owner": "Mocks",
-    "priority": "should",
-    "initiative_tag": "Meeting Types Uplift",
-    "progress": 100,
-    "due": "Q1 2026",
-    "activity": "Standardised across all regions. Meeting type taxonomy now consistent globally.",
-    "next_steps": "No further action required.",
-    "blockers": "",
-    "metrics": "Standardised across all regions. Reduces mis-categorisation that was affecting reporting accuracy.",
-    "last_updated": "30 May 2026"
-  },
-  {
-    "id": "call-notes-outreach",
-    "title": "AI Call Notes → Outreach Multi-Region",
-    "type": "additional",
-    "status": "completed",
-    "owner": "Mocks/Cara",
-    "priority": "must",
-    "initiative_tag": "AI Call Notes",
-    "progress": 100,
-    "due": "Q2 2026",
-    "activity": "Live across 4 regions. 24-month conversation history tool shipped 29 May. Inbound cohesion analysis completed 09 Jun. Research Brief visibility SDR feedback gathered — proposal to surface full brief in a custom Outreach field/widget raised.",
-    "next_steps": "Complete inbound cohesion analysis presentation. Scope Partnerships SDR extension.",
-    "blockers": "",
-    "metrics": "~30 min/prospect research time saved per SDR per contact. Live across ANZ, UK, CA, US.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "cohesion-analysis",
-    "title": "SDR Sequence Cohesion Analysis",
-    "type": "additional",
-    "status": "completed",
-    "owner": "Mocks",
-    "priority": "should",
-    "initiative_tag": "Cohesion Analysis",
-    "progress": 100,
-    "due": "Q2 2026",
-    "activity": "Outbound analysis complete — presented at GTM AI Sync 04 Jun. Inbound cohesion analysis completed 09 Jun. Research brief visibility SDR feedback gathered this week — proposal to push full brief to a custom Outreach field raised.",
-    "next_steps": "Distribute cohesion report. Present inbound findings. Scope Outreach widget for research brief.",
-    "blockers": "",
-    "metrics": "6x better opp conversion: high cohesion vs low cohesion sequences. Inbound analysis complete.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "drift-decommission",
-    "title": "Drift Platform Decommission",
-    "type": "additional",
-    "status": "completed",
-    "owner": "Mocks",
-    "priority": "must",
-    "initiative_tag": "Drift Decommission",
-    "progress": 100,
-    "due": "Q1 2026",
-    "activity": "Decommissioned. All routing migrated to Qualified. Cost saving realised.",
-    "next_steps": "No further action required.",
-    "blockers": "",
-    "metrics": "Drift platform retired. Routing consolidated onto Qualified. Platform licence cost saving achieved.",
-    "last_updated": "30 May 2026"
-  },
-  {
-    "id": "ai-sdr-webinars",
-    "title": "AI SDR — Webinars & Content Syndication",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Cara/Mocks",
-    "priority": "must",
-    "initiative_tag": "AI SDR Phase 2 — Webinars & CS",
-    "progress": 82,
-    "due": "Jun 2026",
-    "activity": "NZ Netline CS campaign integrated into Relevance AI in a same-day turnaround (Fri 12 Jun) — new Outreach sequence built, ANZ IB Relevance workforce updated, test leads run, live by end of day. SEA auto-enrol trigger fix deployed (SG/MY 21+ filter removed). CAN OB workforce-sequence link still in progress (overdue from 02 Jun).",
-    "next_steps": "Complete CAN OB workforce-sequence link and test end-to-end. Build NZ CS Outreach sequence regional/segment variants. Confirm lead criteria with CAN SDR leader.",
-    "blockers": "CAN OB workforce-sequence link still overdue from 02 Jun.",
-    "metrics": "NZ CS campaign live. CA reply rate: 16.2%. 4 regions + NZ CS now live. CAN OB build in final stage.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "qualified-optimisation",
-    "title": "Qualified Experience Optimisation",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Claire/Cara",
-    "priority": "must",
-    "initiative_tag": "Qualified Experience",
-    "progress": 75,
-    "due": "Jun 2026",
-    "activity": "Routing bug (customers booking IB SDR queues) diagnosed and fixed 12 Jun following live Qualified CSM call. Gmail edge case identified (free email accounts bypass SF domain matching) — prompt-based workaround being explored. Qualified SDR Onboarding: Olivia and Charlene followed up on incomplete setups. Partner form fields guidance provided to Qualified vendor for Partnerships routing. Partnerships branching logic confirmed received — not yet implemented.",
-    "next_steps": "Deploy Gmail edge case prompt workaround. Complete Partnerships routing branching logic with vendor. Monitor SDR onboarding completion rates.",
-    "blockers": "Partnerships routing: Marketo field mapping confirmed but branching logic not yet fully implemented by vendor.",
-    "metrics": "Routing bug fixed 12 Jun. Gmail edge case identified and in triage. Partner form fields confirmed to vendor.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "relevance-sequence-framework",
-    "title": "Relevance AI Sequence Framework",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Mocks/Cara",
-    "priority": "must",
-    "initiative_tag": "Relevance AI Sequence Framework",
-    "progress": 76,
-    "due": "Q3 2026",
-    "activity": "UTM implementation fully completed across all AI and static sequences (Wed 10 Jun) — confirmed live in Salesforce. NZ CS workforce updated for Content Syndication campaign. Concurrent Processing proposal raised to trigger workforces 6 min earlier (bypassing Outreach sync lag) — Mariea confirmed viability, prototype being planned. ANZ Workforce Slack polling updated to no-polling best practice across all ANZ workforces.",
-    "next_steps": "Begin Concurrent Processing prototype test with cloned workforce. Confirm Rev Ops alignment. Finalise webhook implementation.",
-    "blockers": "Webhook implementation still pending.",
-    "metrics": "UTM implementation: 100% complete across all sequences. Concurrent processing proposal in scoping.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "relevance-reporting-framework",
-    "title": "Relevance AI Reporting Framework",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Mocks",
-    "priority": "must",
-    "initiative_tag": "Relevance AI Reporting",
-    "progress": 70,
-    "due": "Q3 2026",
-    "activity": "Miro-to-Slack Relevance AI agent built live in CRM AI Enablement Session (Fri 12 Jun). Team is 1 of 2 customers in Relevance AI Invent closed beta. All three team members active on Invent + Evaluate tooling. Chris AU IB Evals setup still pending.",
-    "next_steps": "Complete AU IB Workforce Evals setup. Define formal rubric criteria for email quality scoring. Attend AI Enablement session with Connor and Ben next week.",
-    "blockers": "Chris AU IB Evals setup outstanding — carry-forward item from prior two weeks.",
-    "metrics": "Evals live on 3 workforces. Invent closed beta (1 of 2 customers). Miro-to-Slack agent built and recorded.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "lost-revive",
-    "title": "Lost Revive AI Workforce",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Cara/Mocks",
-    "priority": "must",
-    "initiative_tag": "Lost Revive Workforce",
-    "progress": 76,
-    "due": "Q3 2026",
-    "activity": "UK Lost Revive expansion context provided to UK team — Kaylee consulting with Amy on accessing the AU Lost Revive AI workforce; Chris to grant access when request comes through. NZ Seq 881 errors (Contact Details Mismatch) still unresolved. EOFY campaign performance monitoring ongoing.",
-    "next_steps": "Grant UK team access to Lost Revive workforce once request confirmed. Resolve NZ Seq 881 Contact Details Mismatch tags. Report EOFY campaign engagement to Haroon and Clare B.",
-    "blockers": "NZ Lost Revive: Seq 881 Contact Details Mismatch tags still outstanding.",
-    "metrics": "Conversion 4.02% → 8.34% (+108%). Total opps: 11 → 32 (tripled). UK expansion initiated.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "ai-adoption-uk",
-    "title": "Increase AI Adoption — UK",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Mocks",
-    "priority": "must",
-    "initiative_tag": "Increase AI Adoption — UK",
-    "progress": 64,
-    "due": "Q3 2026",
-    "activity": "UK CIPD Festival of Work trigger and AI-personalised follow-up sequence activated (Tue 09 Jun). UK Outreach Trigger Logic Cheatsheet built for SDR Performance Coach and UK SDR enablement team. UK MQL pressure test ongoing with Sofresh/David Campbell. UK Lost Revive expansion being scoped with Kaylee.",
-    "next_steps": "Continue UK IB agent optimisations. Support UK Lost Revive workforce access. Monitor UK CIPD Festival sequence performance.",
-    "blockers": "",
-    "metrics": "Reply rate: 4.7% → 5.7%. UK CIPD Festival sequence activated. UK trigger logic cheatsheet delivered.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "ai-adoption-ca",
-    "title": "Increase AI Adoption — Canada",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Cara",
-    "priority": "must",
-    "initiative_tag": "Increase AI Adoption — CA",
-    "progress": 68,
-    "due": "Jun 2026",
-    "activity": "CAN AB test trigger for MQL Downloadable Leads still pending (overdue Jun 12). CAN OB Sequence + Workforce link at 70% (overdue Jun 02). HeroForce AI sequences live for CA leads. SEA auto-enrol trigger fix deployed — SG/MY 21+ filter removed. NZ CS workforce updated as template for future CS campaigns.",
-    "next_steps": "Complete CAN OB sequence-workforce link end-to-end test. Build CAN MQL Downloadable Leads AB test trigger. Monitor CA HeroForce sequence performance.",
-    "blockers": "CAN OB workforce-sequence link overdue (was 02 Jun). CAN MQL AB test trigger overdue (was 12 Jun).",
-    "metrics": "Reply rate: 15% → 16.2%. CAN HeroForce AI sequences live. CAN OB build 70% complete.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "ai-research-brief",
-    "title": "AI Research Brief for Calls",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Cara/Mocks",
-    "priority": "must",
-    "initiative_tag": "AI Research Brief for Calls",
-    "progress": 93,
-    "due": "Jun 2026",
-    "activity": "SDR feedback gathered on research brief visibility (Wed 10 Jun) — canvassed whether surfacing full brief (vs. abbreviated call notes) to SDRs would add value; proposal to push full brief to a custom field/widget in Outreach raised. Segment enrollment triggers for Recruitment Agent still in progress.",
-    "next_steps": "Update segment enrollment triggers for Recruitment Agent. Propose Outreach custom field/widget for full research brief visibility.",
-    "blockers": "",
-    "metrics": "~30 min/prospect research time saved per SDR per contact. Live across ANZ, UK, CA, US.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "optimised-relevance-workflow",
-    "title": "Optimised Relevance AI Workflow",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Cara/Mocks",
-    "priority": "should",
-    "initiative_tag": "Optimised Relevance Workflow",
-    "progress": 62,
-    "due": "Q3 2026",
-    "activity": "AI Agent Optimisations task overdue (was Jun 12 — Cara). Concurrent Processing proposal advanced as major workflow optimisation — bypasses 6-min Outreach sync lag. UTM implementation 100% complete. ANZ Workforce Slack polling updated to no-polling best practice.",
-    "next_steps": "Complete AI Agent cost/performance optimisation pass. Begin Concurrent Processing prototype build. Finalise webhook implementation.",
-    "blockers": "AI Agent Optimisations task overdue from 12 Jun. Webhooks still pending.",
-    "metrics": "Token spend: 32.61 → 17.27 per run (−47%). UTM: 100% complete. Concurrent processing in scoping.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "long-term-nurture",
-    "title": "Long Term Nurture Programme",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Claire/Cara",
-    "priority": "should",
-    "initiative_tag": "Long Term Nurture",
-    "progress": 60,
-    "due": "Q3 2026",
-    "activity": "Claire shipped the Long Nurture copy agent and 6-email populate agent integration into Relevance AI workforce on Thu 11 Jun — core build complete. Awaiting UTM additions from Cara and confirmation of number of Outreach sequence variations needed by region/segment before full activation.",
-    "next_steps": "Cara to add UTM tracking to Long Nurture sequences. Confirm number of sequence variants (region/segment) needed for Outreach. Activate full Long Nurture workflow.",
-    "blockers": "",
-    "metrics": "Core AI workflow deployed. Awaiting UTM additions and sequence variant scoping for full activation.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "insights-reporting",
-    "title": "Insights-Driven Reporting",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Mocks",
-    "priority": "should",
-    "initiative_tag": "Insights-Driven Reporting",
-    "progress": 70,
-    "due": "Q3 2026",
-    "activity": "Inbound cohesion analysis completed (Mon 09 Jun). Research brief visibility SDR feedback gathered — proposal to surface full brief via Outreach custom field/widget raised. SDR AI insights newsletter scoped as new initiative from Chris/Amy 1:1 (due 19 Jun).",
-    "next_steps": "Distribute outbound cohesion report to GTM managers. Present inbound cohesion findings. Develop SDR AI insights newsletter format.",
-    "blockers": "",
-    "metrics": "Inbound cohesion analysis complete. 6x better conversion finding confirmed. SDR insights newsletter scoped.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "qualified-reporting",
-    "title": "Qualified Chatbot Reporting & Optimisation",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Mocks",
-    "priority": "must",
-    "initiative_tag": "Qualified Reporting",
-    "progress": 74,
-    "due": "Q3 2026",
-    "activity": "KPI dashboards live globally. Routing bug identified and fixed (12 Jun) — customers incorrectly booked into IB SDR queues. Gmail edge case identified — customers using personal/free email addresses bypass SF domain matching; prompt-based workaround being explored. Qualified PiperX AI avatar experience shared with GTM AI leadership — contextualised for post-V1 consideration.",
-    "next_steps": "Deploy Gmail edge case prompt workaround. Add partner routing metrics once vendor delivers. Monitor routing data for anomalies.",
-    "blockers": "",
-    "metrics": "Routing bug fixed 12 Jun. Gmail edge case in triage. Qualified KPI dashboards live.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "sdr-champions",
-    "title": "SDR Champions Project",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Mocks",
-    "priority": "should",
-    "initiative_tag": "SDR Champions",
-    "progress": 45,
-    "due": "Q3 2026",
-    "activity": "Champions identified across regions. AB test cadence being established. Coordination with SDR leadership ongoing.",
-    "next_steps": "Establish AB test cadence. Launch first champion-led test in ANZ.",
-    "blockers": "",
-    "metrics": "Champions identified across all major regions.",
-    "last_updated": "30 May 2026"
-  },
-  {
-    "id": "crm-ab-squad",
-    "title": "CRM AB Test Squad",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Cara",
-    "priority": "nice",
-    "initiative_tag": "AB Test Squad",
-    "progress": 50,
-    "due": "Q3 2026",
-    "activity": "Unified AB log in place. Cross-functional cadence active. Testing coordination across CRM team.",
-    "next_steps": "Continue building test pipeline. Ensure findings feed back into sequence design.",
-    "blockers": "",
-    "metrics": "Unified AB log operational. Cross-functional testing cadence active.",
-    "last_updated": "30 May 2026"
-  },
-  {
-    "id": "weighted-ab-testing",
-    "title": "Weighted Sequence-Level AB Testing",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Cara",
-    "priority": "must",
-    "initiative_tag": "Weighted AB Testing",
-    "progress": 70,
-    "due": "Q3 2026",
-    "activity": "SF AB field integrated. Weight-based routing live. CAN MQL Downloadable Leads AB test trigger task overdue (was Jun 12) — required to expand weighted testing to CAN.",
-    "next_steps": "Complete CAN MQL Downloadable Leads AB test trigger. Analyse first round of weighted test results.",
-    "blockers": "CAN MQL AB test trigger overdue from 12 Jun.",
-    "metrics": "SF AB field integrated. Weighted test routing live. CAN expansion pending.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "outreach-outcomes-sf",
-    "title": "Outreach Sequence Outcomes — SFDC",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Mocks",
-    "priority": "should",
-    "initiative_tag": "Outreach Outcomes SFDC",
-    "progress": 25,
-    "due": "Q3 2026",
-    "activity": "Scoped. SFDC dev engagement pending. Q4 sequence cohesion field value idea (store cohesion score in Outreach, sync to lead/contact) now captured as a future task.",
-    "next_steps": "Engage Sheana (RevOps) to schedule SFDC developer resource. Confirm timeline.",
-    "blockers": "SFDC dev engagement pending — dependent on RevOps capacity after Cassie departure.",
-    "metrics": "",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "evals-self-healing",
-    "title": "Built-in Evals & Self-Healing",
-    "type": "initiative",
-    "status": "active",
-    "owner": "Cara/Claire/Mocks",
-    "priority": "should",
-    "initiative_tag": "Evals & Self-Healing",
-    "progress": 25,
-    "due": "Q4 2026",
-    "activity": "Miro-to-Slack Relevance AI agent built live in AI Enablement session (Chris, Fri 12 Jun) — new tool capability demonstrated. Team is 1 of 2 customers in Relevance AI Invent closed beta. All three team members active on Invent + Evaluate tooling. Chris AU IB Evals setup still outstanding (3 weeks overdue).",
-    "next_steps": "Chris to complete AU IB Workforce Evals setup immediately. AI Enablement session with Connor and Ben next week. Define Q4 formal scope.",
-    "blockers": "Chris AU IB Evals setup overdue for third consecutive week.",
-    "metrics": "Evals live on 3 workforces. 1 of 2 Invent closed beta customers. Miro-to-Slack agent new tool built.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "ae-outreach-expansion",
-    "title": "AE Outreach Expansion — 38 Seats",
-    "type": "additional",
-    "status": "active",
-    "owner": "Mocks",
-    "priority": "should",
-    "initiative_tag": "AE Expansion",
-    "progress": 42,
-    "due": "Jul 2026",
-    "activity": "AE Prospecting Platform Evaluation Confluence page created as central due-diligence artefact (Thu–Fri 11–12 Jun). Structured evaluation of Gong Engage vs. Outreach underway. Prospecting workflow demonstration to AES team being organised — demo will include Outreach task management and sequence processes to surface concrete friction areas and inform platform decision.",
-    "next_steps": "Take AEs through Outreach prospecting functionality demo. Wait on Doc for specific AE pain points. Resolve Gong Engage contract conflict (through 2027) before any commercial commitment.",
-    "blockers": "Gong Engage contract conflict (through 2027) must be resolved. Resourcing risk: lean team, large audit scope (64 templates + 42 sequences).",
-    "metrics": "Target: 38 AEs on Outreach. Confluence evaluation page live. Prospecting demo being scheduled.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "heroforce-ai",
-    "title": "HeroForce AI Workforce",
-    "type": "additional",
-    "status": "active",
-    "owner": "Cara",
-    "priority": "must",
-    "initiative_tag": "HeroForce AI",
-    "progress": 93,
-    "due": "Jun 2026",
-    "activity": "HeroForce Local Pivot — sequence transition advice provided to team for Maddy/Jordan's HFL transition to upsell outbound (Thu 11 Jun). Coordinated with Cara and Claire on HFL sequence copy changes. Workforce live and operational across AU, NZ, UK, CA.",
-    "next_steps": "Monitor performance across all 4 regions. Address upsell/New Biz routing once SF stamping limitation resolved.",
-    "blockers": "SF stamping limitation means upsell and New Biz inbound MQLs route to New Biz sequence by default.",
-    "metrics": "Live across 4 regions. HeroForce Local Pivot sequence transition advised.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "utm-standardisation",
-    "title": "UTM Standardisation for Marketo Measure",
-    "type": "additional",
-    "status": "completed",
-    "owner": "Cara",
-    "priority": "should",
-    "initiative_tag": "UTM Standardisation",
-    "progress": 100,
-    "due": "Jun 2026",
-    "activity": "Completed. UTM tagging implemented across all AI and static Outreach sequences (confirmed Wed 10 Jun). Greg Beazley validated touchpoints are showing correctly in Salesforce under Email.Outreach. Full Marketo Measure attribution now active for all outbound sequences.",
-    "next_steps": "No further action required. Monitor attribution data in Marketo Measure.",
-    "blockers": "",
-    "metrics": "100% complete across all AI and static sequences. Confirmed live in Salesforce by Greg Beazley.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "outreach-overdue-task-agent",
-    "title": "Outreach Overdue Task Reporting Agent",
-    "type": "additional",
-    "status": "active",
-    "owner": "Claire",
-    "priority": "should",
-    "initiative_tag": "Outreach Automation",
-    "progress": 65,
-    "due": "Jun 2026",
-    "activity": "Overdue task reporting agent in feedback stage before launch. Skipped task reporting tool also built this week (Fri 12 Jun) — reports on skipped tasks per team with per-SDR breakdown. Reporting agent also updated to accept natural language inputs and look up multiple teams by SDR manager name (for Rooney). Plan to combine both tools into a single one-stop-shop reporting agent.",
-    "next_steps": "Combine skipped task tool and overdue task agent into single reporting agent. Launch combined tool to SDR managers.",
-    "blockers": "",
-    "metrics": "Skipped task tool built. Overdue tasks currently: 2,174 per week (↓20%). Combined agent will cover both.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "anz-partnerships-ai-expansion",
-    "title": "ANZ Partnerships — Relevance AI Expansion",
-    "type": "additional",
-    "status": "active",
-    "owner": "Claire",
-    "priority": "should",
-    "initiative_tag": "Partnerships AI",
-    "progress": 25,
-    "due": "Jul 2026",
-    "activity": "Qualified partner form fields guidance provided to vendor to replicate partnership form (Thu 11 Jun). Partnerships routing branching logic in progress with Qualified vendor — Marketo field mapping confirmed but not yet implemented. UK Lost Revive expansion context provided — SA team referenced as model for UK rollout.",
-    "next_steps": "Complete Qualified Partnerships routing branching logic with vendor. Follow up with ANZ Partnerships team on Relevance AI sequence rollout.",
-    "blockers": "Qualified Partnerships routing: branching logic not yet implemented by vendor.",
-    "metrics": "Partner form fields confirmed to vendor. Branching logic implementation in progress.",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "ai-content-repo",
-    "title": "AI-Driven Content Repository",
-    "type": "initiative",
-    "status": "planned",
-    "owner": "Mocks",
-    "priority": "must",
-    "initiative_tag": "AI Content Repository (Q4)",
-    "progress": 0,
-    "due": "Q4 2026",
-    "activity": "Q4. Content repository concept surfaced in #anz_leadscore_council this week — idea to map 'most recent conversion' values to actual content assets so AI agents can reference the specific content a lead engaged with to improve call notes and email quality.",
-    "next_steps": "Define scope with stakeholders. Assess integration requirements.",
-    "blockers": "Stakeholder alignment required before build can commence.",
-    "metrics": "",
-    "last_updated": "13 Jun 2026"
-  },
-  {
-    "id": "outreach-outcomes-cc",
-    "title": "Outreach Outcomes — Claude Code",
-    "type": "initiative",
-    "status": "planned",
-    "owner": "Mocks",
-    "priority": "should",
-    "initiative_tag": "Outreach Outcomes Claude Code (Q4)",
-    "progress": 0,
-    "due": "Q4 2026",
-    "activity": "Q4. Builds on SF Custom Reporting and PoC. Deferred until SFDC custom reporting is live.",
-    "next_steps": "Complete Outreach Outcomes — SFDC first. Then scope Claude Code extension.",
-    "blockers": "Dependent on SFDC custom reporting completion.",
-    "metrics": "",
-    "last_updated": "30 May 2026"
-  },
-  {
-    "id": "unified-platform-reporting",
-    "title": "Unified Platform Reporting",
-    "type": "initiative",
-    "status": "planned",
-    "owner": "Mocks",
-    "priority": "nice",
-    "initiative_tag": "Unified Platform Reporting (Q4)",
-    "progress": 0,
-    "due": "Q4 2026",
-    "activity": "Q4. Requires individual platform reporting to be complete first.",
-    "next_steps": "Deliver Outreach Outcomes — SFDC and Claude Code before tackling unified view.",
-    "blockers": "Dependent on individual platform reporting milestones.",
-    "metrics": "",
-    "last_updated": "30 May 2026"
-  },
-  {
-    "id": "trigger-cleanup",
-    "title": "Outreach Trigger Cleanup 2.0",
-    "type": "initiative",
-    "status": "planned",
-    "owner": "Claire/Cara",
-    "priority": "nice",
-    "initiative_tag": "Trigger Cleanup (Q4)",
-    "progress": 0,
-    "due": "Q4 2026",
-    "activity": "Not started. Requires Rev Ops support to execute. Lower priority until Sheana stabilises BAU.",
-    "next_steps": "Engage Sheana (RevOps) once established. Scope the cleanup project.",
-    "blockers": "Rev Ops support required. Lower priority in current cycle.",
-    "metrics": "",
-    "last_updated": "30 May 2026"
-  },
-  {
-    "id": "consolidate-sequences",
-    "title": "Consolidate Outreach Sequences",
-    "type": "initiative",
-    "status": "planned",
-    "owner": "Claire",
-    "priority": "nice",
-    "initiative_tag": "Consolidate Sequences (Q4)",
-    "progress": 0,
-    "due": "Q4 2026",
-    "activity": "Not started. Currently 445 active sequences — many made redundant by AI iterations. Archiving project to reduce noise and improve SDR navigation.",
-    "next_steps": "Define archiving criteria. Identify redundant sequences. Develop roll-out plan.",
-    "blockers": "",
-    "metrics": "445 active sequences currently. Est. 150+ redundant after AI sequence migration.",
-    "last_updated": "30 May 2026"
-  }
-];
+    { "id": "ai-sdr-phase1", "title": "AI SDR — Phase 1: Build & Test", "type": "initiative", "status": "completed", "owner": "Cara", "priority": "must", "initiative_tag": "AI SDR Phase 1 & 2", "progress": 100, "due": "Q1 2026", "activity": "Delivered. Foundational AI SDR infrastructure operational in AU+NZ OB. Now the baseline for all AI sequence work globally.", "next_steps": "Foundation for all subsequent AI SDR phases.", "blockers": "", "metrics": "All ANZ OB SDRs on AI personalised sequences. Average token spend reduced from 32.61 → 17.27 per run (−47%) via ongoing optimisations. Backup models (OpenAI) added for resilience.", "last_updated": "30 May 2026" },
+    { "id": "ai-sdr-phase2-global", "title": "AI SDR — Phase 2: Global Scale", "type": "initiative", "status": "completed", "owner": "Cara", "priority": "must", "initiative_tag": "AI SDR Phase 1 & 2", "progress": 100, "due": "Q2 2026", "activity": "Delivered. All OB SDRs globally transitioned to AI-personalised sequences. Legacy fixed sequences archived. Feedback loops in place.", "next_steps": "Ongoing optimisation and expansion to new audience segments.", "blockers": "", "metrics": "ANZ Lost Revive conversion more than doubled: 4.02% → 8.34%. Total opps tripled: 11 → 32. Click rates up: 2.1% → 5.1%.", "last_updated": "30 May 2026" },
+    { "id": "qualified-sf-integration", "title": "Qualified — SF Integration", "type": "initiative", "status": "completed", "owner": "Mocks", "priority": "must", "initiative_tag": "Qualified SF Integration", "progress": 100, "due": "Q1 2026", "activity": "Live. Direct SDR booking and omni-channel routing enabled. SF integration fully operational. Qualified Meetings go-live approved 02 Jun — AUS routing bug identified and fixed same week.", "next_steps": "Partner routing expansion ongoing under Qualified Experience Optimisation.", "blockers": "", "metrics": "Direct SDR booking live globally. SF integration reduces manual routing steps from ~4 to 0.", "last_updated": "8 Jun 2026", "log": [{"date": "2 Jun", "note": "Qualified Meetings go-live approved by Mocks — green light given despite some incomplete SDR setups. AUS routing bug caught 03 Jun (prospect booked directly into Mocks' calendar) and fixed same day. Validated against a working CAN booking."}] },
+    { "id": "outreach-reporting-2", "title": "Outreach Performance Reporting 2.0", "type": "initiative", "status": "completed", "owner": "Mocks", "priority": "must", "initiative_tag": "Outreach Reporting 2.0", "progress": 100, "due": "Q1 2026", "activity": "2026 reporting template operational with weekly cadence. Claire published w/c 09 Jun metrics: Overdue Tasks −20.01% (2,174), Bounced Emails +120.23% (381 — EOFY spike), Skipped Tasks −26.89% (329). New skipped task reporting tool also built this week with per-SDR breakdown.", "next_steps": "Monthly insights layer being added under Insights-Driven Reporting initiative. Skipped task tool to be combined with overdue task agent.", "blockers": "", "metrics": "w/c 09 Jun: Overdue Tasks 2,174 (−20.01%), Bounced Emails 381 (+120.23% — EOFY spike), Skipped Tasks 329 (−26.89%).", "last_updated": "14 Jun 2026", "log": [{"date": "9 Jun", "note": "Claire published w/c 09 Jun Outreach metrics: Overdue Tasks −20.01% (2,174 vs 2,718), Bounced Emails +120.23% (381 vs 173 — expected spike from EOFY bulk send prior week), Skipped Tasks −26.89% (329 vs 450). Claire responded to follow-up questions on bounce attribution."},{"date": "8 Jun", "note": "Claire published w/c 01 Jun Outreach metrics: Bounced Emails −8.95% (173 vs 190), Skipped Tasks −26.23% (450 vs 610), Overdue Tasks +0.74% (2,718 vs 2,698)."}] },
+    { "id": "outreach-meeting-types", "title": "Outreach Meeting Types Uplift", "type": "initiative", "status": "completed", "owner": "Mocks", "priority": "should", "initiative_tag": "Meeting Types Uplift", "progress": 100, "due": "Q1 2026", "activity": "Standardised across all regions. Meeting type taxonomy now consistent globally.", "next_steps": "No further action required.", "blockers": "", "metrics": "Standardised across all regions. Reduces mis-categorisation that was affecting reporting accuracy.", "last_updated": "30 May 2026" },
+    { "id": "call-notes-outreach", "title": "AI Call Notes → Outreach Multi-Region", "type": "additional", "status": "completed", "owner": "Mocks/Cara", "priority": "must", "initiative_tag": "AI Call Notes", "progress": 100, "due": "Q2 2026", "activity": "Live across 4 regions. 24-month conversation history tool shipped 29 May. Inbound cohesion analysis presented at GTM AI Sync (04 Jun) — inbound analysis now scoped as follow-on.", "next_steps": "Complete inbound cohesion analysis. Scope Partnerships SDR extension.", "blockers": "", "metrics": "~30 min/prospect research time saved per SDR per contact. Live across ANZ, UK, CA, US.", "last_updated": "8 Jun 2026", "log": [{"date": "4 Jun", "note": "Mocks presented outbound cohesion findings at GTM AI Sync. 6x better opp conversion from high-cohesion sequences confirmed. Inbound cohesion analysis scoped as parallel follow-on track."}] },
+    { "id": "cohesion-analysis", "title": "SDR Sequence Cohesion Analysis", "type": "additional", "status": "completed", "owner": "Mocks", "priority": "should", "initiative_tag": "Cohesion Analysis", "progress": 100, "due": "Q2 2026", "activity": "Outbound analysis complete — findings presented at GTM AI Sync Thu 04 Jun. Inbound cohesion analysis scoped as parallel follow-on track. Report distribution to GTM managers pending.", "next_steps": "Distribute cohesion report link. Run inbound cohesion analysis.", "blockers": "", "metrics": "6x better opp conversion: high cohesion vs low cohesion sequences. Outbound findings presented 04 Jun.", "last_updated": "8 Jun 2026", "log": [{"date": "4 Jun", "note": "Mocks presented outbound cohesion analysis at GTM AI Sync — 6x opp conversion delta confirmed between high and low cohesion sequences. Inbound analysis scoped as next leg. Report distribution to GTM managers still pending."}] },
+    { "id": "drift-decommission", "title": "Drift Platform Decommission", "type": "additional", "status": "completed", "owner": "Mocks", "priority": "must", "initiative_tag": "Drift Decommission", "progress": 100, "due": "Q1 2026", "activity": "Decommissioned. All routing migrated to Qualified. Cost saving realised.", "next_steps": "No further action required.", "blockers": "", "metrics": "Drift platform retired. Routing consolidated onto Qualified. Platform licence cost saving achieved.", "last_updated": "30 May 2026" },
+    { "id": "ai-sdr-webinars", "title": "AI SDR — Webinars & Content Syndication", "type": "initiative", "status": "active", "owner": "Cara/Mocks", "priority": "must", "initiative_tag": "AI SDR Phase 2 — Webinars & CS", "progress": 82, "due": "Jun 2026", "activity": "NZ CS campaign integrated into Relevance AI in a same-day turnaround (Fri 12 Jun). SEA auto-enrol trigger fix deployed (SG/MY 21+ filter removed). CAN OB workforce-sequence link still in progress (overdue from 02 Jun).", "next_steps": "Complete CAN OB workforce-sequence link and test end-to-end. Confirm lead criteria with CAN SDR leader.", "blockers": "CAN OB workforce link not yet finalised — overdue from 02 Jun.", "metrics": "CA reply rate: 15% → 16.2%. 4 regions live. CAN OB expansion in final stage.", "last_updated": "8 Jun 2026", "log": [{"date": "8 Jun", "note": "Cara built CAN OB sequence and workforce (Asana 70%). Workforce-to-sequence link still in progress — overdue from 02 Jun. Mocks to confirm lead criteria with CAN SDR leader before end-to-end test."}] },
+    { "id": "qualified-optimisation", "title": "Qualified Experience Optimisation", "type": "initiative", "status": "active", "owner": "Claire/Cara", "priority": "must", "initiative_tag": "Qualified Experience", "progress": 75, "due": "Jun 2026", "activity": "Qualified live. Customer routing bug (existing customers hitting IB SDR queues) found and fixed 11–12 Jun — Mocks and Cara joined live CSM call. Gmail edge case identified: customers using personal email accounts bypass SF domain-matching. Partner routing (Usman) still pending. Olivia and Charlene Qualified setup gaps identified and followed up.", "next_steps": "Deploy Gmail edge case prompt-based workaround. Escalate Usman on partner routing. Monitor onboarding completion rates.", "blockers": "Partner routing delivery dependent on Usman (external vendor) — overdue from 30 Apr. Gmail lead routing edge case not yet resolved.", "metrics": "Qualified live globally. Customer routing bug resolved 12 Jun. 10+ SDRs onboarded via personalised DMs.", "last_updated": "14 Jun 2026", "log": [{"date": "11–12 Jun", "note": "Multiple reports of existing customers routing to IB SDR queues via Qualified. Mocks and Cara investigated, joined live Qualified CSM call, identified incorrect routing logic (exclude set instead of include), deployed fix, and communicated resolution to the SDR team."},{"date": "12 Jun", "note": "Secondary Gmail edge case identified by Mocks — customers using personal/free email accounts bypass SF domain-matching guardrails in Qualified routing. Prompt-based workaround being explored for next week."},{"date": "11 Jun", "note": "Cara followed up on Qualified SDR onboarding gaps — Olivia had not connected Salesforce; Charlene had neither calendar nor SF connected. Reached out with next steps."},{"date": "8 Jun", "note": "Cara triaged a live SF verification issue for Rohit in the Qualified vendor channel. Partner routing (Usman) still pending — Claire following up on delivery timeline. Overdue from 30 Apr."},{"date": "2 Jun", "note": "Qualified Meetings go-live approved by Mocks. Cara immediately sent personalised onboarding DMs to 10+ reps across ANZ, UK, Partnerships, and Expansion — each tailored to their setup status."},{"date": "3 Jun", "note": "AUS routing bug identified and fixed by Mocks — misconfigured toggle caused a prospect to book directly into his calendar. Diagnosed and resolved same day, validated against working CAN booking."}] },
+    { "id": "relevance-sequence-framework", "title": "Relevance AI Sequence Framework", "type": "initiative", "status": "active", "owner": "Mocks/Cara", "priority": "must", "initiative_tag": "Relevance AI Sequence Framework", "progress": 78, "due": "Q3 2026", "activity": "Framework live across 4 regions. UTM standardisation complete — all sequences tagged, Salesforce confirmed (10 Jun). Handover node bug found and fixed (09 Jun), fix proactively applied across all impacted workforces. NZ CS Relevance AI integration delivered same day (12 Jun). Concurrent processing proposal raised to trigger workforces earlier in the Marketo→SF sync flow.", "next_steps": "Test concurrent processing prototype with cloned workforce. Confirm Rev Ops alignment. Finalise webhook implementation.", "blockers": "Webhook implementation still pending.", "metrics": "Full UTM coverage confirmed in Salesforce. Handover node bug fixed and re-run across affected leads. NZ CS integration live.", "last_updated": "14 Jun 2026", "log": [{"date": "9 Jun", "note": "Mocks discovered handover node issue causing email content to fail silently in Relevance AI global workforces. Diagnosed root cause, fixed, re-ran affected leads, tightened edge settings, and proactively applied fix across all other impacted workforces."},{"date": "10–11 Jun", "note": "Mocks raised concurrent processing proposal in #gtm-managers-and-leaders — trigger Relevance AI workforces at Marketo→SF sync point (bypassing Outreach polling delay) to meet 5-min SDR SLA. Validated with Mariea. Prototype test planned."},{"date": "12 Jun", "note": "Cara built NZ Content Syndication Relevance AI integration from a same-day request — new sequence (NZ - Relevance AI CS - Medium Touch Jun26), updated ANZ IB workforce, test leads run, copy feedback from Mocks applied, live by EOD Friday."},{"date": "8 Jun", "note": "UTM tagging complete for all Relevance AI-powered sequences. Cara working through ~500 static sequences — ETA end Tue 09 Jun. Greg Beazley tagged in to monitor progress; Mocks confirmed Cara is handling."}] },
+    { "id": "relevance-reporting-framework", "title": "Relevance AI Reporting Framework", "type": "initiative", "status": "active", "owner": "Mocks", "priority": "must", "initiative_tag": "Relevance AI Reporting", "progress": 68, "due": "Q3 2026", "activity": "Framework in place. Evals now live across three workforces (HeroForce, Lost Revive, PS promo). All three team members active on Invent + Evaluate tooling. Chris filed detailed Invent beta Q&A with Relevance AI team; uncovered tool simulations bug — reported and under investigation.", "next_steps": "Complete AU IB Workforce Evals setup (overdue from prior week). Define formal rubric criteria for email quality scoring.", "blockers": "Chris AU IB Evals setup outstanding — carry-forward item.", "metrics": "Evals live on 3 workforces. Tool simulations bug reported to Relevance AI.", "last_updated": "8 Jun 2026", "log": [{"date": "8 Jun", "note": "Mocks filed detailed Relevance AI Invent beta Q&A — testing methodology, issue detection, workforce governance. Uncovered a tool simulations bug; reported to Relevance AI who confirmed investigation. AU IB Workflow Evals setup still outstanding (carry-forward)."}] },
+    { "id": "lost-revive", "title": "Lost Revive AI Workforce", "type": "initiative", "status": "active", "owner": "Cara/Mocks", "priority": "must", "initiative_tag": "Lost Revive Workforce", "progress": 75, "due": "Q3 2026", "activity": "8.34% conversion (from 4.02%). EOFY email blast executed — 1,600+ emails across 3 batches for Lost Revive EOFY offer campaign. Evals strengthened on Lost Revive workforce by Cara this week.", "next_steps": "Monitor EOFY campaign engagement (Tuesday batch + overall). Report results to Haroon and Clare B. Resolve NZ Seq 881 errors.", "blockers": "NZ Lost Revive sequence errors — Seq 881 Contact Details Mismatch tags still outstanding.", "metrics": "Conversion 4.02% → 8.34% (+108%). Total opps: 11 → 32 (tripled). EOFY blast: 1,600+ emails sent.", "last_updated": "8 Jun 2026", "log": [{"date": "2–5 Jun", "note": "Claire built EOFY Lost Revive email campaign — new Outreach template based on Nov 25 version, SF-to-Outreach import coordinated with Cara. 1,600+ emails split across 3 batches (650+ Thu 2pm, 650+ Fri 9am, 300+ Tue 9am) to stay under daily send cap. Claire also caught and updated EOFY promo copy across all Relevance AI agents when change wasn't communicated to Sales Automation."},{"date": "8 Jun", "note": "Cara strengthened Evals on Lost Revive workforce. NZ Seq 881 Contact Details Mismatch errors still outstanding — carry-forward blocker."}] },
+    { "id": "ai-adoption-uk", "title": "Increase AI Adoption — UK", "type": "initiative", "status": "active", "owner": "Mocks", "priority": "must", "initiative_tag": "Increase AI Adoption — UK", "progress": 62, "due": "Q3 2026", "activity": "IB sequences live. Reply rate at 5.7%. HeroForce AI sequences now live for UK leads — phone call tasks removed for UK HeroForce sequences, allowing ANZ reps to work UK leads in their timezone. UK MQL pressure test collaboration ongoing with Sofresh/David Campbell.", "next_steps": "Continue IB agent optimisations. Monitor UK HeroForce sequence performance.", "blockers": "", "metrics": "Reply rate: 4.7% → 5.7%. UK HeroForce AI sequences now live.", "last_updated": "8 Jun 2026", "log": [{"date": "8 Jun", "note": "HeroForce AI sequences now live for UK leads. Phone call tasks removed from UK HeroForce sequences so ANZ reps can work UK leads in their timezone. Reply rate tracking upward: 4.7% → 5.7%."}] },
+    { "id": "ai-adoption-ca", "title": "Increase AI Adoption — Canada", "type": "initiative", "status": "active", "owner": "Cara", "priority": "must", "initiative_tag": "Increase AI Adoption — CA", "progress": 65, "due": "Jun 2026", "activity": "Webinar/SRED sequences live. CAN OB workforce built, sequence created, workforce-sequence link in progress (Asana 70%). HeroForce AI sequences now live for CA leads. Reply rate tracking upward.", "next_steps": "Complete CAN OB sequence-workforce link. Test end-to-end. Monitor CA HeroForce sequence performance.", "blockers": "CAN OB workforce link overdue (was 02 Jun). CAN OB old leads workforce cadence not yet in place (due 08 Jun).", "metrics": "Reply rate: 15% → 16.2%. CAN HeroForce AI sequences live. CAN OB build in final stage.", "last_updated": "8 Jun 2026", "log": [{"date": "8 Jun", "note": "HeroForce AI sequences now live for CA leads. CAN OB workforce built and sequence created by Cara (Asana 70%) — workforce-to-sequence link in progress, overdue from 02 Jun. CAN OB old leads workforce cadence not yet in place (due 08 Jun). Reply rate: 15% → 16.2%."}] },
+    { "id": "ai-research-brief", "title": "AI Research Brief for Calls", "type": "initiative", "status": "active", "owner": "Cara/Mocks", "priority": "must", "initiative_tag": "AI Research Brief for Calls", "progress": 92, "due": "Jun 2026", "activity": "Live 4 regions. 24-month conversation history fully deployed. Recruitment Agent gap analysis completed (04 Jun) — missing Adwords BAD coverage and recycled pathway gaps identified; Most Recent Conversion recommended as enrolment logic anchor.", "next_steps": "Update segment enrollment triggers for Recruitment Agent. Scope Partnerships SDR extension.", "blockers": "", "metrics": "~30 min/prospect research time saved per SDR per contact. Live across ANZ, UK, CA, US. Recruitment Agent gaps identified.", "last_updated": "8 Jun 2026", "log": [{"date": "4 Jun", "note": "Mocks completed Recruitment Agent gap analysis with Mon Hu — identified missing Adwords BAD coverage and recycled pathway gaps. Recommended Most Recent Conversion as enrolment logic anchor. Segment enrollment trigger updates pending."}] },
+    { "id": "optimised-relevance-workflow", "title": "Optimised Relevance AI Workflow", "type": "initiative", "status": "active", "owner": "Cara/Mocks", "priority": "should", "initiative_tag": "Optimised Relevance Workflow", "progress": 60, "due": "Q3 2026", "activity": "Token spend −47%. Evals live across 3 workforces. UTM standardisation: Relevance sequences done, static sequences in progress (ETA 09 Jun). AI Agent cost/performance optimisation pass underway (due 12 Jun).", "next_steps": "Complete UTM standardisation for static sequences by 09 Jun. Complete AI agent cost optimisation by 12 Jun. Finalise webhook implementation.", "blockers": "Webhooks still pending.", "metrics": "Token spend: 32.61 → 17.27 per run (−47%). Evals on 3 workforces. AI agent optimisation 55% complete.", "last_updated": "8 Jun 2026", "log": [{"date": "8 Jun", "note": "Cara's AI Agent cost/performance optimisation pass underway — due 12 Jun. Token spend held at 17.27 per run (−47% from baseline of 32.61). Webhook implementation still pending. Evals live on 3 workforces."}] },
+    { "id": "long-term-nurture", "title": "Long Term Nurture Programme", "type": "initiative", "status": "active", "owner": "Claire/Cara", "priority": "should", "initiative_tag": "Long Term Nurture", "progress": 65, "due": "Q3 2026", "activity": "Claire built and deployed long nurture copy agent + 6-email populate-to-Outreach agent (11 Jun), integrated into Relevance AI workforce. Awaiting UTM additions from Cara and confirmation on number of Outreach sequence variations (region/segment) before full sequence build and activation.", "next_steps": "Finalise Outreach sequences for long nurture (awaiting Cara's UTM pass + sequence variation confirmation). Activate full workforce once sequences are live.", "blockers": "", "metrics": "Copy agent and 6-email populate agent live in Relevance AI. Outreach sequences to be built next week.", "last_updated": "14 Jun 2026", "log": [{"date": "11 Jun", "note": "Claire built and deployed long nurture copy agent + cloned 6-email populate-to-Outreach agent. Added Custom 72 field in Outreach for Email 6 in collaboration with Cara. Agent and workforce links shared. Full activation pending Cara's UTM additions and sequence variation count."},{"date": "8 Jun", "note": "Claire tweaked long-term nurture copy agent instructions to reduce sales-y tone. Sample run shared for review by Mocks. Task at 40% — overdue from 29 May."}] },
+    { "id": "insights-reporting", "title": "Insights-Driven Reporting", "type": "initiative", "status": "active", "owner": "Mocks", "priority": "should", "initiative_tag": "Insights-Driven Reporting", "progress": 65, "due": "Q3 2026", "activity": "Outbound cohesion findings presented at GTM AI Sync (04 Jun). Report distribution to GTM managers pending. Inbound cohesion analysis scoped as next leg. Weekly reporting operational.", "next_steps": "Distribute outbound cohesion report. Run inbound cohesion analysis. Present findings at ANZ Lead Council.", "blockers": "", "metrics": "Outbound cohesion presented 04 Jun. Inbound analysis scoped. 6x better conversion finding confirmed.", "last_updated": "8 Jun 2026", "log": [{"date": "4 Jun", "note": "Mocks presented outbound SDR cohesion analysis at GTM AI Sync — 6x opp conversion difference between high and low cohesion sequences. Inbound analysis scoped as next leg. Distribution of report link to go-to-market managers and AI projects channel still pending."}] },
+    { "id": "qualified-reporting", "title": "Qualified Chatbot Reporting & Optimisation", "type": "initiative", "status": "active", "owner": "Mocks", "priority": "must", "initiative_tag": "Qualified Reporting", "progress": 72, "due": "Q3 2026", "activity": "KPI dashboards live globally. Qualified Meetings go-live 02 Jun — routing data now flowing. AUS routing bug identified and resolved in real-time (03 Jun). MQL trigger logic proposal filed to prevent event leads routing incorrectly.", "next_steps": "Add partner routing metrics once Usman delivers. Monitor Qualified go-live data for routing anomalies.", "blockers": "", "metrics": "Qualified KPI dashboards live. Go-live 02 Jun. AUS routing bug resolved 03 Jun.", "last_updated": "8 Jun 2026", "log": [{"date": "3 Jun", "note": "AUS meeting routing bug identified and resolved by Mocks in real-time — misconfigured toggle had caused a prospect to land directly in his calendar. Validated against a working CAN booking. Qualified go-live data now flowing into KPI dashboards."}] },
+    { "id": "sdr-champions", "title": "SDR Champions Project", "type": "initiative", "status": "active", "owner": "Mocks", "priority": "should", "initiative_tag": "SDR Champions", "progress": 45, "due": "Q3 2026", "activity": "Champions identified across regions. AB test cadence being established. Coordination with SDR leadership ongoing.", "next_steps": "Establish AB test cadence. Launch first champion-led test in ANZ.", "blockers": "", "metrics": "Champions identified across all major regions.", "last_updated": "30 May 2026" },
+    { "id": "crm-ab-squad", "title": "CRM AB Test Squad", "type": "initiative", "status": "active", "owner": "Cara", "priority": "nice", "initiative_tag": "AB Test Squad", "progress": 50, "due": "Q3 2026", "activity": "Unified AB log in place. Cross-functional cadence active. Testing coordination across CRM team.", "next_steps": "Continue building test pipeline. Ensure findings feed back into sequence design.", "blockers": "", "metrics": "Unified AB log operational. Cross-functional testing cadence active.", "last_updated": "30 May 2026" },
+    { "id": "weighted-ab-testing", "title": "Weighted Sequence-Level AB Testing", "type": "initiative", "status": "active", "owner": "Cara", "priority": "must", "initiative_tag": "Weighted AB Testing", "progress": 70, "due": "Q3 2026", "activity": "SF AB field integrated. Competing sequences being tested. Weight-based routing live.", "next_steps": "Analyse first round of weighted test results. Adjust weights based on performance data.", "blockers": "", "metrics": "SF AB field integrated. Weighted test routing live. First results in analysis.", "last_updated": "30 May 2026" },
+    { "id": "outreach-outcomes-sf", "title": "Outreach Sequence Outcomes — SFDC", "type": "initiative", "status": "active", "owner": "Mocks", "priority": "should", "initiative_tag": "Outreach Outcomes SFDC", "progress": 25, "due": "Q3 2026", "activity": "Scoped. SFDC dev engagement pending. Waiting on availability from Sheana/RevOps after leadership transition.", "next_steps": "Engage Sheana (RevOps) to schedule SFDC developer resource. Confirm timeline.", "blockers": "SFDC dev engagement pending — dependent on RevOps capacity after Cassie departure.", "metrics": "", "last_updated": "30 May 2026" },
+    { "id": "evals-self-healing", "title": "Built-in Evals & Self-Healing", "type": "initiative", "status": "active", "owner": "Cara/Claire/Mocks", "priority": "should", "initiative_tag": "Evals & Self-Healing", "progress": 20, "due": "Q4 2026", "activity": "Evals now live across three workforces (HeroForce — Cara, Lost Revive — Cara strengthened, PS promo compliance — Claire). Chris filed detailed Invent beta Q&A and reported tool simulations bug to Relevance AI. All three team members now active on Invent + Evaluate tooling.", "next_steps": "Chris to complete AU IB Workforce Evals setup. Claire to add get time & date tool for native date-awareness. Define Q4 formal scope.", "blockers": "Chris AU IB Evals setup overdue from prior week.", "metrics": "Evals live on 3 workforces. Tool simulations bug reported to Relevance AI. All 3 team members active.", "last_updated": "8 Jun 2026", "log": [{"date": "8 Jun", "note": "Evals now live across 3 workforces: HeroForce (Cara created), Lost Revive (Cara strengthened), PS promo compliance (Claire). Mocks filed detailed Invent beta Q&A — uncovered tool simulations bug, reported to Relevance AI who confirmed investigation. All 3 team members now active on Invent + Evaluate tooling. AU IB Workflow Evals still outstanding (Mocks)."}] },
+    { "id": "ae-outreach-expansion", "title": "AE Outreach Expansion — 38 Seats", "type": "additional", "status": "active", "owner": "Mocks", "priority": "should", "initiative_tag": "AE Expansion", "progress": 40, "due": "Jul 2026", "activity": "Evaluation now on a structured track. Mocks created Confluence page as central due diligence artefact for Gong Engage vs. Outreach comparison (11–12 Jun). Next: walk AEs through Outreach functionality, gather pain points from Doc, then make a recommendation. Gong contract conflict remains unresolved.", "next_steps": "Walk AEs through Outreach prospecting functionality. Gather specific AE pain points from Doc. Resolve Gong Engage contract conflict before any commercial commitment.", "blockers": "Gong Engage contract conflict (through 2027) — must be resolved before 38-seat expansion can proceed.", "metrics": "Target: 38 AEs on Outreach. Migration scope: 64 company templates + 42 Gong Engage sequences. Confluence evaluation page live.", "last_updated": "14 Jun 2026", "log": [{"date": "11–12 Jun", "note": "Mocks created Confluence page as the structured due diligence artefact for the AE Prospecting Platform Evaluation (Gong Engage vs. Outreach). Formal evaluation process kicked off. Next step: AE walk-through of Outreach functionality."},{"date": "4–5 Jun", "note": "Mocks tagged into #temp-ae-platform-migration — provided Nick Patterson with full Gong Engage migration scope breakdown (64 company templates, 42 sequences/flows). Flagged lean team resourcing risk."},{"date": "8 Jun", "note": "Governance risk confirmed: $31K USD Outreach upgrade conflicts with existing Gong Engage contract through 2027. Group sync confirmed for week of 08 Jun. No commercial commitment until contract conflict resolved."}] },
+    { "id": "heroforce-ai", "title": "HeroForce AI Workforce", "type": "additional", "status": "active", "owner": "Cara", "priority": "must", "initiative_tag": "HeroForce AI", "progress": 90, "due": "Jun 2026", "activity": "Launched live across AU, NZ, UK, CA (week of 02 Jun). Covers Local and International product mentions, BAD and MQL routing. BADs route to static sequences for speed-to-lead; MQLs route to bespoke HeroForce AI sequences via Most Recent Conversion. Phone call tasks removed for UK/CA sequences. Both upsell and New Biz inbound MQLs route to New Biz sequence by default (SF stamping limitation). Evals created for HeroForce workforce agents.", "next_steps": "Monitor performance across all 4 regions. Address upsell/New Biz routing once SF stamping limitation resolved.", "blockers": "SF stamping limitation means upsell and New Biz inbound MQLs both route to New Biz sequence by default — manual override needed for customer leads.", "metrics": "Live across 4 regions. HeroForce AI workforce handling inbound and outbound leads globally.", "last_updated": "8 Jun 2026", "log": [{"date": "2–7 Jun", "note": "Cara launched HeroForce AI workforce live across AU, NZ, UK, CA — covering Local and International product mentions, BAD and MQL routing. Phone call tasks removed for UK/CA sequences so ANZ reps can work global leads in their timezone. Presented live at Monthly ANZ Sales/Marketing Sync. Evals created for all HeroForce workforce agents."}] },
+    { "id": "utm-standardisation", "title": "UTM Standardisation for Marketo Measure", "type": "additional", "status": "completed", "owner": "Cara", "priority": "should", "initiative_tag": "UTM Standardisation", "progress": 100, "due": "Jun 2026", "activity": "Complete. All Relevance AI-powered sequences and ~500 static sequences UTM-tagged. Greg Beazley confirmed touchpoints showing correctly under Email.Outreach in Salesforce (Wed 10 Jun). Project closed.", "next_steps": "No further action required — full attribution now live.", "blockers": "", "metrics": "100% coverage: all Relevance AI sequences + ~500 static sequences. Salesforce touchpoints confirmed live by Greg Beazley.", "last_updated": "14 Jun 2026", "log": [{"date": "10 Jun", "note": "Cara completed UTM tagging across all ~500 static sequences. Mocks confirmed to Greg Beazley — Greg validated touchpoints showing correctly under Email.Outreach in Salesforce. Project closed. Mocks: 'A big job with plenty of different aspects to it.'"},{"date": "8 Jun", "note": "All Relevance AI-powered sequences UTM-tagged. Cara working through ~500 static sequences — ETA end Tue 09 Jun. Greg Beazley tagged in to monitor; Mocks confirmed Cara is handling independently."}] },
+    { "id": "outreach-overdue-task-agent", "title": "Outreach Overdue Task Reporting Agent", "type": "additional", "status": "active", "owner": "Claire", "priority": "should", "initiative_tag": "Outreach Automation", "progress": 75, "due": "Jun 2026", "activity": "Agent updated to accept natural language inputs and look up multiple teams by SDR manager name (12 Jun). Rooney testing the updated version. A separate skipped task reporting tool also built this week with per-SDR breakdown — to be combined with the overdue task agent into a single reporting hub.", "next_steps": "Combine skipped task tool with overdue task agent for a one-stop-shop for SDR managers. Launch once Rooney confirms test passes.", "blockers": "", "metrics": "Overdue tasks currently: 2,174 per week. Skipped task tool built — will add per-SDR visibility.", "last_updated": "14 Jun 2026", "log": [{"date": "12 Jun", "note": "Claire updated reporting agent to accept natural language inputs and look up multiple teams by SDR manager name. Rooney asked to re-run for testing. Skipped task reporting tool also built separately (per-SDR breakdown by team) — plan to combine both into a single SDR manager reporting hub."},{"date": "8 Jun", "note": "Claire's Outreach Overdue Task Reporting agent built and awaiting feedback before launch. Intended to replace the manual Monday morning process — currently tracking 2,718 overdue tasks per week manually."}] },
+    { "id": "anz-partnerships-ai-expansion", "title": "ANZ Partnerships — Relevance AI Expansion", "type": "additional", "status": "active", "owner": "Claire", "priority": "should", "initiative_tag": "Partnerships AI", "progress": 15, "due": "Jul 2026", "activity": "Claire initiated outreach to ANZ Partnerships team this week. Follow-up discussion scheduled for Wednesday 10 Jun. Mocks flagged Partnerships restructure as a risk to this expansion — pending clarity from next week sync.", "next_steps": "Follow-up discussion with ANZ Partnerships team on 10 Jun. Confirm scope and rollout plan.", "blockers": "Partnerships team restructure may affect scope — pending clarity from Chris sync next week.", "metrics": "", "last_updated": "8 Jun 2026", "log": [{"date": "8 Jun", "note": "Claire initiated outreach to ANZ Partnerships team re: Relevance AI sequence rollout. Follow-up discussion scheduled Wed 10 Jun. Mocks flagged a risk: ongoing Partnerships team restructure may affect scope — awaiting clarity from next week's sync before committing."}] },
+    { "id": "ai-content-repo", "title": "AI-Driven Content Repository", "type": "initiative", "status": "planned", "owner": "Mocks", "priority": "must", "initiative_tag": "AI Content Repository (Q4)", "progress": 0, "due": "Q4 2026", "activity": "Q4. Requires stakeholder alignment before build.", "next_steps": "Define scope with stakeholders. Assess integration requirements.", "blockers": "Stakeholder alignment required before build can commence.", "metrics": "", "last_updated": "30 May 2026" },
+    { "id": "outreach-outcomes-cc", "title": "Outreach Outcomes — Claude Code", "type": "initiative", "status": "planned", "owner": "Mocks", "priority": "should", "initiative_tag": "Outreach Outcomes Claude Code (Q4)", "progress": 0, "due": "Q4 2026", "activity": "Q4. Builds on SF Custom Reporting and PoC. Deferred until SFDC custom reporting is live.", "next_steps": "Complete Outreach Outcomes — SFDC first. Then scope Claude Code extension.", "blockers": "Dependent on SFDC custom reporting completion.", "metrics": "", "last_updated": "30 May 2026" },
+    { "id": "unified-platform-reporting", "title": "Unified Platform Reporting", "type": "initiative", "status": "planned", "owner": "Mocks", "priority": "nice", "initiative_tag": "Unified Platform Reporting (Q4)", "progress": 0, "due": "Q4 2026", "activity": "Q4. Requires individual platform reporting to be complete first.", "next_steps": "Deliver Outreach Outcomes — SFDC and Claude Code before tackling unified view.", "blockers": "Dependent on individual platform reporting milestones.", "metrics": "", "last_updated": "30 May 2026" },
+    { "id": "trigger-cleanup", "title": "Outreach Trigger Cleanup 2.0", "type": "initiative", "status": "planned", "owner": "Claire/Cara", "priority": "nice", "initiative_tag": "Trigger Cleanup (Q4)", "progress": 0, "due": "Q4 2026", "activity": "Not started. Requires Rev Ops support to execute. Lower priority until Sheana stabilises BAU.", "next_steps": "Engage Sheana (RevOps) once established. Scope the cleanup project.", "blockers": "Rev Ops support required. Lower priority in current cycle.", "metrics": "", "last_updated": "30 May 2026" },
+    { "id": "consolidate-sequences", "title": "Consolidate Outreach Sequences", "type": "initiative", "status": "planned", "owner": "Claire", "priority": "nice", "initiative_tag": "Consolidate Sequences (Q4)", "progress": 0, "due": "Q4 2026", "activity": "Not started. Currently 445 active sequences — many made redundant by AI iterations. Archiving project to reduce noise and improve SDR navigation.", "next_steps": "Define archiving criteria. Identify redundant sequences. Develop roll-out plan.", "blockers": "", "metrics": "445 active sequences currently. Est. 150+ redundant after AI sequence migration.", "last_updated": "30 May 2026" },
+    { "id": "outreach-mcp-business-case", "title": "Outreach MCP — Claude Connection Approval", "type": "additional", "status": "active", "owner": "Mocks", "priority": "should", "initiative_tag": "Outreach MCP", "progress": 10, "due": "Jun 2026", "activity": "Connor (AI Enablement) confirmed the Claude–Outreach connection requires formal infosec approval before IT Ops can enable the connector. Team's varied ad-hoc connection approaches flagged as potentially insecure. Mocks to write and submit business case for infosec review — not yet drafted. AI Enablement session with Connor and Ben scheduled for next week to cover Claude–Outreach and Relevance AI connections.", "next_steps": "Write and submit business case to infosec as requested by Connor. Attend AI Enablement session with Connor + Ben.", "blockers": "Business case not yet drafted. Infosec review required before connector can be formally enabled — no approved pathway currently in place.", "metrics": "", "last_updated": "14 Jun 2026", "log": [{"date": "11 Jun", "note": "Connor (AI Enablement) asked Mocks to write a formal business case and tag infosec before IT Ops can enable the Outreach MCP connector in Claude. AI Enablement session with Connor + Ben scheduled for next week."},{"date": "9 Jun", "note": "Mocks raised team's varied and potentially insecure Claude–Outreach connection approaches with Connor in #ask-ai-enablement. Connor confirmed: correct process requires infosec approval before IT Ops enables the Outreach connector."}] },
+    { "id": "concurrent-processing", "title": "Concurrent Processing — Relevance AI Early Trigger", "type": "additional", "status": "active", "owner": "Mocks", "priority": "should", "initiative_tag": "Concurrent Processing", "progress": 15, "due": "Jul 2026", "activity": "Mocks raised a proposal to trigger Relevance AI workforces at the Marketo→SF sync point (bypassing the Outreach polling delay) to reduce SLA lag and better meet the 5-min SDR response target. Approach validated with Mariea — the 'automatically enroll in sequence' flag is a viable trigger mechanism. Prototype test with a cloned workforce planned for next week.", "next_steps": "Build and test concurrent processing prototype with a cloned workforce. Validate timing improvement against current polling-based approach.", "blockers": "Prototype not yet built — still in proposal/validation stage.", "metrics": "Target: reduce Relevance AI trigger lag to near-real-time from current polling delay.", "last_updated": "14 Jun 2026", "log": [{"date": "10–11 Jun", "note": "Mocks raised detailed concurrent processing proposal in #gtm-managers-and-leaders — trigger Relevance AI workforces at Marketo→SF sync point (bypassing Outreach polling delay). Confirmed with Mariea that the 'automatically enroll in sequence' flag is a viable trigger mechanism. Prototype test with a cloned workforce planned."}] },
+    { "id": "outreach-system-maintenance", "title": "Outreach Sequence Maintenance & Ops", "type": "additional", "status": "active", "owner": "Claire/Cara", "priority": "should", "initiative_tag": "Outreach Ops", "progress": 100, "due": "Ongoing", "activity": "Ongoing BAU maintenance of Outreach sequence triggers, owner fields, and routing logic. Claire identified and fixed Upsell, BAD, and MQL triggers referencing Paris Holloway after her team move — updated to Charlene. Paris and Zhaden SDR offboarding completed this week.", "next_steps": "Continue monitoring trigger health as team and ownership changes occur.", "blockers": "", "metrics": "Trigger fixes applied: Upsell + BAD + MQL sequences corrected. Paris and Zhaden offboarding complete.", "last_updated": "8 Jun 2026", "log": [{"date": "8 Jun", "note": "Claire identified Upsell sequence triggers still referencing Paris Holloway after her team move. Updated BAD and MQL triggers to Charlene independently — fix flagged by Nico, handled by Claire, acknowledged by Mocks. Paris and Zhaden Outreach SDR offboarding also completed: open tasks cleared, Paris moved to IB Core team."}] },
+    { "id": "stakeholder-engagement", "title": "Stakeholder & Leadership Engagement", "type": "additional", "status": "active", "owner": "Mocks", "priority": "should", "initiative_tag": "Stakeholder Engagement", "progress": 65, "due": "Ongoing", "activity": "Ongoing relationship management with cross-functional leaders, SDR managers, and marketing stakeholders. This week: CRM AI Enablement Session delivered (12 Jun); Mocks shared Qualified PiperX demo with GTM AI leadership; company-wide cost analysis confirmed team as #1 AI tooling cost user across ~1,700 employees.", "next_steps": "AI Enablement Session with Connor + Ben (next week). Continue AE platform evaluation stakeholder communication.", "blockers": "", "metrics": "CRM team #1 AI tooling cost across ~1,700 EH employees. Cara #1 individually, Claire #3.", "last_updated": "14 Jun 2026", "log": [{"date": "12 Jun", "note": "Mocks facilitated CRM AI Enablement Session — built Miro-to-Slack Relevance AI agent live with team (Caity's use case), pre-recorded for async reference. Company-wide AI cost analysis confirmed team as #1 across ~1,700 EH employees. Cara #1, Claire #3 individually."},{"date": "11 Jun", "note": "Mocks shared Qualified PiperX AI avatar demo (EH staging site) with GTM AI team in #proj-gtm-ai-anz. Contextualised Antonio's decision to exclude PiperX from Phase 1 HeroAI launch (V1 will use Qualified only via modal popup). Flagged potential to revisit post-V1."},{"date": "27 May", "note": "Amy Le Grange posted public recognition in #crm-crew-leaders before going on leave: 'I also want to add a big thank you to the CRM Team — you are all so efficient and you live all of our values. Working with such a driven, skilled and lovely team is a privilege. Thank you for driving this space forward.'"},{"date": "4 Jun", "note": "Mocks presented outbound cohesion analysis at GTM AI Sync. Findings briefed to Nick Patterson on AE expansion scope. Inbound cohesion analysis scoped as follow-on."},{"date": "2 Jun", "note": "Mocks gave go-live approval for Qualified Meetings in coordination with Qualified vendor team. Routing triage coordinated immediately after go-live."}] }
+  ];
   </script>
   <!-- AGENT-DATA:all-cards-end -->
 
@@ -1371,6 +878,9 @@ function renderCards() { try {
     const typeIcon = c.type === 'initiative' ? '📌' : '⭐';
     const blockHtml = c.blockers ? `<div class="cb-section"><span class="cb-label lbl-blocker">Blocker</span><div class="blocker-box">${c.blockers}</div></div>` : '';
     const metricsHtml = c.metrics ? `<div class="cb-section"><span class="cb-label lbl-metrics">Metrics</span><div class="metrics-box">${c.metrics}</div></div>` : '';
+    const logHtml = (c.log && c.log.length)
+      ? `<div class="cb-section"><span class="cb-label" style="color:var(--violet)">&#128222; Running Commentary</span><div class="card-log">${c.log.map(e => `<div class="card-log-entry"><span class="log-date">${e.date}</span><span class="log-note">${e.note}</span></div>`).join('')}</div></div>`
+      : '';
 
     parts.push(`
       <div class="card c-${c.status}" tabindex="0" data-card-id="${c.id}" onclick="this.classList.toggle('open')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.classList.toggle('open')}">
@@ -1392,6 +902,7 @@ function renderCards() { try {
           ${c.next_steps ? `<div class="cb-section"><span class="cb-label lbl-next">Next Steps</span><p>${c.next_steps}</p></div>` : ''}
           ${blockHtml}
           ${metricsHtml}
+          ${logHtml}
           <div class="card-updated">Updated: ${c.last_updated}</div>
         </div>
       </div>`);
@@ -1569,8 +1080,17 @@ function renderWorkOverview() { try {
 } catch(e) { console.warn('Key metrics error:', e); } })();
 
 function openCardById(cardId) { try {
-  const el = document.querySelector(`[data-card-id="${cardId}"]`);
-  if (!el) return;
+  let el = document.querySelector(`[data-card-id="${cardId}"]`);
+  if (!el) {
+    // Card hidden by filters — reset all to show everything
+    _fType = 'all'; _fStatus = 'all'; _fOwner = 'all';
+    document.querySelectorAll('.f-btn[data-dim]').forEach(b => {
+      b.classList.toggle('active', b.textContent.trim() === 'All' || b.getAttribute('onclick')?.includes(",'all',"));
+    });
+    renderCards(); renderWorkOverview();
+    el = document.querySelector(`[data-card-id="${cardId}"]`);
+    if (!el) return;
+  }
   el.scrollIntoView({ behavior: 'smooth', block: 'center' });
   el.classList.add('open');
   el.classList.add('card-flash');
@@ -1594,7 +1114,12 @@ function renderUpdates() { try {
   const personColor = { Chris: '#4F46E5', Cara: '#EA580C', Claire: '#059669' };
   const grid = document.getElementById('updates-grid');
   grid.innerHTML = filtered.length
-    ? filtered.map(u => `
+    ? filtered.map(u => {
+        const cardTitle = u.card_id ? (ALL_CARDS.find(c => c.id === u.card_id)||{}).title : null;
+        const cardLink = cardTitle
+          ? `<div class="card-link-row"><button class="card-link-btn" onclick="event.stopPropagation();openCardById('${u.card_id}')">↗ ${cardTitle}</button></div>`
+          : '';
+        return `
         <div class="update-card uc-${catKey(u)}">
           <div class="update-card-hdr">
             <div class="update-title">${u.title}</div>
@@ -1603,7 +1128,9 @@ function renderUpdates() { try {
           <div class="update-detail">${u.detail}</div>
           <div class="update-impact">${u.impact}</div>
           ${u.person ? `<div class="update-person"><span class="up-dot" style="background:${personColor[u.person]||'#9B87C0'}"></span>${u.person}</div>` : ''}
-        </div>`).join('')
+          ${cardLink}
+        </div>`;
+      }).join('')
     : '<p style="font-size:12px;color:var(--dimmed);padding:8px 0">No updates match the selected filter.</p>';
 } catch(e) { console.warn('Key updates error:', e); } }
 
@@ -1666,7 +1193,12 @@ function setUpdatesFilter(dimension, value, btn) {
     container.innerHTML = '<p style="font-size:12px;color:var(--dimmed);padding:8px 0">No highlights this week.</p>';
     return;
   }
-  container.innerHTML = HIGHLIGHTS.map(h => `
+  container.innerHTML = HIGHLIGHTS.map(h => {
+    const cardTitle = h.card_id ? (ALL_CARDS.find(c => c.id === h.card_id)||{}).title : null;
+    const cardLink = cardTitle
+      ? `<div class="card-link-row" style="margin-top:10px"><button class="card-link-btn" onclick="openCardById('${h.card_id}')">↗ ${cardTitle}</button></div>`
+      : '';
+    return `
     <div class="highlight-card">
       <div class="highlight-emoji">${h.emoji}</div>
       <div class="highlight-title">${h.title}</div>
@@ -1675,7 +1207,9 @@ function setUpdatesFilter(dimension, value, btn) {
         <span class="hl-tag ${h.tagStyle}">${h.tag}</span>
         <span class="hl-people">${h.people || ''}</span>
       </div>
-    </div>`).join('');
+      ${cardLink}
+    </div>`;
+  }).join('');
 } catch(e) { console.warn('Highlights error:', e); } })();
 </script>
 
