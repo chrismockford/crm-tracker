@@ -94,6 +94,16 @@ Example entries:
 NEEDS: outreach-mcp-business-case | Mocks needs to write and submit business case to infosec — no action taken yet, blocking connector approval.
 NEEDS: long-term-nurture | Cara needs to confirm UTM additions and sequence variant count before Claire can build Outreach sequences.
 CLEAR: utm-standardisation | Cara completed all tagging and Greg Beazley confirmed live — no further action required from us.
+
+📣 CHASING (for tracker sweep)
+[List any cards where the ball is technically in an external party's court but we need to actively push them — not passive waiting, but assertive chasing. Distinct from PENDING/WAITING ON (which is passive) — this section is for cases where you know it's stalled and you need to go after it.]
+CHASE: [card-id] | [Who you need to chase] | [What you're waiting on and why it needs active follow-up, not passive waiting]
+CLEAR-CHASE: [card-id] | [Confirm they've responded or delivered — no longer needs chasing]
+
+Example entries:
+CHASE: qualified-optimisation | Usman (Qualified vendor) | Partner routing branching logic overdue since 30 Apr — needs direct escalation, not another nudge.
+CHASE: ae-outreach-expansion | Doc | Specific AE pain points needed before platform recommendation — hasn't responded to initial ask.
+CLEAR-CHASE: utm-standardisation | Greg Beazley confirmed touchpoints live in Salesforce — no further follow-up needed.
 ```
 
 The CARD UPDATES section populates the "Running Commentary" log on each initiative card.
@@ -102,6 +112,11 @@ The NEEDS MY RESPONSE section controls the ⚡ Needs Response filter in the trac
 - `NEEDS: [card-id]` sets `needs_response: true` on that card — it will appear when the filter is active
 - `CLEAR: [card-id]` removes the flag — it will no longer appear in the Needs Response filter
 - Any card NOT mentioned keeps its current `needs_response` state unchanged
+
+The CHASING section controls the 📣 Chasing filter in the tracker's Work Overview:
+- `CHASE: [card-id]` sets `needs_chasing: true` on that card — it will appear when the Chasing filter is active
+- `CLEAR-CHASE: [card-id]` removes the flag — card drops out of the Chasing filter
+- **The key distinction**: Needs Response = next action is ours. Chasing = next action is theirs, but we must actively push, not wait.
 
 ---
 
@@ -134,7 +149,11 @@ When updating `initiative-tracker-2026.html` from the weekly inputs, the sweep s
    - `NEEDS: [card-id]` → set `"needs_response": true` on that card
    - `CLEAR: [card-id]` → remove `needs_response` field (or set to `false`) on that card
    - Cards not mentioned retain their current `needs_response` state
-6. **For any win, highlight, or callout** that doesn't yet have a card — create a new `additional` type card and add the card to ALL_CARDS before referencing it
+6. **Extract CHASING sections** and update `needs_chasing` on affected cards:
+   - `CHASE: [card-id]` → set `"needs_chasing": true` on that card
+   - `CLEAR-CHASE: [card-id]` → remove `needs_chasing` field (or set to `false`) on that card
+   - Cards not mentioned retain their current `needs_chasing` state
+7. **For any win, highlight, or callout** that doesn't yet have a card — create a new `additional` type card and add the card to ALL_CARDS before referencing it
 7. **Every entry** in KEY_UPDATES, HIGHLIGHTS, WEEKLY_WINS, and UPCOMING_PRIORITIES must have a `card_id` that maps to a real card in ALL_CARDS
    - WEEKLY_WINS and UPCOMING_PRIORITIES items must be `{"text": "...", "card_id": "..."}` objects, not plain strings
 
@@ -164,7 +183,6 @@ Key active cards (partial list — see ALL_CARDS in the HTML for full list):
 - `concurrent-processing` — Concurrent Processing — Relevance AI Early Trigger
 - `stakeholder-engagement` — Stakeholder & Leadership Engagement
 - `outreach-overdue-task-agent` — Outreach Overdue Task Reporting Agent
-- `stakeholder-engagement` — Stakeholder & Leadership Engagement
 
 ---
 
