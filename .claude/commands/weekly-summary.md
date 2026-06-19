@@ -84,9 +84,24 @@ Example entries:
 CARD: qualified-optimisation | 12 Jun | Mocks reached out to Greg Beazley for a status update on partner routing delivery from Usman — no response yet, escalation planned for next week.
 CARD: utm-standardisation | 12 Jun | Cara completed static sequence UTM tagging — all 500 sequences done, confirmed to Greg Beazley.
 CARD: lost-revive | 12 Jun | Claire reported EOFY campaign results to Haroon and Clare B — Tuesday batch sent, total engagement report pending.
+
+⚡ NEEDS MY RESPONSE (for tracker sweep)
+[List any cards where progress has stalled because our team needs to act — a response is pending, a decision is ours to make, or the next step sits with us. These will be flagged in the tracker's "Needs Response" filter.]
+NEEDS: [card-id] | [One sentence — what specifically is waiting on us and why it's blocking progress]
+CLEAR: [card-id] | [One sentence — confirm the ball is no longer in our court and why]
+
+Example entries:
+NEEDS: outreach-mcp-business-case | Mocks needs to write and submit business case to infosec — no action taken yet, blocking connector approval.
+NEEDS: long-term-nurture | Cara needs to confirm UTM additions and sequence variant count before Claire can build Outreach sequences.
+CLEAR: utm-standardisation | Cara completed all tagging and Greg Beazley confirmed live — no further action required from us.
 ```
 
-The CARD UPDATES section is read by the Saturday sweep to populate the "Running Commentary" log on each initiative card. Every card that moved this week should have an entry. If it's not in the CARD UPDATES section, it won't appear in the tracker.
+The CARD UPDATES section populates the "Running Commentary" log on each initiative card.
+
+The NEEDS MY RESPONSE section controls the ⚡ Needs Response filter in the tracker's Work Overview:
+- `NEEDS: [card-id]` sets `needs_response: true` on that card — it will appear when the filter is active
+- `CLEAR: [card-id]` removes the flag — it will no longer appear in the Needs Response filter
+- Any card NOT mentioned keeps its current `needs_response` state unchanged
 
 ---
 
@@ -115,8 +130,13 @@ When updating `initiative-tracker-2026.html` from the weekly inputs, the sweep s
    - Log entries **accumulate** — never overwrite prior log entries, only append new ones
    - The `log` array should remain in reverse chronological order (newest first)
 4. **Also update** the card's `activity`, `next_steps`, `blockers`, `metrics`, and `progress` fields as usual
-5. **For any win, highlight, or callout** that doesn't yet have a card — create a new `additional` type card and add the card to ALL_CARDS before referencing it
-6. **Every entry** in KEY_UPDATES and HIGHLIGHTS must have a `card_id` that maps to a real card in ALL_CARDS
+5. **Extract NEEDS MY RESPONSE sections** and update `needs_response` on affected cards:
+   - `NEEDS: [card-id]` → set `"needs_response": true` on that card
+   - `CLEAR: [card-id]` → remove `needs_response` field (or set to `false`) on that card
+   - Cards not mentioned retain their current `needs_response` state
+6. **For any win, highlight, or callout** that doesn't yet have a card — create a new `additional` type card and add the card to ALL_CARDS before referencing it
+7. **Every entry** in KEY_UPDATES, HIGHLIGHTS, WEEKLY_WINS, and UPCOMING_PRIORITIES must have a `card_id` that maps to a real card in ALL_CARDS
+   - WEEKLY_WINS and UPCOMING_PRIORITIES items must be `{"text": "...", "card_id": "..."}` objects, not plain strings
 
 ### Card ID reference
 
@@ -140,6 +160,9 @@ Key active cards (partial list — see ALL_CARDS in the HTML for full list):
 - `optimised-relevance-workflow` — Optimised Relevance AI Workflow
 - `outreach-system-maintenance` — Outreach Sequence Maintenance & Ops
 - `anz-partnerships-ai-expansion` — ANZ Partnerships — Relevance AI Expansion
+- `outreach-mcp-business-case` — Outreach MCP — Claude Connection Approval
+- `concurrent-processing` — Concurrent Processing — Relevance AI Early Trigger
+- `stakeholder-engagement` — Stakeholder & Leadership Engagement
 - `outreach-overdue-task-agent` — Outreach Overdue Task Reporting Agent
 - `stakeholder-engagement` — Stakeholder & Leadership Engagement
 
