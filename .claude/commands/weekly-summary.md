@@ -134,28 +134,78 @@ If they confirm posting: use `slack_send_message` to post to channel `C0B6GBDR9C
 
 ---
 
-## Saturday sweep — updating the tracker
+## Saturday sweep — building the tracker draft
 
-When updating `initiative-tracker-2026.html` from the weekly inputs, the sweep should:
+This phase reads all team posts, deduplicates, and stages changes for Chris to review on Monday. **It does NOT write to `initiative-tracker-2026.html` directly.** Changes are written to a draft file first.
 
-1. **Read all posts** from #sales-automation-weekly-input for the current week
-2. **Extract CARD UPDATES sections** from each post — these are the authoritative source for log entries
-3. **For each card referenced** in a CARD UPDATES entry:
-   - Add a new entry to the card's `log` array: `{"date": "[Short date]", "note": "[Specific sentence]"}`
-   - Log entries **accumulate** — never overwrite prior log entries, only append new ones
-   - The `log` array should remain in reverse chronological order (newest first)
-4. **Also update** the card's `activity`, `next_steps`, `blockers`, `metrics`, and `progress` fields as usual
-5. **Extract NEEDS MY RESPONSE sections** and update `needs_response` on affected cards:
-   - `NEEDS: [card-id]` → set `"needs_response": true` on that card
-   - `CLEAR: [card-id]` → remove `needs_response` field (or set to `false`) on that card
-   - Cards not mentioned retain their current `needs_response` state
-6. **Extract CHASING sections** and update `needs_chasing` on affected cards:
-   - `CHASE: [card-id]` → set `"needs_chasing": true` on that card
-   - `CLEAR-CHASE: [card-id]` → remove `needs_chasing` field (or set to `false`) on that card
-   - Cards not mentioned retain their current `needs_chasing` state
-7. **For any win, highlight, or callout** that doesn't yet have a card — create a new `additional` type card and add the card to ALL_CARDS before referencing it
-7. **Every entry** in KEY_UPDATES, HIGHLIGHTS, WEEKLY_WINS, and UPCOMING_PRIORITIES must have a `card_id` that maps to a real card in ALL_CARDS
-   - WEEKLY_WINS and UPCOMING_PRIORITIES items must be `{"text": "...", "card_id": "..."}` objects, not plain strings
+### Step 1 — Read all posts
+
+Read all posts from `#sales-automation-weekly-input` (channel ID: `C0B6GBDR9C7`) for the current week — anything posted since Monday 00:00 AWST.
+
+### Step 2 — Deduplication pass
+
+The same piece of work often appears across multiple team members' posts. Before building the draft, resolve duplicates:
+
+1. Group all CARD UPDATE entries by `card-id` across all posts
+2. For each card that appears in more than one post:
+   - **Same action, different reporters**: Keep one entry. Identify who performed the action — look for first-person voice ("I completed", "I reached out") or a named subject in the entry text ("Cara completed", "Mocks chased"). Credit the doer.
+   - **Different actions on the same card**: Merge into one log entry, e.g. "Cara completed UTM tagging; Mocks chased Greg Beazley for confirmation."
+   - **Ownership genuinely unclear** (both people claim the same action, or no clear signal): Keep the most specific entry, mark as ⚠️ UNCLEAR with your best guess and the reason
+3. For NEEDS/CLEAR and CHASE/CLEAR-CHASE: if conflicting instructions appear across posts, use the most recent post's signal
+
+### Step 3 — Classify each update
+
+For each deduplicated item, decide which tracker sections it should populate in addition to the card log (which always gets an entry):
+
+- **Last Week Wins** (`WEEKLY_WINS`): items that completed, shipped, or were confirmed — keywords: "completed", "launched", "live", "done", "shipped", "confirmed", "delivered", "finished"
+- **Key Updates** (`KEY_UPDATES`, leadership-visible): significant progress on active initiatives — meaningful movement, cleared blockers, stakeholder decisions. Not every update qualifies — only those with strategic relevance.
+- **Upcoming Priorities** (`UPCOMING_PRIORITIES`): things starting or being planned next — "next week", "planning to", "scoping", "starting", "will begin"
+- **Card log only**: routine progress notes, minor updates, operational detail
+
+### Step 4 — Write tracker-update-draft.md
+
+Write the following file to the root of the repo. Do not touch `initiative-tracker-2026.html`.
+
+Each item should contain exactly the fields shown — nothing more, nothing less:
+
+```
+# Tracker Update Draft — Week of [Monday date of this week, e.g. "23 Jun 2026"]
+Generated: [Today's date] | Source: #sales-automation-weekly-input
+Total items: [N] | Status: PENDING REVIEW
+
+---
+
+## Item 1 of [N]
+
+**Initiative**: [Full initiative name]
+**Card ID**: `[card-id]`
+**Owner**: [Name] — OR — ⚠️ UNCLEAR — mentioned by [X] and [Y]; best guess: [Z] because [one-line reason]
+**Confidence**: ✅ High — OR — ⚠️ Low — ownership uncertain
+**Update text**: "[Exact sentence that will be written to the card log]"
+**Tracker writes**:
+- Card log entry
+- Last Week Wins [include only if applicable]
+- Key Updates (leadership) [include only if applicable]
+- Upcoming Priorities [include only if applicable]
+- Flag: NEEDS needs_response [include only if applicable]
+- Flag: CLEAR needs_response [include only if applicable]
+- Flag: CHASE needs_chasing [include only if applicable]
+- Flag: CLEAR-CHASE needs_chasing [include only if applicable]
+
+**Decision**: PENDING
+
+---
+
+[Repeat for each item]
+```
+
+### Step 5 — Notify Chris
+
+Send a Slack direct message to Chris Mockford (user ID: `U07UQSRLHA4`):
+
+> 📋 Tracker draft is ready — [N] items staged for review. Open Claude Code and run `/apply-tracker-draft` to review and publish.
+
+Then stop. Do not write any further changes to `initiative-tracker-2026.html`.
 
 ### Card ID reference
 
