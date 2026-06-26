@@ -745,7 +745,7 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
 
   <div class="section-panel" id="work-overview-panel">
     <div class="section-hdr" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:0">
-      <span>&#127919; Work Overview &mdash; Q3 2026</span>
+      <span id="work-overview-title">&#127919; Work Overview &mdash; Q3 2026</span>
       <span style="font-size:10px;color:var(--dimmed);font-weight:400;text-transform:none;letter-spacing:0;font-family:'DM Sans',system-ui,sans-serif" id="align-generated"></span>
     </div>
 
@@ -764,7 +764,8 @@ body { font-family: 'DM Sans', system-ui, sans-serif; background: var(--bg); col
       <div class="uf-divider"></div>
       <span style="font-size:10px;font-weight:700;color:var(--dimmed);text-transform:uppercase;letter-spacing:.6px;margin-right:2px">Type</span>
       <button class="f-btn active" data-dim="type" onclick="setFilter('type','all',this)">All</button>
-      <button class="f-btn" data-dim="type" onclick="setFilter('type','initiative',this)">&#128204; Initiatives &#128255;</button>
+      <button class="f-btn" data-dim="type" onclick="setFilter('type','q3-initiative',this)">&#128204; Q3 Initiatives</button>
+      <button class="f-btn" data-dim="type" onclick="setFilter('type','q4-initiative',this)">&#128305; Q4 Initiatives</button>
       <button class="f-btn" data-dim="type" onclick="setFilter('type','additional',this)">&#11088; Add. Value</button>
       <div class="uf-divider"></div>
       <button class="f-btn f-nr" id="nr-toggle" onclick="toggleNeedsResponse(this)">&#9889; Needs Response</button>
@@ -806,9 +807,22 @@ function ownerMatches(cardOwner, filterOwner) {
   return cardOwner.split('/').map(o => o.trim()).includes(filterOwner);
 }
 
+function isQ4Card(c) {
+  return c.due && c.due.includes('Q4');
+}
+
 function getFilteredCards() {
   return (ALL_CARDS || []).filter(c => {
-    const matchType   = _fType   === 'all' || c.type === _fType;
+    let matchType;
+    if (_fType === 'all') {
+      matchType = true;
+    } else if (_fType === 'q3-initiative') {
+      matchType = c.type === 'initiative' && !isQ4Card(c);
+    } else if (_fType === 'q4-initiative') {
+      matchType = c.type === 'initiative' && isQ4Card(c);
+    } else {
+      matchType = c.type === _fType;
+    }
     const matchStatus = _fStatus === 'all' || c.status === _fStatus;
     const matchOwner  = ownerMatches(c.owner, _fOwner);
     const matchNR     = !_fNeedsResponse || c.needs_response === true;
@@ -928,6 +942,7 @@ function renderCards() { try {
         <div class="card-badges">
           <span class="badge b-${c.status}">${c.status.charAt(0).toUpperCase() + c.status.slice(1)}</span>
           ${c.priority ? `<span class="badge b-${c.priority}">${priLabel[c.priority] || c.priority}</span>` : ''}
+          ${c.type === 'initiative' && isQ4Card(c) ? `<span class="badge" style="background:rgba(59,130,246,0.12);color:#60a5fa;border:1px solid rgba(96,165,250,0.25);font-size:9px">Q4 2026</span>` : ''}
           ${c.needs_response ? `<span class="nr-badge">&#9889; Needs Response</span>` : ''}
           ${c.needs_chasing  ? `<span class="nc-badge">&#128227; Chasing</span>` : ''}
         </div>
@@ -965,16 +980,25 @@ function renderWorkOverview() { try {
   const active     = cards.filter(c => c.status === 'active').length;
   const planned    = cards.filter(c => c.status === 'planned').length;
 
+  const initLabel = _fType === 'q4-initiative' ? 'Q4 Initiatives' : _fType === 'q3-initiative' ? 'Q3 Initiatives' : 'Quarterly Initiatives';
   _distribution = [
-    { label: 'Quarterly Initiatives', count: initiative, pct: total > 0 ? Math.round((initiative / total) * 100) : 0, color: '#7622D7' },
-    { label: 'Additional Value',      count: additional, pct: total > 0 ? Math.round((additional / total) * 100) : 0, color: '#f59e0b' }
+    { label: initLabel,          count: initiative, pct: total > 0 ? Math.round((initiative / total) * 100) : 0, color: _fType === 'q4-initiative' ? '#3b82f6' : '#7622D7' },
+    { label: 'Additional Value', count: additional, pct: total > 0 ? Math.round((additional / total) * 100) : 0, color: '#f59e0b' }
   ];
+
+  // Dynamic section header
+  const titleEl = document.getElementById('work-overview-title');
+  if (titleEl) titleEl.innerHTML = '&#127919; Work Overview &mdash; ' + (_fType === 'q4-initiative' ? 'Q4' : 'Q3') + ' 2026';
 
   // Filter context indicator
   const parts = [];
   if (_fOwner  !== 'all') parts.push(_fOwner);
   if (_fStatus !== 'all') parts.push(_fStatus.charAt(0).toUpperCase() + _fStatus.slice(1));
-  if (_fType   !== 'all') parts.push(_fType === 'initiative' ? 'Quarterly Initiatives' : 'Additional Value');
+  if (_fType   !== 'all') parts.push(
+    _fType === 'q3-initiative' ? 'Q3 Initiatives' :
+    _fType === 'q4-initiative' ? 'Q4 Initiatives' :
+    _fType === 'initiative'    ? 'Quarterly Initiatives' : 'Additional Value'
+  );
   const ctxEl  = document.getElementById('filter-context');
   const ctxTxt = document.getElementById('filter-context-text');
   if (ctxEl && ctxTxt) {
@@ -999,6 +1023,7 @@ function renderWorkOverview() { try {
   const barColors = _distribution.map(d => d.color);
   const xMax      = Math.max(total, 1);
   if (_initChart) {
+    _initChart.data.labels                      = _distribution.map(d => d.label);
     _initChart.data.datasets[0].data            = barData;
     _initChart.data.datasets[0].backgroundColor = barColors;
     _initChart.options.scales.x.max             = xMax;
